@@ -18,7 +18,6 @@ export default function GalleryPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [user, setUser] = useState<User | null>(null);
-  const limit = 12;
 
   useEffect(() => {
     checkAuth();
@@ -37,7 +36,7 @@ export default function GalleryPage() {
   const fetchPosts = async (page: number) => {
     setLoading(true);
     try {
-      const result = await getGalleryPostsWithThumbnails(page, limit);
+      const result = await getGalleryPostsWithThumbnails(page, 12);
       setPosts(result.data);
       setTotalPages(result.pagination.totalPages);
     } catch (error) {

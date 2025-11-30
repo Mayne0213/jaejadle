@@ -249,6 +249,7 @@ export type AnnouncementWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  files?: Prisma.AnnouncementFileListRelationFilter
 }
 
 export type AnnouncementOrderByWithRelationInput = {
@@ -261,6 +262,7 @@ export type AnnouncementOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
+  files?: Prisma.AnnouncementFileOrderByRelationAggregateInput
   _relevance?: Prisma.AnnouncementOrderByRelevanceInput
 }
 
@@ -277,6 +279,7 @@ export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  files?: Prisma.AnnouncementFileListRelationFilter
 }, "id">
 
 export type AnnouncementOrderByWithAggregationInput = {
@@ -317,6 +320,7 @@ export type AnnouncementCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  files?: Prisma.AnnouncementFileCreateNestedManyWithoutAnnouncementInput
 }
 
 export type AnnouncementUncheckedCreateInput = {
@@ -328,6 +332,7 @@ export type AnnouncementUncheckedCreateInput = {
   authorId: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  files?: Prisma.AnnouncementFileUncheckedCreateNestedManyWithoutAnnouncementInput
 }
 
 export type AnnouncementUpdateInput = {
@@ -338,6 +343,7 @@ export type AnnouncementUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutAnnouncementsNestedInput
+  files?: Prisma.AnnouncementFileUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type AnnouncementUncheckedUpdateInput = {
@@ -349,6 +355,7 @@ export type AnnouncementUncheckedUpdateInput = {
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.AnnouncementFileUncheckedUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type AnnouncementCreateManyInput = {
@@ -443,6 +450,11 @@ export type AnnouncementSumOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
 }
 
+export type AnnouncementScalarRelationFilter = {
+  is?: Prisma.AnnouncementWhereInput
+  isNot?: Prisma.AnnouncementWhereInput
+}
+
 export type AnnouncementCreateNestedManyWithoutAuthorInput = {
   create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutAuthorInput, Prisma.AnnouncementUncheckedCreateWithoutAuthorInput> | Prisma.AnnouncementCreateWithoutAuthorInput[] | Prisma.AnnouncementUncheckedCreateWithoutAuthorInput[]
   connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutAuthorInput | Prisma.AnnouncementCreateOrConnectWithoutAuthorInput[]
@@ -489,6 +501,20 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type AnnouncementCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutFilesInput, Prisma.AnnouncementUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutFilesInput
+  connect?: Prisma.AnnouncementWhereUniqueInput
+}
+
+export type AnnouncementUpdateOneRequiredWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutFilesInput, Prisma.AnnouncementUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.AnnouncementUpsertWithoutFilesInput
+  connect?: Prisma.AnnouncementWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnnouncementUpdateToOneWithWhereWithoutFilesInput, Prisma.AnnouncementUpdateWithoutFilesInput>, Prisma.AnnouncementUncheckedUpdateWithoutFilesInput>
+}
+
 export type AnnouncementCreateWithoutAuthorInput = {
   title?: string
   content?: string
@@ -496,6 +522,7 @@ export type AnnouncementCreateWithoutAuthorInput = {
   viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  files?: Prisma.AnnouncementFileCreateNestedManyWithoutAnnouncementInput
 }
 
 export type AnnouncementUncheckedCreateWithoutAuthorInput = {
@@ -506,6 +533,7 @@ export type AnnouncementUncheckedCreateWithoutAuthorInput = {
   viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  files?: Prisma.AnnouncementFileUncheckedCreateNestedManyWithoutAnnouncementInput
 }
 
 export type AnnouncementCreateOrConnectWithoutAuthorInput = {
@@ -548,6 +576,64 @@ export type AnnouncementScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
 }
 
+export type AnnouncementCreateWithoutFilesInput = {
+  title?: string
+  content?: string
+  isImportant?: boolean
+  viewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+}
+
+export type AnnouncementUncheckedCreateWithoutFilesInput = {
+  id?: number
+  title?: string
+  content?: string
+  isImportant?: boolean
+  viewCount?: number
+  authorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AnnouncementCreateOrConnectWithoutFilesInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutFilesInput, Prisma.AnnouncementUncheckedCreateWithoutFilesInput>
+}
+
+export type AnnouncementUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.AnnouncementUpdateWithoutFilesInput, Prisma.AnnouncementUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutFilesInput, Prisma.AnnouncementUncheckedCreateWithoutFilesInput>
+  where?: Prisma.AnnouncementWhereInput
+}
+
+export type AnnouncementUpdateToOneWithWhereWithoutFilesInput = {
+  where?: Prisma.AnnouncementWhereInput
+  data: Prisma.XOR<Prisma.AnnouncementUpdateWithoutFilesInput, Prisma.AnnouncementUncheckedUpdateWithoutFilesInput>
+}
+
+export type AnnouncementUpdateWithoutFilesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  isImportant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutAnnouncementsNestedInput
+}
+
+export type AnnouncementUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  isImportant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  authorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type AnnouncementCreateManyAuthorInput = {
   id?: number
   title?: string
@@ -565,6 +651,7 @@ export type AnnouncementUpdateWithoutAuthorInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.AnnouncementFileUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutAuthorInput = {
@@ -575,6 +662,7 @@ export type AnnouncementUncheckedUpdateWithoutAuthorInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.AnnouncementFileUncheckedUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type AnnouncementUncheckedUpdateManyWithoutAuthorInput = {
@@ -588,6 +676,35 @@ export type AnnouncementUncheckedUpdateManyWithoutAuthorInput = {
 }
 
 
+/**
+ * Count Type AnnouncementCountOutputType
+ */
+
+export type AnnouncementCountOutputType = {
+  files: number
+}
+
+export type AnnouncementCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  files?: boolean | AnnouncementCountOutputTypeCountFilesArgs
+}
+
+/**
+ * AnnouncementCountOutputType without action
+ */
+export type AnnouncementCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnnouncementCountOutputType
+   */
+  select?: Prisma.AnnouncementCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AnnouncementCountOutputType without action
+ */
+export type AnnouncementCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnnouncementFileWhereInput
+}
+
 
 export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -599,6 +716,8 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  files?: boolean | Prisma.Announcement$filesArgs<ExtArgs>
+  _count?: boolean | Prisma.AnnouncementCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 
@@ -617,12 +736,15 @@ export type AnnouncementSelectScalar = {
 export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "isImportant" | "viewCount" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["announcement"]>
 export type AnnouncementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  files?: boolean | Prisma.Announcement$filesArgs<ExtArgs>
+  _count?: boolean | Prisma.AnnouncementCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Announcement"
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
+    files: Prisma.$AnnouncementFilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -974,6 +1096,7 @@ readonly fields: AnnouncementFieldRefs;
 export interface Prisma__AnnouncementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  files<T extends Prisma.Announcement$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1351,6 +1474,30 @@ export type AnnouncementDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Announcements to delete.
    */
   limit?: number
+}
+
+/**
+ * Announcement.files
+ */
+export type Announcement$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnnouncementFile
+   */
+  select?: Prisma.AnnouncementFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnnouncementFile
+   */
+  omit?: Prisma.AnnouncementFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnnouncementFileInclude<ExtArgs> | null
+  where?: Prisma.AnnouncementFileWhereInput
+  orderBy?: Prisma.AnnouncementFileOrderByWithRelationInput | Prisma.AnnouncementFileOrderByWithRelationInput[]
+  cursor?: Prisma.AnnouncementFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnnouncementFileScalarFieldEnum | Prisma.AnnouncementFileScalarFieldEnum[]
 }
 
 /**

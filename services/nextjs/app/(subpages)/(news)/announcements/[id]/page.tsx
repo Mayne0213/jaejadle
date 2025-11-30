@@ -76,28 +76,6 @@ export default function AnnouncementDetailPage() {
     });
   };
 
-  // 첨부 파일 파싱
-  const parseAttachments = (content: string) => {
-    const attachmentMatch = content.match(/\[첨부 파일\]([\s\S]*?)(?=\n\n|$)/);
-    if (!attachmentMatch) return { mainContent: content, attachments: [] };
-
-    const mainContent = content.replace(/\[첨부 파일\][\s\S]*$/, "").trim();
-    const attachmentText = attachmentMatch[1].trim();
-    
-    const attachments = attachmentText.split("\n").map((line) => {
-      const match = line.match(/^(.+?):\s*(https?:\/\/.+)$/);
-      if (match) {
-        return {
-          name: match[1].trim(),
-          url: match[2].trim(),
-        };
-      }
-      return null;
-    }).filter(Boolean) as { name: string; url: string }[];
-
-    return { mainContent, attachments };
-  };
-
   const getFileIcon = (fileName: string) => {
     const extension = fileName.split(".").pop()?.toLowerCase();
     if (["jpg", "jpeg", "png", "gif", "webp"].includes(extension || "")) {
@@ -109,15 +87,11 @@ export default function AnnouncementDetailPage() {
     }
   };
 
-  const handleDownload = async (url: string, fileName: string) => {
+  const handleDownload = async (fileKey: string, fileName: string) => {
     try {
-      // S3 URL에서 fileKey 추출 (uploads/xxx 부분)
-      const urlObj = new URL(url);
-      const fileKey = decodeURIComponent(urlObj.pathname.substring(1)); // 맨 앞의 '/' 제거 및 URL 디코딩
-      
       // Pre-signed URL 받아오기 (파일명 포함)
       const downloadUrl = await getDownloadUrl(fileKey, fileName);
-      
+
       // 다운로드 (ResponseContentDisposition이 설정되어 자동으로 다운로드됨)
       window.open(downloadUrl, '_blank');
     } catch (error) {
@@ -139,37 +113,36 @@ export default function AnnouncementDetailPage() {
   }
 
   const isAuthor = user && announcement.authorId === user.id;
-  const { mainContent, attachments } = parseAttachments(announcement.content);
 
   return (
     <div className="w-full">
-      <div className="py-12 px-4">
-        <div className="max-w-4xl p-8 rounded-xl bg-gray-100 mx-auto">
+      <div className="py-6 md:py-12 px-4">
+        <div className="max-w-4xl p-4 md:p-6 lg:p-8 rounded-xl bg-gray-100 mx-auto">
           {/* 헤더 */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
+          <div className="mb-6 md:mb-8">
+            <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
               {announcement.isImportant && (
-                <span className="px-3 py-1 rounded-full text-sm font-semibold bg-red-100 text-red-700">
+                <span className="px-2 md:px-3 py-0.5 md:py-1 rounded-full text-xs md:text-sm font-semibold bg-red-100 text-red-700">
                   중요
                 </span>
               )}
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 md:mb-4 wrap-break-word">
               {announcement.title}
             </h1>
-            <div className="flex items-center justify-between text-sm text-gray-600 pb-4 border-b">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between text-xs md:text-sm text-gray-600 pb-3 md:pb-4 border-b gap-3 md:gap-0">
+              <div className="flex flex-wrap items-center gap-2 md:gap-4">
                 <span>작성자: {announcement.author.userName}</span>
-                <span>•</span>
-                <span>{formatDate(announcement.createdAt)}</span>
-                <span>•</span>
+                <span className="hidden md:inline">•</span>
+                <span className="hidden md:inline text-xs md:text-sm">{formatDate(announcement.createdAt)}</span>
+                <span className="hidden md:inline">•</span>
                 <span>조회수: {announcement.viewCount}</span>
               </div>
               {isAuthor && (
                 <div className="flex gap-2">
                   <button
                     onClick={handleDelete}
-                    className="px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                    className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     삭제
                   </button>
@@ -179,55 +152,55 @@ export default function AnnouncementDetailPage() {
           </div>
 
           {/* 내용 */}
-          <div className="prose max-w-none mb-8">
-            <div className="text-gray-800 leading-relaxed whitespace-pre-wrap">
-              {mainContent}
+          <div className="prose max-w-none mb-6 md:mb-8">
+            <div className="text-sm md:text-base text-gray-800 leading-relaxed whitespace-pre-wrap wrap-break-word">
+              {announcement.content}
             </div>
           </div>
 
           {/* 첨부 파일 */}
-          {attachments.length > 0 && (
-            <div className="mb-12">
-              <div className="border-t pt-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                  첨부 파일 ({attachments.length})
+          {announcement.files && announcement.files.length > 0 && (
+            <div className="mb-8 md:mb-12">
+              <div className="border-t pt-4 md:pt-6">
+                <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4">
+                  첨부 파일 ({announcement.files.length})
                 </h3>
-                <div className="space-y-3">
-                  {attachments.map((file, index) => {
-                    const FileIconComponent = getFileIcon(file.name);
+                <div className="space-y-2 md:space-y-3">
+                  {announcement.files.map((file) => {
+                    const FileIconComponent = getFileIcon(file.fileName);
                     const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(
-                      file.name.split(".").pop()?.toLowerCase() || ""
+                      file.fileName.split(".").pop()?.toLowerCase() || ""
                     );
 
                     return (
                       <div
-                        key={index}
-                        className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-50"
+                        key={file.id}
+                        className="border rounded-lg p-3 md:p-4 hover:shadow-md transition-shadow bg-gray-50"
                       >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 md:gap-4">
                           <div className="shrink-0">
-                            <div className="w-12 h-12 bg-white rounded flex items-center justify-center">
+                            <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded flex items-center justify-center">
                               <FileIconComponent
-                                className={`w-6 h-6 ${
+                                className={`w-5 h-5 md:w-6 md:h-6 ${
                                   isImage ? "text-blue-500" : "text-gray-500"
                                 }`}
                               />
                             </div>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-800 truncate">
-                              {file.name}
+                            <p className="text-xs md:text-sm font-medium text-gray-800 truncate">
+                              {file.fileName}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-500 hidden md:block">
                               클릭하여 다운로드
                             </p>
                           </div>
                           <button
-                            onClick={() => handleDownload(file.url, file.name)}
-                            className="shrink-0 px-4 py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-2"
+                            onClick={() => handleDownload(file.fileKey, file.fileName)}
+                            className="shrink-0 px-3 md:px-4 py-1.5 md:py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-1 md:gap-2 text-xs md:text-sm"
                           >
-                            <Download className="w-4 h-4" />
-                            다운로드
+                            <Download className="w-3 h-3 md:w-4 md:h-4" />
+                            <span className="hidden md:inline">다운로드</span>
                           </button>
                         </div>
                       </div>

@@ -30,6 +30,7 @@ export async function GET(
             userName: true,
           },
         },
+        files: true,
       },
     });
 
@@ -63,9 +64,12 @@ export async function DELETE(
       );
     }
 
-    // 1. 공지사항 조회하여 content에서 S3 파일 키 추출
+    // 1. 공지사항 및 첨부파일 조회
     const announcement = await prisma.announcement.findUnique({
       where: { id },
+      include: {
+        files: true,
+      },
     });
 
     if (!announcement) {
@@ -75,28 +79,21 @@ export async function DELETE(
       );
     }
 
-    // 2. content에서 S3 URL 추출 및 파일 삭제
-    const s3UrlPattern = new RegExp(
-      `https://${S3_CONFIG.BUCKET_NAME}\\.s3\\.[^/]+\\.amazonaws\\.com/([^\\s]+)`,
-      'g'
-    );
-    const matches = Array.from<RegExpMatchArray>(announcement.content.matchAll(s3UrlPattern));
-    const fileKeys = matches.map((match) => decodeURIComponent(match[1]));
-
-    if (fileKeys.length > 0) {
+    // 2. S3에서 첨부파일 삭제
+    if (announcement.files && announcement.files.length > 0) {
       await Promise.all(
-        fileKeys.map((fileKey) =>
+        announcement.files.map((file) =>
           s3Client.send(
             new DeleteObjectCommand({
               Bucket: S3_CONFIG.BUCKET_NAME,
-              Key: fileKey,
+              Key: file.fileKey,
             })
           )
         )
       );
     }
 
-    // 3. DB에서 삭제
+    // 3. DB에서 삭제 (files는 onDelete: Cascade로 자동 삭제됨)
     await prisma.announcement.delete({
       where: { id },
     });

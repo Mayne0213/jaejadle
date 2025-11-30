@@ -32,9 +32,26 @@ model Announcement {
   updatedAt   DateTime @updatedAt
 
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  files  AnnouncementFile[]
 
   @@index([authorId])
   @@map("announcements")
+}
+
+model AnnouncementFile {
+  id             Int      @id @default(autoincrement())
+  announcementId Int
+  fileKey        String   // S3 file key
+  fileName       String   // 원본 파일명
+  fileSize       Int?     // 파일 크기 (bytes)
+  mimeType       String?  // MIME type
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  announcement Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+
+  @@index([announcementId])
+  @@map("announcement_files")
 }
 
 model GalleryPost {
