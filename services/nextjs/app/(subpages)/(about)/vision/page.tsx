@@ -125,7 +125,7 @@ export default function VisionPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-xs sm:text-sm text-gray-400 font-semibold mb-1">{item.number}</div>
-                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 break-words">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 wrap-break-words">
                           {item.title}
                         </h3>
                         {item.subtitle && (
@@ -145,7 +145,7 @@ export default function VisionPage() {
                       </div>
                       <div className="flex-1 md:text-right min-w-0">
                         <div className="text-xs sm:text-sm text-gray-400 font-semibold mb-1">{item.number}</div>
-                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 break-words">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 wrap-break-words">
                           {item.title}
                         </h3>
                         {item.subtitle && (
