@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import galleryImage1 from "@/public/photos/image.png";
-import galleryImage2 from "@/public/photos/image2.png";
-import galleryImage3 from "@/public/photos/image3.png";
-import galleryImage4 from "@/public/photos/image4.png";
+import galleryImage1 from "@/public/photos/image.webp";
+import galleryImage2 from "@/public/photos/image2.webp";
+import galleryImage3 from "@/public/photos/image3.webp";
+import galleryImage4 from "@/public/photos/image4.webp";
 
 export default function NewsAndGallery() {
 

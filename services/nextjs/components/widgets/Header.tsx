@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import iconBlack from "@/public/icon_black.png";
-import iconWhite from "@/public/icon_white.png";
+import iconBlack from "@/public/icon_black.webp";
+import iconWhite from "@/public/icon_white.webp";
 import AuthButton from "@/components/widgets/AuthButton";
 import { getNavbarTabs } from "@/lib/tabs";
 

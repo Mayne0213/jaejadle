@@ -2,7 +2,7 @@ const tabs = [
   {
     label: "About",
     href: "/greeting",
-    imageHref: "/image.png",
+    imageHref: "/image.webp",
     sectionIndex: 0,
     submenu: [
       {
@@ -34,7 +34,7 @@ const tabs = [
   {
     label: "Worship",
     href: "/sunday",
-    imageHref: "/image.png",
+    imageHref: "/image.webp",
     sectionIndex: 1,
     submenu: [
       {
@@ -48,7 +48,7 @@ const tabs = [
   {
     label: "Discipling System",
     href: "/system",
-    imageHref: "/image.png",
+    imageHref: "/image.webp",
     sectionIndex: 2,
     submenu: [
       {
@@ -62,7 +62,7 @@ const tabs = [
   {
     label: "Next Generation",
     href: "/kindergarten",
-    imageHref: "/image.png",
+    imageHref: "/image.webp",
     sectionIndex: 3,
     submenu: [
       {
@@ -94,7 +94,7 @@ const tabs = [
   {
     label: "Mission",
     href: "/mission",
-    imageHref: "/image.png",
+    imageHref: "/image.webp",
     sectionIndex: 4,
     submenu: [
       {
@@ -108,7 +108,7 @@ const tabs = [
   {
     label: "Community",
     href: "/announcements",
-    imageHref: "/image.png",
+    imageHref: "/image.webp",
     sectionIndex: 5,
     submenu: [
       {

@@ -42,7 +42,7 @@ export default function GreetingPage() {
             <div className="md:col-span-3">
               <div className="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden">
                 <Image
-                  src="/subpages/greetings/person.png"
+                  src="/subpages/greetings/person.webp"
                   alt="담임목사"
                   fill
                   className="object-cover object-top"

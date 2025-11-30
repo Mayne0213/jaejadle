@@ -1,5 +1,5 @@
 import Image from "next/image";
-import circlesImage from "@/public/circles.png";
+import circlesImage from "@/public/circles.webp";
 
 export default function Welcome() {
   const features = [

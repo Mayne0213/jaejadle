@@ -14,7 +14,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/1.png',
+      image: '/subpages/leaders.png/1.webp',
     },
     {
       name: '김 택',
@@ -27,7 +27,7 @@ export default function LeadersPage() {
         '성경신학'
       ],
       email: 'taek@jaejadle.or.kr',
-      image: '/subpages/leaders.png/2.png',
+      image: '/subpages/leaders.png/2.webp',
     },
     {
       name: '유경민',
@@ -40,7 +40,7 @@ export default function LeadersPage() {
         '선교학'
       ],
       email: 'kyoo@jaejadle.or.kr',
-      image: '/subpages/leaders.png/3.png',
+      image: '/subpages/leaders.png/3.webp',
     },
     {
       name: '황성진',
@@ -53,7 +53,7 @@ export default function LeadersPage() {
         '제자훈련'
       ],
       email: 'sjhwang@jaejadle.or.kr',
-      image: '/subpages/leaders.png/4.png',
+      image: '/subpages/leaders.png/4.webp',
     },
     {
       name: '김경일',
@@ -66,7 +66,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/5.png',
+      image: '/subpages/leaders.png/5.webp',
     },
     {
       name: '김경일',
@@ -79,7 +79,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/6.png',
+      image: '/subpages/leaders.png/6.webp',
     },
     {
       name: '김경일',
@@ -92,7 +92,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/7.png',
+      image: '/subpages/leaders.png/7.webp',
     },
     {
       name: '김경일',
@@ -105,7 +105,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/1.png',
+      image: '/subpages/leaders.png/1.webp',
     },
     {
       name: '김경일',
@@ -118,7 +118,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/2.png',
+      image: '/subpages/leaders.png/2.webp',
     },
   ];
 
