@@ -38,7 +38,7 @@ export default function Intro() {
         <div className="grid grid-cols-2 smalltablet:grid-cols-2 pc:grid-cols-3 gap-3 smalltablet:gap-4 pc:gap-8 smalltablet:max-w-2xl smalltablet:mx-auto pc:max-w-7xl">
           {/* 첫 번째 항목 (주일 설교) - 모바일/태블릿에서 전체 너비 */}
           <div 
-            className={`group hover:cursor-pointer rounded-2xl smalltablet:rounded-3xl p-8 smalltablet:p-10 relative overflow-hidden hover:shadow-xl transition-shadow col-span-2 row-span-2 aspect-[2/1] smalltablet:aspect-[2/1] pc:col-span-1 pc:row-span-1 pc:aspect-square`}
+            className={`group hover:cursor-pointer rounded-2xl smalltablet:rounded-3xl p-8 smalltablet:p-10 relative overflow-hidden hover:shadow-xl transition-shadow col-span-2 row-span-2 aspect-2/1 pc:col-span-1 pc:row-span-1 pc:aspect-square`}
           >
             {/* 배경 이미지 레이어 */}
             <Image
