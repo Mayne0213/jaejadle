@@ -1,0 +1,39 @@
+services:
+  # Next.js Application - Using External Database
+  app:
+    image: jaejadle-app
+    build:
+      context: ../../services/nextjs
+      dockerfile: ../../deploy/docker/Dockerfile.prod
+    container_name: jaejadle-app
+    restart: unless-stopped
+    labels:
+      kompose.namespace: jaejadle
+    ports:
+      - 3004:3000
+    env_file:
+      - ../../.env
+    environment:
+      - NODE_ENV=production
+    networks:
+      - jaejadle-network
+    volumes:
+      - app_logs:/app/logs
+    healthcheck:
+      test: [CMD, curl, -f, http://localhost:3000/api/health]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  # Named volumes for data persistence
+  app_logs:
+    driver: local
+
+networks:
+  jaejadle-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16

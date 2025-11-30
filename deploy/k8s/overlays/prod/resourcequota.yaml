@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: jaejadle-quota
+  namespace: jaejadle
+spec:
+  hard:
+    requests.memory: "512Mi"
+    requests.cpu: "300m"
+    limits.memory: "1Gi"
+    limits.cpu: "600m"
+    pods: "3"
