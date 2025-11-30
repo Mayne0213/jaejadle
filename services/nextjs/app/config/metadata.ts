@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  // metadataBase: 소셜 미디어 이미지 URL 해석을 위한 기본 URL
+  metadataBase: new URL("https://jaejadle.com"),
+  
   // 기본 메타데이터
   title: {
     default: "제자들교회 - 인천",
