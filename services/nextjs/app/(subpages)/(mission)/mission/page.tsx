@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import missionMap from "@/public/subpages/mission/missionMap.jpg";
-import missionChart from '@/public/subpages/mission/missionChart.png';
+import missionMap from "@/public/subpages/mission/missionMap.webp";
+import missionChart from '@/public/subpages/mission/missionChart.webp';
 
 export default function MissionPage() {
   return (

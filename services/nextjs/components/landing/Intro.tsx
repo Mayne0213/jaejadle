@@ -1,7 +1,7 @@
 import Image from "next/image";
-import introImage1 from "@/public/home/church1.jpg";
-import introImage2 from "@/public/home/church2.png";
-import introImage3 from "@/public/home/pray.png";
+import introImage1 from "@/public/home/church1.webp";
+import introImage2 from "@/public/home/church2.webp";
+import introImage3 from "@/public/home/pray.webp";
 
 export default function Intro() {
   const items = [
