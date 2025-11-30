@@ -9,7 +9,6 @@ import {
   uploadFile,
   type User,
 } from "@/lib/services";
-import { getS3Url } from "@/const";
 import FileUpload, { PendingFile } from "@/components/FileUpload";
 
 interface AnnouncementFormData {
@@ -57,30 +56,31 @@ export default function CreateAnnouncementPage() {
 
     try {
       // 폼 제출 시에만 파일 업로드
-      let uploadedFiles: { fileKey: string; originalName: string }[] = [];
+      let uploadedFiles: {
+        fileKey: string;
+        fileName: string;
+        fileSize: number;
+        mimeType: string;
+      }[] = [];
+
       if (pendingFiles.length > 0) {
-        const uploadPromises = pendingFiles.map((pf) =>
-          uploadFile(pf.file, "jaejadle/announcement")
-        );
+        const uploadPromises = pendingFiles.map(async (pf) => {
+          const result = await uploadFile(pf.file, "jaejadle/announcement");
+          return {
+            fileKey: result.fileKey,
+            fileName: pf.file.name,
+            fileSize: pf.file.size,
+            mimeType: pf.file.type,
+          };
+        });
         uploadedFiles = await Promise.all(uploadPromises);
       }
 
-      // 파일 URL들을 content에 추가
-      let finalContent = data.content;
-      if (uploadedFiles.length > 0) {
-        const fileUrls = uploadedFiles
-          .map((file) => {
-            const url = getS3Url(file.fileKey);
-            return `${file.originalName}: ${url}`;
-          })
-          .join("\n");
-        finalContent = `${data.content}\n\n[첨부 파일]\n${fileUrls}`;
-      }
-
+      // 파일은 별도로 전달 (content에 포함하지 않음)
       await createAnnouncement({
         ...data,
-        content: finalContent,
         authorId: user.id,
+        files: uploadedFiles.length > 0 ? uploadedFiles : undefined,
       });
 
       // 미리보기 URL 정리

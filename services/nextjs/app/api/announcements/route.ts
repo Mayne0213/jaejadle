@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, content, isImportant, authorId } = body;
+    const { title, content, isImportant, authorId, files } = body;
 
     if (!title || !content || !authorId) {
       return NextResponse.json(
@@ -59,6 +59,14 @@ export async function POST(request: NextRequest) {
         content,
         isImportant: isImportant || false,
         authorId,
+        files: files && files.length > 0 ? {
+          create: files.map((file: { fileKey: string; fileName: string; fileSize?: number; mimeType?: string }) => ({
+            fileKey: file.fileKey,
+            fileName: file.fileName,
+            fileSize: file.fileSize,
+            mimeType: file.mimeType,
+          }))
+        } : undefined,
       },
       include: {
         author: {
@@ -68,6 +76,7 @@ export async function POST(request: NextRequest) {
             userName: true,
           },
         },
+        files: true,
       },
     });
 

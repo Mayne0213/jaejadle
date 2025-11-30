@@ -1,85 +1,129 @@
 import React from 'react';
+import { Sprout, Plus, TreePine, Globe, Users } from 'lucide-react';
 
 export default function DiscipleshipSystemPage() {
   const stages = [
     {
       id: 'new-family',
-      title: '새가족반',
-      subtitle: '환영',
-      period: '5주 과정',
+      title: '새가족반 - 정착',
+      subtitle: '5주 과정',
+      bgColor: 'bg-[#4A9FD8]',
+      textColor: 'text-white',
+      icon: Sprout,
+      arrowColor: '#4A9FD8',
     },
     {
       id: 'basic',
-      title: '기초양육반',
-      subtitle: '기본',
-      period: '12주 과정',
+      title: '기초양육반 - 기본',
+      subtitle: '12주 과정',
+      bgColor: 'bg-white',
+      textColor: 'text-[#4A9FD8]',
+      icon: Plus,
+      arrowColor: '#FFFFFF',
     },
     {
       id: 'disciple',
-      title: '제자훈련반',
-      subtitle: '성숙',
-      period: '매월 둘째·넷째 금요일 24회 | 매월 첫째·셋째 토요일 24회',
+      title: '제자훈련반 - 성숙',
+      details: [
+        { text: '복음키워드 1단계 - 십자가', period: '12주 과정' },
+        { text: '복음키워드 2단계 - 영적전투', period: '12주 과정' },
+        { text: '복음키워드 3단계 - 하나님 나라', period: '6주 과정' },
+      ],
+      bgColor: 'bg-[#5FD4A0]',
+      textColor: 'text-white',
+      icon: TreePine,
+      arrowColor: '#5FD4A0',
     },
     {
       id: 'evangelism',
-      title: '전도훈련반',
-      subtitle: '훈련',
-      period: '6주 과정',
+      title: '전도훈련반 - 증인',
+      subtitle: '6주 과정',
+      bgColor: 'bg-white',
+      textColor: 'text-[#F08B7C]',
+      icon: Globe,
+      arrowColor: '#FFFFFF',
     },
     {
       id: 'ministry',
-      title: '사역훈련반',
-      subtitle: '발견',
-      period: '15주 과정',
+      title: '사역훈련반 - 일꾼',
+      subtitle: '12주 과정',
+      bgColor: 'bg-[#E89A8C]',
+      textColor: 'text-white',
+      icon: Users,
+      arrowColor: '#E89A8C',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-white w-full">
-      <div className="py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* 헤더 */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">제자화 시스템</h1>
-            <p className="text-sm text-gray-500">DISCIPLESHIP SYSTEM</p>
-          </div>
-
+    <div className="bg-white w-full">
+      <div className="pt-8">
           {/* 시스템 플로우 */}
-          <div className="space-y-6">
+          <div className="space-y-0">
             {stages.map((stage, index) => (
-              <div key={stage.id}>
-                {/* 단계 박스 */}
-                <div className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <div className="p-8 text-center">
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                      <span className="bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm font-semibold">
-                        {index + 1}단계
-                      </span>
-                      <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-                        {stage.title}
-                      </h2>
-                      <span className="text-gray-500">-</span>
-                      <span className="text-xl text-gray-600">{stage.subtitle}</span>
-                    </div>
-                    <p className="text-sm md:text-base text-gray-600 mt-2">
-                      {stage.period}
-                    </p>
-                  </div>
-                </div>
+              <div key={stage.id} className={`relative`}>
+                {/* 상단 화살표 (두 번째 섹션부터) */}
+                {index > 0 && (
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+                    {/* 화살표 몸통 */}
+                    <div className="w-8 h-2 sm:h-3 md:h-3" style={{ backgroundColor: stages[index - 1].arrowColor }}></div>
 
-                {/* 화살표 */}
-                {index < stages.length - 1 && (
-                  <div className="flex justify-center py-3">
-                    <svg className="w-8 h-8 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-                    </svg>
+                    {/* 모바일 화살표 */}
+                    <div
+                      className="w-0 h-0 sm:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
+                      style={{ borderTopColor: stages[index - 1].arrowColor }}
+                    >
+                    </div>
+                    {/* 태블릿 화살표 */}
+                    <div
+                      className="w-0 h-0 hidden sm:block md:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
+                      style={{ borderTopColor: stages[index - 1].arrowColor }}
+                    >
+                    </div>
+                    {/* 중간 화면 화살표 */}
+                    <div
+                      className="w-0 h-0 hidden md:block lg:hidden border-l-32 border-l-transparent border-r-32 border-r-transparent border-t-40"
+                      style={{ borderTopColor: stages[index - 1].arrowColor }}
+                    >
+                    </div>
+                    {/* 데스크톱 화살표 */}
+                    <div
+                      className="w-0 h-0 hidden lg:block border-l-40 border-l-transparent border-r-40 border-r-transparent border-t-50"
+                      style={{ borderTopColor: stages[index - 1].arrowColor }}
+                    >
+                    </div>
                   </div>
                 )}
+
+                {/* 단계 박스 */}
+                <div className={`${stage.bgColor} ${stage.textColor} py-6 md:py-8 px-4 md:px-6 lg:px-8 text-center relative w-full`}>
+                  <div className={`${index > 0 ? 'mt-[30px] lg:mt-[50px]' : ''} mb-3 md:mb-4`}>
+                    <stage.icon className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 mx-auto" strokeWidth={1.5} />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">
+                    {stage.title}
+                  </h2>
+
+                  {stage.details ? (
+                    <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 text-base md:text-lg lg:text-xl">
+                      {stage.details.map((detail, idx) => (
+                        <div key={idx} className="text-center">
+                          <p>{detail.text}</p>
+                          <p className="text-sm md:text-base opacity-90">{detail.period}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-base md:text-lg lg:text-xl opacity-90">
+                      {stage.subtitle}
+                    </p>
+                  )}
+                </div>
+
               </div>
             ))}
           </div>
-        </div>
       </div>
     </div>
   );
 }
+

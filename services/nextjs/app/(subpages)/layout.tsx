@@ -12,7 +12,7 @@ export default function SubPagesLayout({
     <div>
       <SubNavbar />
       <div className="flex items-center justify-center">
-        <div className="w-full max-w-[1400px] flex items-center justify-center">
+        <div className="w-full flex items-center justify-center">
           {children}
         </div>
       </div>

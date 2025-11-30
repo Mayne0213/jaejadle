@@ -10,6 +10,7 @@
  */
 export type * from './models/User'
 export type * from './models/Announcement'
+export type * from './models/AnnouncementFile'
 export type * from './models/GalleryPost'
 export type * from './models/GalleryImage'
 export type * from './models/GalleryTextBlock'

@@ -30,8 +30,8 @@ export default function AnnouncementsPage() {
       }
 
       // 공지사항 목록 불러오기
-      const announcementsData = await getAnnouncements();
-      setAnnouncements(announcementsData);
+      const announcementsResponse = await getAnnouncements(1, 10);
+      setAnnouncements(announcementsResponse.data);
     } catch (error) {
       console.error("Failed to load announcements:", error);
     } finally {
@@ -50,8 +50,8 @@ export default function AnnouncementsPage() {
 
   if (isLoading) {
     return (
-      <div className="space-y-8 w-full">
-        <div className="max-w-7xl px-4 m-4 md:m-8 mx-auto">
+      <div className="space-y-8 w-full flex flex-col items-center">
+        <div className="max-w-7xl px-4 m-4 md:m-8 w-full">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             {/* 테이블 헤더 스켈레톤 - 데스크톱 */}
             <div className="hidden md:grid md:grid-cols-12 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
@@ -104,8 +104,8 @@ export default function AnnouncementsPage() {
   }
 
   return (
-      <div className="space-y-8 w-full">
-        <div className="max-w-7xl px-4 m-4 md:m-8 mx-auto">
+      <div className="space-y-8 w-full flex flex-col items-center">
+        <div className="max-w-7xl px-4 m-4 md:m-8 w-full">
           {/* 공지 작성 버튼 */}
           {user && (
             <div className="flex justify-end mb-4">
@@ -180,7 +180,7 @@ export default function AnnouncementsPage() {
                     <div className="hidden md:block md:col-span-2 px-6 py-4 text-center text-sm text-gray-600">
                       {item.author.userName}
                     </div>
-                    <div className="hidden md:block md:col-span-2 px-6 py-4 text-center text-sm text-gray-600">
+                    <div className="hidden md:flex md:col-span-2 px-6 py-4 justify-center text-center text-sm text-gray-600">
                       {formatDate(item.createdAt)}
                     </div>
                     <div className="hidden md:block md:col-span-1 px-6 py-4 text-center text-sm text-gray-600">

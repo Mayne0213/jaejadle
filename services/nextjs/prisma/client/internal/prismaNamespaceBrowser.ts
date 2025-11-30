@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Announcement: 'Announcement',
+  AnnouncementFile: 'AnnouncementFile',
   GalleryPost: 'GalleryPost',
   GalleryImage: 'GalleryImage',
   GalleryTextBlock: 'GalleryTextBlock',
@@ -100,6 +101,20 @@ export const AnnouncementScalarFieldEnum = {
 } as const
 
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
+export const AnnouncementFileScalarFieldEnum = {
+  id: 'id',
+  announcementId: 'announcementId',
+  fileKey: 'fileKey',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnnouncementFileScalarFieldEnum = (typeof AnnouncementFileScalarFieldEnum)[keyof typeof AnnouncementFileScalarFieldEnum]
 
 
 export const GalleryPostScalarFieldEnum = {
@@ -176,20 +191,29 @@ export const AnnouncementOrderByRelevanceFieldEnum = {
 export type AnnouncementOrderByRelevanceFieldEnum = (typeof AnnouncementOrderByRelevanceFieldEnum)[keyof typeof AnnouncementOrderByRelevanceFieldEnum]
 
 
-export const GalleryPostOrderByRelevanceFieldEnum = {
-  title: 'title',
-  content: 'content'
-} as const
-
-export type GalleryPostOrderByRelevanceFieldEnum = (typeof GalleryPostOrderByRelevanceFieldEnum)[keyof typeof GalleryPostOrderByRelevanceFieldEnum]
-
-
 export const NullsOrder = {
   first: 'first',
   last: 'last'
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const AnnouncementFileOrderByRelevanceFieldEnum = {
+  fileKey: 'fileKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType'
+} as const
+
+export type AnnouncementFileOrderByRelevanceFieldEnum = (typeof AnnouncementFileOrderByRelevanceFieldEnum)[keyof typeof AnnouncementFileOrderByRelevanceFieldEnum]
+
+
+export const GalleryPostOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content'
+} as const
+
+export type GalleryPostOrderByRelevanceFieldEnum = (typeof GalleryPostOrderByRelevanceFieldEnum)[keyof typeof GalleryPostOrderByRelevanceFieldEnum]
 
 
 export const GalleryImageOrderByRelevanceFieldEnum = {

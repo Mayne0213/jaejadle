@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type Announcement = Prisma.AnnouncementModel
 /**
+ * Model AnnouncementFile
+ * 
+ */
+export type AnnouncementFile = Prisma.AnnouncementFileModel
+/**
  * Model GalleryPost
  * 
  */

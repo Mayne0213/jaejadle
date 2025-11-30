@@ -1,5 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
+import leader1 from '@/public/subpages/about/leaders/1.webp';
+import leader2 from '@/public/subpages/about/leaders/2.webp';
+import leader3 from '@/public/subpages/about/leaders/3.webp';
+import leader4 from '@/public/subpages/about/leaders/4.webp';
+import leader5 from '@/public/subpages/about/leaders/5.webp';
+import leader6 from '@/public/subpages/about/leaders/6.webp';
+import leader7 from '@/public/subpages/about/leaders/7.webp';
 
 export default function LeadersPage() {
   const leaders = [
@@ -14,7 +21,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders/1.webp',
+      image: leader1,
     },
     {
       name: '김 택',
@@ -27,7 +34,7 @@ export default function LeadersPage() {
         '성경신학'
       ],
       email: 'taek@jaejadle.or.kr',
-      image: '/subpages/leaders/2.webp',
+      image: leader2,
     },
     {
       name: '유경민',
@@ -40,7 +47,7 @@ export default function LeadersPage() {
         '선교학'
       ],
       email: 'kyoo@jaejadle.or.kr',
-      image: '/subpages/leaders/3.webp',
+      image: leader3,
     },
     {
       name: '황성진',
@@ -53,7 +60,7 @@ export default function LeadersPage() {
         '제자훈련'
       ],
       email: 'sjhwang@jaejadle.or.kr',
-      image: '/subpages/leaders/4.webp',
+      image: leader4,
     },
     {
       name: '김경일',
@@ -66,7 +73,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders/5.webp',
+      image: leader5,
     },
     {
       name: '김경일',
@@ -79,7 +86,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders/6.webp',
+      image: leader6,
     },
     {
       name: '김경일',
@@ -92,7 +99,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders/7.webp',
+      image: leader7,
     },
     {
       name: '김경일',
@@ -105,7 +112,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders/1.webp',
+      image: leader1,
     },
     {
       name: '김경일',
@@ -118,7 +125,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders/2.webp',
+      image: leader2,
     },
   ];
 

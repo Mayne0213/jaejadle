@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import person from '@/public/subpages/about/greetings/person.webp';
 
 export default function GreetingPage() {
   return (
@@ -42,11 +43,10 @@ export default function GreetingPage() {
             <div className="md:col-span-3">
               <div className="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden">
                 <Image
-                  src="/subpages/greetings/person.webp"
+                  src={person}
                   alt="담임목사"
                   fill
                   className="object-cover object-top"
-                  priority
                 />
               </div>
             </div>

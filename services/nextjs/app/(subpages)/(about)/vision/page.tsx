@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Target, BookOpen, HandHeart, Sprout } from 'lucide-react';
+import logo from '@/public/logo.webp';
 
 const SAHUN_DATA = [
   {
@@ -172,7 +173,7 @@ export default function VisionPage() {
                   <div className="shrink-0 mx-auto lg:mx-0">
                     <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-white rounded-xl sm:rounded-2xl shadow-xl flex items-center justify-center p-8 sm:p-10 lg:p-12">
                       <Image
-                        src="/icon_black.webp"
+                        src={logo}
                         alt="제자들교회 심볼"
                         width={320}
                         height={320}

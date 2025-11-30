@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Announcement: 'Announcement',
+  AnnouncementFile: 'AnnouncementFile',
   GalleryPost: 'GalleryPost',
   GalleryImage: 'GalleryImage',
   GalleryTextBlock: 'GalleryTextBlock',
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "announcement" | "galleryPost" | "galleryImage" | "galleryTextBlock" | "worshipVideo"
+    modelProps: "user" | "announcement" | "announcementFile" | "galleryPost" | "galleryImage" | "galleryTextBlock" | "worshipVideo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -538,6 +539,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AnnouncementCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AnnouncementCountAggregateOutputType> | number
+        }
+      }
+    }
+    AnnouncementFile: {
+      payload: Prisma.$AnnouncementFilePayload<ExtArgs>
+      fields: Prisma.AnnouncementFileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AnnouncementFileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AnnouncementFileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>
+        }
+        findFirst: {
+          args: Prisma.AnnouncementFileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AnnouncementFileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>
+        }
+        findMany: {
+          args: Prisma.AnnouncementFileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>[]
+        }
+        create: {
+          args: Prisma.AnnouncementFileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>
+        }
+        createMany: {
+          args: Prisma.AnnouncementFileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.AnnouncementFileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>
+        }
+        update: {
+          args: Prisma.AnnouncementFileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>
+        }
+        deleteMany: {
+          args: Prisma.AnnouncementFileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AnnouncementFileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.AnnouncementFileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementFilePayload>
+        }
+        aggregate: {
+          args: Prisma.AnnouncementFileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAnnouncementFile>
+        }
+        groupBy: {
+          args: Prisma.AnnouncementFileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnnouncementFileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AnnouncementFileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnnouncementFileCountAggregateOutputType> | number
         }
       }
     }
@@ -871,6 +938,20 @@ export const AnnouncementScalarFieldEnum = {
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
 
 
+export const AnnouncementFileScalarFieldEnum = {
+  id: 'id',
+  announcementId: 'announcementId',
+  fileKey: 'fileKey',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnnouncementFileScalarFieldEnum = (typeof AnnouncementFileScalarFieldEnum)[keyof typeof AnnouncementFileScalarFieldEnum]
+
+
 export const GalleryPostScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -945,20 +1026,29 @@ export const AnnouncementOrderByRelevanceFieldEnum = {
 export type AnnouncementOrderByRelevanceFieldEnum = (typeof AnnouncementOrderByRelevanceFieldEnum)[keyof typeof AnnouncementOrderByRelevanceFieldEnum]
 
 
-export const GalleryPostOrderByRelevanceFieldEnum = {
-  title: 'title',
-  content: 'content'
-} as const
-
-export type GalleryPostOrderByRelevanceFieldEnum = (typeof GalleryPostOrderByRelevanceFieldEnum)[keyof typeof GalleryPostOrderByRelevanceFieldEnum]
-
-
 export const NullsOrder = {
   first: 'first',
   last: 'last'
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const AnnouncementFileOrderByRelevanceFieldEnum = {
+  fileKey: 'fileKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType'
+} as const
+
+export type AnnouncementFileOrderByRelevanceFieldEnum = (typeof AnnouncementFileOrderByRelevanceFieldEnum)[keyof typeof AnnouncementFileOrderByRelevanceFieldEnum]
+
+
+export const GalleryPostOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content'
+} as const
+
+export type GalleryPostOrderByRelevanceFieldEnum = (typeof GalleryPostOrderByRelevanceFieldEnum)[keyof typeof GalleryPostOrderByRelevanceFieldEnum]
 
 
 export const GalleryImageOrderByRelevanceFieldEnum = {
@@ -1104,6 +1194,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   announcement?: Prisma.AnnouncementOmit
+  announcementFile?: Prisma.AnnouncementFileOmit
   galleryPost?: Prisma.GalleryPostOmit
   galleryImage?: Prisma.GalleryImageOmit
   galleryTextBlock?: Prisma.GalleryTextBlockOmit
