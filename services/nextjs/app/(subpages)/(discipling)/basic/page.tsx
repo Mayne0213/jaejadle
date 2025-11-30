@@ -7,7 +7,7 @@ export default function BasicPage() {
         <div className="max-w-5xl mx-auto">
           {/* 과정 소개 */}
           <div className="mb-16">
-            <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8 md:p-12 shadow-lg">
+            <div className="bg-linear-to-r from-blue-50 to-blue-100 rounded-lg p-8 md:p-12 shadow-lg">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">기초양육반</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 신앙의 기초를 단단히 세우는 과정입니다.

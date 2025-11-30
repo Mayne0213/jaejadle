@@ -125,7 +125,7 @@ export default function ElementaryPage() {
                   },
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
-                    <div className="flex-shrink-0 w-10 h-10 bg-gray-700 text-white rounded-full flex items-center justify-center font-bold">
+                    <div className="shrink-0 w-10 h-10 bg-gray-700 text-white rounded-full flex items-center justify-center font-bold">
                       {index + 1}
                     </div>
                     <div className="flex-1">

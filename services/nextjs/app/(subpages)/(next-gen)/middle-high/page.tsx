@@ -102,7 +102,7 @@ export default function MiddleHighPage() {
               ].map((item, index) => (
                 <div key={index} className="bg-white rounded-lg p-6 shadow-lg border-l-4 border-gray-700">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="bg-gray-700 text-white px-4 py-2 rounded-lg font-bold min-w-20 text-center">
                         {item.day}
                       </div>

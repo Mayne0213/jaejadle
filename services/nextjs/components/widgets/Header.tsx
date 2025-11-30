@@ -40,7 +40,7 @@ export default function Header() {
       <nav className="max-w-[1400px] mx-auto px-6">
         <div className="flex justify-between items-center h-[70px]">
           {/* 로고 */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <Link href="/" className="flex items-center gap-3 group">
               <Image
                 src={shouldShowScrolled ? iconBlack : iconWhite}

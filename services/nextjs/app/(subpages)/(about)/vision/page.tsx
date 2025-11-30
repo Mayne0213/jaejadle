@@ -108,7 +108,7 @@ export default function VisionPage() {
             </div>
             <div className="relative">
               {/* 중앙 다이아몬드 */}
-              <div className="hidden lg:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 xl:w-48 xl:h-48 bg-gradient-to-br from-[#6d96c5] to-[#94b7d6] rotate-45 items-center justify-center z-10 rounded-2xl xl:rounded-3xl shadow-2xl">
+              <div className="hidden lg:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 xl:w-48 xl:h-48 bg-linear-to-br from-[#6d96c5] to-[#94b7d6] rotate-45 items-center justify-center z-10 rounded-2xl xl:rounded-3xl shadow-2xl">
                 <div className="-rotate-45 text-white text-center">
                   <div className="text-4xl xl:text-5xl font-black">FAITH</div>
                 </div>
@@ -120,7 +120,7 @@ export default function VisionPage() {
                 <div className="space-y-4 sm:space-y-6">
                   {CHURCH_SINJO_LEFT.map((item, index) => (
                     <div key={index} className="bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-3 sm:gap-4">
-                      <div className="flex-shrink-0" style={{ color: item.color }}>
+                      <div className="shrink-0" style={{ color: item.color }}>
                         <item.Icon className="w-10 h-10 sm:w-12 sm:h-12" strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -140,7 +140,7 @@ export default function VisionPage() {
                 <div className="space-y-4 sm:space-y-6">
                   {CHURCH_SINJO_RIGHT.map((item, index) => (
                     <div key={index} className="bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-3 sm:gap-4 md:flex-row-reverse">
-                      <div className="flex-shrink-0" style={{ color: item.color }}>
+                      <div className="shrink-0" style={{ color: item.color }}>
                         <item.Icon className="w-10 h-10 sm:w-12 sm:h-12" strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 md:text-right min-w-0">
@@ -169,7 +169,7 @@ export default function VisionPage() {
               <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
                   {/* 로고 이미지 */}
-                  <div className="flex-shrink-0 mx-auto lg:mx-0">
+                  <div className="shrink-0 mx-auto lg:mx-0">
                     <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-white rounded-xl sm:rounded-2xl shadow-xl flex items-center justify-center p-8 sm:p-10 lg:p-12">
                       <Image
                         src="/icon_black.webp"

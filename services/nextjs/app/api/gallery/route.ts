@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getPaginationParams, createPaginatedResponse } from '@/lib/utils';
 
+interface GalleryItem {
+  type: 'image' | 'text';
+  fileKey?: string;
+  content?: string;
+  order: number;
+  aspectRatio?: number | null;
+}
+
 // GET: 갤러리 포스트 목록 조회 (pagination 지원)
 export async function GET(request: NextRequest) {
   try {
@@ -58,7 +66,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 이미지가 최소 1개는 있어야 함
-    const hasImage = items.some((item: any) => item.type === 'image');
+    const hasImage = items.some((item: GalleryItem) => item.type === 'image');
     if (!hasImage) {
       return NextResponse.json(
         { success: false, message: '최소 1개 이상의 이미지가 필요합니다.' },
@@ -75,18 +83,18 @@ export async function POST(request: NextRequest) {
         content: content || '',
         images: {
           create: sortedItems
-            .filter((item: any) => item.type === 'image')
-            .map((item: any) => ({
-              fileKey: item.fileKey,
+            .filter((item: GalleryItem) => item.type === 'image')
+            .map((item: GalleryItem) => ({
+              fileKey: item.fileKey!,
               order: item.order,
               aspectRatio: item.aspectRatio || null,
             })),
         },
         textBlocks: {
           create: sortedItems
-            .filter((item: any) => item.type === 'text')
-            .map((item: any) => ({
-              content: item.content,
+            .filter((item: GalleryItem) => item.type === 'text')
+            .map((item: GalleryItem) => ({
+              content: item.content!,
               order: item.order,
             })),
         },

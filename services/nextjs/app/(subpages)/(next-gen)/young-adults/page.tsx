@@ -112,7 +112,7 @@ export default function YoungAdultsPage() {
                 },
               ].map((item, index) => (
                 <div key={index} className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gray-700 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  <div className="shrink-0 w-12 h-12 bg-gray-700 text-white rounded-full flex items-center justify-center font-bold text-xl">
                     {index + 1}
                   </div>
                   <div className="flex-1">

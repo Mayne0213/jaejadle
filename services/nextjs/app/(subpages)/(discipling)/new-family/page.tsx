@@ -7,7 +7,7 @@ export default function NewFamilyPage() {
         <div className="max-w-5xl mx-auto">
           {/* 과정 소개 */}
           <div className="mb-16">
-            <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-8 md:p-12 shadow-lg">
+            <div className="bg-linear-to-r from-green-50 to-green-100 rounded-lg p-8 md:p-12 shadow-lg">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">새가족반</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 처음 우리 교회를 방문하신 분들과 새롭게 등록하신 성도님들을 위한 과정입니다.
@@ -60,7 +60,7 @@ export default function NewFamilyPage() {
                 { week: '4주', title: '제자의 삶', content: '그리스도인의 정체성과 다음 단계 안내' },
               ].map((item, index) => (
                 <div key={index} className="flex items-start gap-4 p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                  <div className="flex-shrink-0 w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                  <div className="shrink-0 w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                     {item.week}
                   </div>
                   <div className="flex-1">

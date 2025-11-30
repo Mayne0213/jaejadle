@@ -14,7 +14,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/1.webp',
+      image: '/subpages/leaders/1.webp',
     },
     {
       name: '김 택',
@@ -27,7 +27,7 @@ export default function LeadersPage() {
         '성경신학'
       ],
       email: 'taek@jaejadle.or.kr',
-      image: '/subpages/leaders.png/2.webp',
+      image: '/subpages/leaders/2.webp',
     },
     {
       name: '유경민',
@@ -40,7 +40,7 @@ export default function LeadersPage() {
         '선교학'
       ],
       email: 'kyoo@jaejadle.or.kr',
-      image: '/subpages/leaders.png/3.webp',
+      image: '/subpages/leaders/3.webp',
     },
     {
       name: '황성진',
@@ -53,7 +53,7 @@ export default function LeadersPage() {
         '제자훈련'
       ],
       email: 'sjhwang@jaejadle.or.kr',
-      image: '/subpages/leaders.png/4.webp',
+      image: '/subpages/leaders/4.webp',
     },
     {
       name: '김경일',
@@ -66,7 +66,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/5.webp',
+      image: '/subpages/leaders/5.webp',
     },
     {
       name: '김경일',
@@ -79,7 +79,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/6.webp',
+      image: '/subpages/leaders/6.webp',
     },
     {
       name: '김경일',
@@ -92,7 +92,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/7.webp',
+      image: '/subpages/leaders/7.webp',
     },
     {
       name: '김경일',
@@ -105,7 +105,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/1.webp',
+      image: '/subpages/leaders/1.webp',
     },
     {
       name: '김경일',
@@ -118,7 +118,7 @@ export default function LeadersPage() {
         '청년사역'
       ],
       email: 'pastor@jaejadle.or.kr',
-      image: '/subpages/leaders.png/2.webp',
+      image: '/subpages/leaders/2.webp',
     },
   ];
 
@@ -130,8 +130,8 @@ export default function LeadersPage() {
           {leaders.map((leader, index) => (
             <div key={index} className="bg-white rounded-lg shadow-sm p-8 border border-gray-200 aspect-square flex flex-col justify-between">
               {/* 프로필 이미지 */}
-              <div className="flex justify-center mb-4 flex-shrink-0">
-                <div className="w-32 h-32 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 relative">
+              <div className="flex justify-center mb-4 shrink-0">
+                <div className="w-32 h-32 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
                   <Image
                     src={leader.image}
                     alt={leader.name}

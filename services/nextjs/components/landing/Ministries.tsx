@@ -46,7 +46,7 @@ export default function Ministries() {
               </div>
               
               {/* 오른쪽/아래: 버튼 */}
-              <button className="flex-shrink-0 smalltablet:w-full smalltablet:mt-2 pc:w-auto pc:mt-0 bg-[#7ba5d6] hover:bg-[#6b95c6] text-white font-semibold uppercase px-4 smalltablet:px-8 pc:px-10 py-2.5 smalltablet:py-3.5 pc:py-4 rounded-xl smalltablet:rounded-2xl text-xs smalltablet:text-base pc:text-lg transition-colors duration-200 shadow-sm hover:shadow-md whitespace-nowrap">
+              <button className="shrink-0 smalltablet:w-full smalltablet:mt-2 pc:w-auto pc:mt-0 bg-[#7ba5d6] hover:bg-[#6b95c6] text-white font-semibold uppercase px-4 smalltablet:px-8 pc:px-10 py-2.5 smalltablet:py-3.5 pc:py-4 rounded-xl smalltablet:rounded-2xl text-xs smalltablet:text-base pc:text-lg transition-colors duration-200 shadow-sm hover:shadow-md whitespace-nowrap">
                 {section.buttonText}
               </button>
             </div>

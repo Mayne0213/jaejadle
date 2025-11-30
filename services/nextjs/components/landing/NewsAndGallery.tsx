@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import galleryImage1 from "@/public/photos/image.webp";
-import galleryImage2 from "@/public/photos/image2.webp";
-import galleryImage3 from "@/public/photos/image3.webp";
-import galleryImage4 from "@/public/photos/image4.webp";
+import galleryImage1 from "@/public/home/newsAndGallery/image.webp";
+import galleryImage2 from "@/public/home/newsAndGallery/image2.webp";
+import galleryImage3 from "@/public/home/newsAndGallery/image3.webp";
+import galleryImage4 from "@/public/home/newsAndGallery/image4.webp";
 
 export default function NewsAndGallery() {
 
@@ -70,7 +70,7 @@ export default function NewsAndGallery() {
               </div>
               <button
                 aria-label="더보기"
-                className="w-12 smalltablet:w-14 m-2 self-stretch rounded-xl bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
+                className="w-12 smalltablet:w-14 m-2 self-stretch rounded-xl bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
               >
                 <svg className="w-4 h-4 smalltablet:w-5 smalltablet:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -86,7 +86,7 @@ export default function NewsAndGallery() {
                 >
                   <div className="flex items-start gap-3 smalltablet:gap-4">
                     {/* 날짜 박스 */}
-                    <div className="flex-shrink-0 bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] text-white w-14 h-14 smalltablet:w-16 smalltablet:h-16 rounded-lg flex flex-col items-center justify-center">
+                    <div className="shrink-0 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] text-white w-14 h-14 smalltablet:w-16 smalltablet:h-16 rounded-lg flex flex-col items-center justify-center">
                       <div className="text-xl smalltablet:text-2xl font-bold">{item.day}</div>
                       <div className="text-xs mt-0.5 smalltablet:mt-1">{item.date}</div>
                     </div>
@@ -117,7 +117,7 @@ export default function NewsAndGallery() {
               </div>
               <button
                 aria-label="더보기"
-                className="w-12 smalltablet:w-14 m-2 self-stretch rounded-xl bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
+                className="w-12 smalltablet:w-14 m-2 self-stretch rounded-xl bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
               >
                 <svg className="w-4 h-4 smalltablet:w-5 smalltablet:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -147,7 +147,7 @@ export default function NewsAndGallery() {
                   </div>
 
                   {/* 정보 오버레이 */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent transition-opacity flex items-end">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent transition-opacity flex items-end">
                     <div className="p-2.5 smalltablet:p-3 text-white w-full">
                       <h3 className="text-xs smalltablet:text-sm font-bold mb-0.5 smalltablet:mb-1">{image.title}</h3>
                       <p className="text-xs text-gray-200">{image.date}</p>

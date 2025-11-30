@@ -7,7 +7,7 @@ export default function DisciplePage() {
         <div className="max-w-5xl mx-auto">
           {/* 과정 소개 */}
           <div className="mb-16">
-            <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-8 md:p-12 shadow-lg">
+            <div className="bg-linear-to-r from-purple-50 to-purple-100 rounded-lg p-8 md:p-12 shadow-lg">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">제자훈련반</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 그리스도의 참된 제자로 성장하는 심화 과정입니다.

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import circlesImage from "@/public/circles.webp";
+import circlesImage from "@/public/home/welcome/circles.webp";
 
 export default function Welcome() {
   const features = [
@@ -41,7 +41,7 @@ export default function Welcome() {
         {/* 메인 컨텐츠 */}
         <div className="flex flex-row items-center justify-center gap-4 smalltablet:gap-6 pc:gap-0">
           {/* 왼쪽: 교회 아이콘 */}
-          <div className="w-1/3 smalltablet:w-2/5 pc:w-1/2 flex justify-center flex-shrink-0">
+          <div className="w-1/3 smalltablet:w-2/5 pc:w-1/2 flex justify-center shrink-0">
             <div className="relative w-24 h-24 smalltablet:w-48 smalltablet:h-48 pc:w-[450px] pc:h-[450px]">
               {/* 원형 이미지 */}
               <Image

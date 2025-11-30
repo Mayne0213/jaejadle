@@ -39,11 +39,11 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div key={index} className="p-4 space-y-4 smalltablet:p-6 rounded-2xl border border-gray-200 bg-white">
               <div className="flex items-center gap-3 smalltablet:gap-4 mb-4">
-                <div className="w-9 h-9 smalltablet:w-10 smalltablet:h-10 bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-sm smalltablet:text-base">Q</div>
+                <div className="w-9 h-9 smalltablet:w-10 smalltablet:h-10 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-sm smalltablet:text-base">Q</div>
                 <h3 className="flex-1 text-base smalltablet:text-lg pc:text-xl font-bold text-gray-900 leading-snug">{faq.question}</h3>
               </div>
               <div className="flex items-start gap-3 smalltablet:gap-4">
-                <div className="w-9 h-9 smalltablet:w-10 smalltablet:h-10 bg-gradient-to-br from-[#b8d5f0] to-[#a8c5e0] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-sm smalltablet:text-base">A</div>
+                <div className="w-9 h-9 smalltablet:w-10 smalltablet:h-10 bg-linear-to-br from-[#b8d5f0] to-[#a8c5e0] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-sm smalltablet:text-base">A</div>
                 <p className="text-gray-700 text-sm smalltablet:text-base leading-relaxed">{faq.answer}</p>
               </div>
             </div>

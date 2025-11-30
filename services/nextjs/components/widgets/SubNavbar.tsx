@@ -17,7 +17,7 @@ const SubNavbar: React.FC = () => {
   return (
     <div>
       {/* 이미지 안 (Navbar 제외) */}
-      <div className="relative  w-full h-[200px] md:h-[300px] lg:h-[500px] bg-gradient-to-r from-blue-600 to-blue-800">
+      <div className="relative  w-full h-[200px] md:h-[300px] lg:h-[500px] bg-linear-to-r from-blue-600 to-blue-800">
         {/* 백그라운드 이미지 */}
         {tabInfo.image && (
           <Image

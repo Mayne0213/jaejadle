@@ -86,7 +86,7 @@ export default function KindergartenPage() {
                 { time: '11:40-12:00', activity: '만들기/게임', description: '창의 활동과 친교 시간' },
               ].map((item, index) => (
                 <div key={index} className="flex items-start gap-4 p-6 bg-gray-50 rounded-lg">
-                  <div className="flex-shrink-0 bg-gray-700 text-white px-4 py-2 rounded-lg font-bold min-w-32 text-center">
+                  <div className="shrink-0 bg-gray-700 text-white px-4 py-2 rounded-lg font-bold min-w-32 text-center">
                     {item.time}
                   </div>
                   <div className="flex-1">

@@ -205,7 +205,7 @@ export default function AnnouncementDetailPage() {
                         className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-50"
                       >
                         <div className="flex items-center gap-4">
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <div className="w-12 h-12 bg-white rounded flex items-center justify-center">
                               <FileIconComponent
                                 className={`w-6 h-6 ${
@@ -224,7 +224,7 @@ export default function AnnouncementDetailPage() {
                           </div>
                           <button
                             onClick={() => handleDownload(file.url, file.name)}
-                            className="flex-shrink-0 px-4 py-2 bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-2"
+                            className="shrink-0 px-4 py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-2"
                           >
                             <Download className="w-4 h-4" />
                             다운로드

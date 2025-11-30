@@ -152,7 +152,7 @@ export default function FileUpload({
                     key={index}
                     className="relative group border rounded-lg p-3 hover:shadow-md transition-shadow flex items-center gap-3"
                   >
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
                         {isImage(pf.file.type) ? (
                           <ImageIcon className="w-6 h-6 text-blue-500" />
@@ -172,7 +172,7 @@ export default function FileUpload({
                     <button
                       type="button"
                       onClick={() => removeFile(index)}
-                      className="flex-shrink-0 bg-red-500 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                      className="shrink-0 bg-red-500 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
                     >
                       <X className="w-4 h-4" />
                     </button>

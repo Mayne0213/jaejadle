@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import heroImage1 from "@/public/image.webp";
-import heroImage2 from "@/public/image2.webp";
-import heroImage3 from "@/public/home/pray.webp";
+import heroImage1 from "@/public/home/hero/image.webp";
+import heroImage2 from "@/public/home/hero/image2.webp";
+import heroImage3 from "@/public/home/hero/pray.webp";
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);

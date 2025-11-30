@@ -7,7 +7,7 @@ export default function EvangelismPage() {
         <div className="max-w-5xl mx-auto">
           {/* 과정 소개 */}
           <div className="mb-16">
-            <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-8 md:p-12 shadow-lg">
+            <div className="bg-linear-to-r from-orange-50 to-orange-100 rounded-lg p-8 md:p-12 shadow-lg">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">전도훈련반</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 복음을 효과적으로 전하는 방법을 배우고 실천하는 과정입니다.
@@ -98,7 +98,7 @@ export default function EvangelismPage() {
                   { weeks: '13-16주', title: '심화 및 정리', content: '개인별 전도 계획 수립, 지속 가능한 전도 생활 확립' },
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="flex-shrink-0 bg-orange-500 text-white px-4 py-2 rounded-lg font-bold min-w-24 text-center">
+                    <div className="shrink-0 bg-orange-500 text-white px-4 py-2 rounded-lg font-bold min-w-24 text-center">
                       {item.weeks}
                     </div>
                     <div className="flex-1">
@@ -121,7 +121,7 @@ export default function EvangelismPage() {
                 { title: '초청 전도 예배', time: '매월 셋째 주일', location: '본당' },
               ].map((program, index) => (
                 <div key={index} className="flex items-center gap-4 p-6 bg-orange-50 rounded-lg">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  <div className="shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
                     {index + 1}
                   </div>
                   <div className="flex-1">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { getMe, type User } from '@/lib/services';
 
@@ -64,11 +64,7 @@ export default function WorshipPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     // 사용자 인증 확인
     try {
       const userData = await getMe();
@@ -79,7 +75,11 @@ export default function WorshipPage() {
 
     // 영상 데이터 로드
     await loadVideos();
-  };
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const loadVideos = async () => {
     try {

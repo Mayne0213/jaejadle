@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect, useCallback, use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,11 +20,7 @@ export default function GalleryDetailPage({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [deleting, setDeleting] = useState(false);
 
-  useEffect(() => {
-    loadData();
-  }, [id]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     // 사용자 인증 확인
     try {
       const userData = await getMe();
@@ -33,10 +29,6 @@ export default function GalleryDetailPage({
       setUser(null);
     }
     // 갤러리 포스트 불러오기
-    await fetchPost();
-  };
-
-  const fetchPost = async () => {
     setLoading(true);
     try {
       const data = await getGalleryPostWithUrls(parseInt(id, 10));
@@ -46,7 +38,11 @@ export default function GalleryDetailPage({
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const handleDelete = async () => {
     if (!confirm('정말 삭제하시겠습니까?')) return;
@@ -113,11 +109,9 @@ export default function GalleryDetailPage({
           <div className="space-y-4">
             {(() => {
               const sortedContent = getSortedGalleryContent(post);
-              let imageIndex = 0;
               
               return sortedContent.map((item: GalleryContentItem, idx: number) => {
                 if (item.type === 'image') {
-                  const currentImageIndex = imageIndex++;
                   const imageId = item.data.id;
                   const aspectRatio = item.data.aspectRatio;
                   

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { uploadGalleryFiles, createGalleryPost, calculateImageAspectRatio } from "@/lib/services";
-import FileUpload, { PendingFile } from "@/components/FileUpload";
 import { X, ArrowUp, ArrowDown, Plus } from "lucide-react";
 
 type ContentItem =
@@ -14,7 +13,6 @@ type ContentItem =
 export default function GalleryWritePage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [items, setItems] = useState<ContentItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
@@ -125,7 +123,7 @@ export default function GalleryWritePage() {
       // 갤러리 포스트 생성
       await createGalleryPost({
         title: title.trim(),
-        content: content.trim(),
+        content: "",
         items: itemsWithFileKeys,
       });
 
