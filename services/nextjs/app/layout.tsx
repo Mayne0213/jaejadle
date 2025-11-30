@@ -17,6 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "제자들교회 - 인천",
   description: "마음속 비를 막아주는 따뜻한 마음주치의, 마음우산. 나의 잠재력을 발휘하는 건강한 일상으로 여유와 품격을 더한 올바른 진료",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
