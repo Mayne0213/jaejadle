@@ -48,9 +48,6 @@ RUN mkdir .next && chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy app directory assets (favicon, etc.)
-COPY --from=builder --chown=nextjs:nodejs /app/app ./app
-
 # Copy Prisma files
 COPY --from=builder /app/prisma ./prisma
 
