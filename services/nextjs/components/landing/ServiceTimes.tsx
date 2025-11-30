@@ -73,7 +73,7 @@ export default function ServiceTimes() {
                     <h3 className="text-2xl smalltablet:text-3xl font-bold text-white mb-4 smalltablet:mb-6">
                       {program.title}
                     </h3>
-                    <p className="text-white/90 text-sm smalltablet:text-base leading-relaxed mb-6 smalltablet:mb-8 flex-grow">
+                    <p className="text-white/90 text-sm smalltablet:text-base leading-relaxed mb-6 smalltablet:mb-8 grow">
                       {program.description}
                     </p>
                     <div className="flex items-end justify-between">
