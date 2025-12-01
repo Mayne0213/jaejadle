@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { ChevronDown } from "lucide-react";
 import iconBlack from "@/public/icon_black.webp";
 import iconWhite from "@/public/icon_white.webp";
 import AuthButton from "@/components/widgets/AuthButton";
@@ -13,8 +14,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<number | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [expandedTabs, setExpandedTabs] = useState<Set<number>>(new Set());
   const pathname = usePathname();
+  const router = useRouter();
 
   // 로그인/회원가입 페이지인지 확인
   const isAuthPage = pathname === "/login" || pathname === "/signup";
@@ -29,34 +31,48 @@ export default function Header() {
   }, []);
 
   // 로그인/회원가입 페이지 또는 모바일 메뉴가 열렸을 때 항상 스크롤된 상태로 표시
-  const shouldShowScrolled = isAuthPage || isScrolled || isMenuOpen || isHovered || hoveredTab !== null;
+  // hover는 CSS로만 처리 (데스크톱에서만 작동)
+  const shouldShowScrolled = isAuthPage || isScrolled || isMenuOpen || hoveredTab !== null;
+
+  // 모바일 메뉴에서 탭 확장/축소 토글
+  const toggleTab = (index: number) => {
+    setExpandedTabs((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`group fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         shouldShowScrolled
           ? "bg-white shadow-md"
-          : "bg-transparent"
+          : "bg-transparent lg:hover:bg-white lg:hover:shadow-md"
       }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      <nav className="max-w-[1400px] mx-auto px-6">
-        <div className="flex justify-between items-center h-[70px] relative z-10">
+      <nav className="max-w-[1400px] mx-auto">
+        <div className="flex justify-between items-center h-[56px] lg:h-[70px] relative z-10 px-6">
           {/* 로고 */}
           <div className="shrink-0">
             <Link href="/" className="flex items-center gap-3 group">
+              {/* 아이콘 - 모바일은 작게, 데스크톱은 크게 */}
               <Image
                 src={shouldShowScrolled ? iconBlack : iconWhite}
                 alt="제자들교회 로고"
                 width={40}
                 height={40}
-                className="transition-opacity duration-300"
+                className="w-8 h-8 lg:w-10 lg:h-10 transition-opacity duration-300"
                 placeholder="blur"
               />
               <div className={shouldShowScrolled ? "text-black" : "text-white"}>
-                <div className="text-2xl font-bold tracking-wide">제자들교회</div>
-                <div className="text-xs opacity-90">DISCIPLES CHURCH</div>
+                <div className="text-xl lg:text-2xl font-bold tracking-wide">제자들교회</div>
+                {/* 데스크톱: 영어 이름 표시 */}
+                <div className="hidden lg:block text-xs opacity-90">DISCIPLES CHURCH</div>
               </div>
             </Link>
           </div>
@@ -127,28 +143,64 @@ export default function Header() {
 
         {/* 모바일 메뉴 */}
         {isMenuOpen && (
-          <div className="lg:hidden pb-6 space-y-1">
-            {tabs.map((tab) => (
-              <div key={tab.label}>
-                {/* 메인 탭 */}
-                <div className={`font-semibold py-2 ${shouldShowScrolled ? "text-black" : "text-white"}`}>
-                  {tab.label}
-                </div>
-                {/* 서브 탭들 */}
-                <div className="ml-4 space-y-1">
-                  {tab.submenu.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`block py-2 ${shouldShowScrolled ? "text-black/80 hover:text-black" : "text-white/80 hover:text-white"}`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="lg:hidden max-h-[calc(100vh-56px)] border-t border-gray-200 overflow-y-auto pt-4 px-6 pb-6">
+            <div className="space-y-1">
+              {tabs.map((tab, index) => {
+                const isExpanded = expandedTabs.has(index);
+                const firstSubmenuHref = tab.submenu[0]?.href || "#";
+                
+                const handleMainTabClick = () => {
+                  if (firstSubmenuHref !== "#") {
+                    router.push(firstSubmenuHref);
+                    setIsMenuOpen(false);
+                  }
+                };
+                
+                return (
+                  <div key={tab.label}>
+                    {/* 메인 탭 */}
+                    <div className={`w-full flex justify-between items-center font-semibold py-2 text-lg ${shouldShowScrolled ? "text-black" : "text-white"}`}>
+                      <button
+                        onClick={handleMainTabClick}
+                        className="flex-1 text-left"
+                      >
+                        {tab.label}
+                      </button>
+                      {tab.submenu.length > 1 && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleTab(index);
+                          }}
+                          className="ml-2 p-1"
+                        >
+                          <ChevronDown
+                            className={`w-5 h-5 transition-transform duration-200 ${
+                              isExpanded ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                      )}
+                    </div>
+                    {/* 서브 탭들 */}
+                    {isExpanded && (
+                      <div className="ml-4 space-y-1">
+                        {tab.submenu.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`block py-2 text-base ${shouldShowScrolled ? "text-black/80 hover:text-black" : "text-white/80 hover:text-white"}`}
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
             <div className="mt-4 text-center">
               <AuthButton isScrolled={shouldShowScrolled} />
             </div>

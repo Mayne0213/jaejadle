@@ -43,7 +43,7 @@ const AuthButton = ({ isScrolled = true }: AuthButtonProps) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 justify-center lg:justify-start w-full lg:w-auto">
         <div className="h-9 w-20 bg-gray-200 animate-pulse rounded-lg"></div>
       </div>
     );
