@@ -61,15 +61,29 @@ export default function Header() {
           <div className="shrink-0">
             <Link href="/" className="flex items-center gap-3 group">
               {/* 아이콘 - 모바일은 작게, 데스크톱은 크게 */}
-              <Image
-                src={shouldShowScrolled ? iconBlack : iconWhite}
-                alt="제자들교회 로고"
-                width={40}
-                height={40}
-                className="w-8 h-8 lg:w-10 lg:h-10 transition-opacity duration-300"
-                placeholder="blur"
-              />
-              <div className={shouldShowScrolled ? "text-black" : "text-white"}>
+              <div className="relative w-8 h-8 lg:w-10 lg:h-10">
+                <Image
+                  src={shouldShowScrolled ? iconBlack : iconWhite}
+                  alt="제자들교회 로고"
+                  width={40}
+                  height={40}
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
+                    shouldShowScrolled ? "opacity-100" : "opacity-100 lg:group-hover:opacity-0"
+                  }`}
+                  placeholder="blur"
+                />
+                <Image
+                  src={iconBlack}
+                  alt="제자들교회 로고"
+                  width={40}
+                  height={40}
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
+                    shouldShowScrolled ? "opacity-0" : "opacity-0 lg:group-hover:opacity-100"
+                  }`}
+                  placeholder="blur"
+                />
+              </div>
+              <div className={shouldShowScrolled ? "text-black lg:hover:text-black" : "text-white lg:group-hover:text-black"}>
                 <div className="text-xl lg:text-2xl font-bold tracking-wide">제자들교회</div>
                 {/* 데스크톱: 영어 이름 표시 */}
                 <div className="hidden lg:block text-xs opacity-90">DISCIPLES CHURCH</div>
@@ -88,7 +102,7 @@ export default function Header() {
               >
                 <Link
                   href={tab.submenu[0]?.href || "#"}
-                  className={`${shouldShowScrolled ? "text-black/90 hover:text-black" : "text-white/90 hover:text-white"} font-medium transition-colors`}
+                  className={`${shouldShowScrolled ? "text-black/90 hover:text-black" : "text-white/90 lg:group-hover:text-black/90"} font-medium transition-colors`}
                 >
                   {tab.label}
                 </Link>
@@ -128,7 +142,7 @@ export default function Header() {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`${shouldShowScrolled ? "text-black" : "text-white"} p-2`}
+              className={`${shouldShowScrolled ? "text-black" : "text-white lg:group-hover:text-black"} p-2`}
             >
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -155,7 +169,7 @@ export default function Header() {
                     setIsMenuOpen(false);
                   }
                 };
-                
+
                 return (
                   <div key={tab.label}>
                     {/* 메인 탭 */}
