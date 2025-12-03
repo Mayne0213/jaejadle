@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaejadle-app
+  labels:
+    environment: development
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: jaejadle-app
+          resources:
+            requests:
+              memory: "179Mi"
+              cpu: "70m"
+            limits:
+              memory: "358Mi"
+              cpu: "210m"
