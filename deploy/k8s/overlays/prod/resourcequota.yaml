@@ -5,8 +5,8 @@ metadata:
   namespace: jaejadle
 spec:
   hard:
-    requests.memory: "512Mi"
-    requests.cpu: "300m"
-    limits.memory: "1Gi"
-    limits.cpu: "600m"
-    pods: "3"
+    requests.memory: "1536Mi"
+    requests.cpu: "900m"
+    limits.memory: "3Gi"
+    limits.cpu: "1800m"
+    pods: "9"
