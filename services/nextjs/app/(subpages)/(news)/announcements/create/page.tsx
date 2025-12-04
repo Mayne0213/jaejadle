@@ -65,7 +65,7 @@ export default function CreateAnnouncementPage() {
 
       if (pendingFiles.length > 0) {
         const uploadPromises = pendingFiles.map(async (pf) => {
-          const result = await uploadFile(pf.file, "jaejadle/announcement");
+          const result = await uploadFile(pf.file, "/announcement");
           return {
             fileKey: result.fileKey,
             fileName: pf.file.name,
