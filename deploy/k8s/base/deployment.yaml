@@ -49,11 +49,6 @@ spec:
                 secretKeyRef:
                   name: jaejadle-secret
                   key: aws-s3-bucket-name
-            - name: AWS_S3_BUCKET_URL
-              valueFrom:
-                secretKeyRef:
-                  name: jaejadle-secret
-                  key: aws-s3-bucket-url
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
