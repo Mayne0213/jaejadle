@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "jooeng.s3.ap-northeast-2.amazonaws.com",
+        hostname: "s3.minio0213.kro.kr",
       },
       {
         protocol: "https",
