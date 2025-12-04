@@ -172,7 +172,7 @@ export async function deleteGalleryPost(id: number): Promise<void> {
 export async function uploadGalleryFiles(files: File[]): Promise<string[]> {
   const fileKeys: string[] = [];
   for (const file of files) {
-    const { fileKey } = await uploadFile(file, 'jaejadle/gallery');
+    const { fileKey } = await uploadFile(file, 'gallery');
     fileKeys.push(fileKey);
   }
   return fileKeys;

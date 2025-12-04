@@ -7,11 +7,6 @@ export const S3_CONFIG = {
   ENDPOINT: process.env.AWS_S3_ENDPOINT || 'https://s3.minio0213.kro.kr',
 } as const;
 
-// MinIO URL 생성 헬퍼
-export const getS3Url = (fileKey: string): string => {
-  return `${S3_CONFIG.ENDPOINT}/${S3_CONFIG.BUCKET_NAME}/${fileKey}`;
-};
-
 // MinIO 클라이언트 인스턴스 (서버 사이드에서만 사용)
 import { S3Client } from '@aws-sdk/client-s3';
 
