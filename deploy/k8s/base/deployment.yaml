@@ -64,6 +64,11 @@ spec:
                 secretKeyRef:
                   name: jaejadle-secret
                   key: aws-secret-access-key
+            - name: AWS_S3_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: jaejadle-secret
+                  key: aws-s3-endpoint
           resources:
             requests:
               memory: "256Mi"
