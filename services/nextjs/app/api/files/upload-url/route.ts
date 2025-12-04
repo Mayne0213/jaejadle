@@ -19,7 +19,15 @@ const generateUploadUrl = async (
       ContentType: fileType,
     });
 
-    const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    let uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+
+    // MinIO 사용시 URL을 MinIO 엔드포인트로 변경
+    if (S3_CONFIG.ENDPOINT) {
+      uploadUrl = uploadUrl.replace(
+        `https://${S3_CONFIG.BUCKET_NAME}.s3.${S3_CONFIG.REGION}.amazonaws.com`,
+        `${S3_CONFIG.ENDPOINT}/${S3_CONFIG.BUCKET_NAME}`
+      );
+    }
 
     return {
       uploadUrl,
