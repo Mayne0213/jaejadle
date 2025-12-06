@@ -5,6 +5,8 @@ services:
     build:
       context: ../../services/nextjs
       dockerfile: ../../deploy/docker/Dockerfile.prod
+      args:
+        NEXT_PUBLIC_KAKAO_MAP_KEY: ${NEXT_PUBLIC_KAKAO_MAP_KEY}
     container_name: jaejadle-app
     restart: unless-stopped
     labels:
