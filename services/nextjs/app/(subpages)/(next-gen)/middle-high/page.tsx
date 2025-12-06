@@ -7,7 +7,7 @@ export default function MiddleHighPage() {
         <div className="max-w-5xl mx-auto">
           {/* 부서 소개 */}
           <div className="mb-16">
-            <div className="bg-gray-50 rounded-lg p-8 md:p-12 shadow-sm border border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-8 smalltablet:p-12 shadow-sm border border-gray-200">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">중고등부</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 중학생과 고등학생이 함께 예배하며 신앙의 정체성을 확립하는 곳입니다.
@@ -21,7 +21,7 @@ export default function MiddleHighPage() {
           {/* 예배 시간 및 장소 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">예배 안내</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid smalltablet:grid-cols-3 gap-6">
               <div className="bg-white rounded-lg p-6 shadow-md border border-gray-200 text-center">
                 <div className="text-4xl mb-4">⏰</div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">예배 시간</h3>
@@ -44,7 +44,7 @@ export default function MiddleHighPage() {
           {/* 부서 비전 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">부서 비전</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid smalltablet:grid-cols-2 gap-6">
               {[
                 {
                   icon: '🎯',
@@ -125,7 +125,7 @@ export default function MiddleHighPage() {
               <p className="text-gray-700 mb-6 text-center">
                 학년별, 주제별 소그룹으로 나뉘어 더 깊이 있는 교제와 성장을 경험합니다.
               </p>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid smalltablet:grid-cols-3 gap-6">
                 {[
                   { group: '중등부', focus: '신앙의 기초', leader: '000 교사' },
                   { group: '고등부', focus: '신앙과 진로', leader: '000 교사' },
@@ -144,7 +144,7 @@ export default function MiddleHighPage() {
           {/* 특별 활동 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">특별 활동</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid smalltablet:grid-cols-2 gap-6">
               {[
                 {
                   event: '겨울수련회',
@@ -191,7 +191,7 @@ export default function MiddleHighPage() {
           </div>
 
           {/* 교사진 및 안내 */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid smalltablet:grid-cols-2 gap-6">
             <div className="bg-gray-50 rounded-lg p-6 border-l-4 border-gray-700">
               <h3 className="text-xl font-bold text-gray-800 mb-4">교역자 및 교사진</h3>
               <ul className="space-y-2 text-gray-700">

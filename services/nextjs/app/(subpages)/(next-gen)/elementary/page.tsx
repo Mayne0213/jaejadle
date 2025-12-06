@@ -7,7 +7,7 @@ export default function ElementaryPage() {
         <div className="max-w-5xl mx-auto">
           {/* 부서 소개 */}
           <div className="mb-16">
-            <div className="bg-gray-50 rounded-lg p-8 md:p-12 shadow-sm border border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-8 smalltablet:p-12 shadow-sm border border-gray-200">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">유초등부</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 초등학교 1학년부터 6학년까지의 어린이들이 함께 예배하는 곳입니다.
@@ -21,7 +21,7 @@ export default function ElementaryPage() {
           {/* 예배 시간 및 장소 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">예배 안내</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid smalltablet:grid-cols-3 gap-6">
               <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 text-center">
                 <div className="text-4xl mb-4">⏰</div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">예배 시간</h3>
@@ -44,7 +44,7 @@ export default function ElementaryPage() {
           {/* 교육 비전 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">교육 비전</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid smalltablet:grid-cols-3 gap-6">
               {[
                 {
                   icon: '📖',
@@ -74,7 +74,7 @@ export default function ElementaryPage() {
           {/* 학년별 반 편성 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">학년별 반 편성</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid smalltablet:grid-cols-2 gap-6">
               {[
                 { class: '저학년반', grade: '1~3학년', teacher: '000 교사', focus: '신앙의 기초 다지기' },
                 { class: '고학년반', grade: '4~6학년', teacher: '000 교사', focus: '제자도 훈련' },
@@ -144,7 +144,7 @@ export default function ElementaryPage() {
           {/* 연간 행사 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">연간 특별 행사</h2>
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid smalltablet:grid-cols-4 gap-4">
               {[
                 { month: '2월', event: '신학기 입학식' },
                 { month: '5월', event: '어린이날 행사' },
@@ -166,7 +166,7 @@ export default function ElementaryPage() {
           </div>
 
           {/* 교사진 및 문의 */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid smalltablet:grid-cols-2 gap-6">
             <div className="bg-gray-50 rounded-lg p-6 border-l-4 border-gray-700">
               <h3 className="text-xl font-bold text-gray-800 mb-4">교사진</h3>
               <ul className="space-y-2 text-gray-700">

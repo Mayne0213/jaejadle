@@ -7,7 +7,7 @@ export default function YoungAdultsPage() {
         <div className="max-w-5xl mx-auto">
           {/* 부서 소개 */}
           <div className="mb-16">
-            <div className="bg-gray-50 rounded-lg p-8 md:p-12 shadow-sm border border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-8 smalltablet:p-12 shadow-sm border border-gray-200">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">청년부</h2>
               <p className="text-lg text-gray-700 leading-relaxed text-center mb-4">
                 대학생과 직장인 청년들이 함께 예배하고 교제하는 공동체입니다.
@@ -21,7 +21,7 @@ export default function YoungAdultsPage() {
           {/* 예배 시간 및 장소 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">예배 안내</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid smalltablet:grid-cols-3 gap-6">
               <div className="bg-white rounded-lg p-6 shadow-md border border-gray-200 text-center">
                 <div className="text-4xl mb-4">⏰</div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">예배 시간</h3>
@@ -50,7 +50,7 @@ export default function YoungAdultsPage() {
                   말씀과 기도로 무장하고, 세상 속에서 그리스도의 향기를 발하는 청년들
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid smalltablet:grid-cols-2 gap-6">
                 {[
                   {
                     icon: '📖',
@@ -135,7 +135,7 @@ export default function YoungAdultsPage() {
                 청년부는 소그룹 중심으로 운영됩니다. 각 소그룹은 6~8명으로 구성되어<br />
                 더 깊은 교제와 성경 공부, 기도로 함께 성장합니다.
               </p>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid smalltablet:grid-cols-3 gap-6">
                 {[
                   { name: '대학생 그룹', focus: '캠퍼스 선교' },
                   { name: '직장인 그룹', focus: '직장 사역' },
@@ -158,7 +158,7 @@ export default function YoungAdultsPage() {
           {/* 특별 활동 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">특별 활동</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid smalltablet:grid-cols-2 gap-6">
               {[
                 {
                   event: '겨울 수련회',
@@ -207,7 +207,7 @@ export default function YoungAdultsPage() {
           {/* 섬김의 기회 */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">섬김의 기회</h2>
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid smalltablet:grid-cols-4 gap-4">
               {[
                 { ministry: '찬양팀', icon: '🎵' },
                 { ministry: '기술팀', icon: '🎥' },
@@ -227,7 +227,7 @@ export default function YoungAdultsPage() {
           </div>
 
           {/* 연락 및 SNS */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid smalltablet:grid-cols-2 gap-6">
             <div className="bg-gray-50 rounded-lg p-6 border-l-4 border-gray-700">
               <h3 className="text-xl font-bold text-gray-800 mb-4">청년부 리더십</h3>
               <ul className="space-y-2 text-gray-700">
