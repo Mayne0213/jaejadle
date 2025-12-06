@@ -48,6 +48,7 @@ next-env.d.ts
 /prisma/dev.db-journal
 /prisma/*.db
 /prisma/*.db-journal
+services/nextjs/prisma/client
 
 # IDE
 .vscode
