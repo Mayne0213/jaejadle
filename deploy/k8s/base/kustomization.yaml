@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
-  - sealed-jaejadle-secret.yaml
 
 commonLabels:
   app.kubernetes.io/name: jaejadle
