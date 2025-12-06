@@ -6,15 +6,15 @@ import missionMapKorea from "@/public/subpages/mission/mission/missionMapKorea.w
 export default function MissionPage() {
   return (
     <div className="w-full bg-white">
-      <div className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-20">
-        <div className="max-w-7xl mx-auto space-y-8 md:space-y-12">
+      <div className="py-8 smalltablet:py-12 pc:py-16 px-4 smalltablet:px-6 pc:px-20">
+        <div className="max-w-7xl mx-auto space-y-8 smalltablet:space-y-12">
           {/* 선교 지도 이미지 */}
           <div className='w-full h-full relative items-center justify-center flex'>
             <Image
               src={missionMap}
               alt='mission map'
               sizes='100vw'
-              className='object-cover rounded-lg sm:rounded-xl'
+              className='object-cover rounded-lg smalltablet:rounded-xl'
             />
           </div>
 
@@ -24,7 +24,7 @@ export default function MissionPage() {
               src={missionMapKorea}
               alt='mission map'
               sizes='100vw'
-              className='object-cover rounded-lg sm:rounded-xl'
+              className='object-cover rounded-lg smalltablet:rounded-xl'
             />
           </div>
         </div>
