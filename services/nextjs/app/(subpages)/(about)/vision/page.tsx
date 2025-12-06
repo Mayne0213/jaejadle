@@ -6,7 +6,7 @@ import logo from '@/public/logo.webp';
 const SAHUN_DATA = [
   {
     number: 1,
-    title: '말씀안에',
+    title: '말씀 안에',
     englishTitle: 'In the Word',
     description: '하나님의 말씀을 삶의 중심에 두고\n성경적 가치관으로 살아가는\n믿음의 공동체',
     Icon: BookOpen,
@@ -20,7 +20,7 @@ const SAHUN_DATA = [
   },
   {
     number: 3,
-    title: '많은열배',
+    title: '많은 열매',
     englishTitle: 'Abundant Fruit',
     description: '복음의 능력으로 영혼을 구원하고\n생명의 열매를 풍성히 맺는\n선교의 공동체',
     Icon: Sprout,
@@ -49,7 +49,7 @@ const CHURCH_SINJO_LEFT = [
 const CHURCH_SINJO_RIGHT = [
   {
     number: '02',
-    title: '서로사랑하는 제자들교회',
+    title: '서로 사랑하는 제자들교회',
     englishTitle: 'Loving One Another',
     subtitle: '그리스도의 사랑으로',
     Icon: HandHeart,

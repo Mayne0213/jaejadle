@@ -123,7 +123,7 @@ export default function AnnouncementsPage() {
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 text-center py-20 flex items-center justify-center flex-col">
               <FileTextIcon className="mx-auto h-16 w-16 text-gray-300 mb-4" />
               <p className="text-gray-500 text-lg">
-                등록된 공지사항이 없습니다.
+                등록된 주보가 없습니다.
               </p>
             </div>
           ) : (

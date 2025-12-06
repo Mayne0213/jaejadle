@@ -1,4 +1,5 @@
 import { MapPin, Youtube } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Contact() {
   return (
@@ -40,20 +41,20 @@ export default function Contact() {
 
           {/* Middle: 오시는 길 */}
           <div className="text-center">
-            <button className="w-full rounded-xl p-6 smalltablet:p-8 pc:p-10 flex flex-col items-center transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+            <Link href="/directions" className="w-full rounded-xl p-6 smalltablet:p-8 pc:p-10 flex flex-col items-center transition-all duration-300 hover:-translate-y-1 cursor-pointer">
               <div className="w-24 h-24 smalltablet:w-28 smalltablet:h-28 rounded-full bg-gray-100 flex items-center justify-center mb-6 smalltablet:mb-8 transition-colors duration-300 hover:bg-[#6b95c6] group">
                 <MapPin className="w-9 h-9 smalltablet:w-10 smalltablet:h-10 text-gray-700 group-hover:text-white transition-colors duration-300" strokeWidth={2} />
               </div>
               <h3 className="text-2xl smalltablet:text-3xl font-extrabold text-gray-900 mb-3 smalltablet:mb-4">오시는 길</h3>
               <p className="text-gray-500 text-base smalltablet:text-lg leading-7 smalltablet:leading-8">
-                서울특별시 강남구 테헤란로 1234
+                인천광역시 서구 고산후로 95번길 32 <br /> 명진프라자 3층 본당 / 4층 교육관
               </p>
-            </button>
+            </Link>
           </div>
 
           {/* Right: 유튜브 소개 */}
           <div className="text-center">
-            <button className="w-full rounded-xl p-6 smalltablet:p-8 pc:p-10 flex flex-col items-center transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+            <Link href="https://www.youtube.com/@Disciples2015" target="_blank" rel="noopener noreferrer" className="w-full rounded-xl p-6 smalltablet:p-8 pc:p-10 flex flex-col items-center transition-all duration-300 hover:-translate-y-1 cursor-pointer">
               <div className="w-24 h-24 smalltablet:w-28 smalltablet:h-28 rounded-full bg-gray-100 flex items-center justify-center mb-6 smalltablet:mb-8 transition-colors duration-300 hover:bg-[#6b95c6] group">
                 <Youtube className="w-9 h-9 smalltablet:w-10 smalltablet:h-10 text-gray-700 group-hover:text-white transition-colors duration-300" strokeWidth={2} />
               </div>
@@ -62,7 +63,7 @@ export default function Contact() {
                 제자들교회의 유튜브 채널에서
                 <br />설교와 다양한 영상을 만나보세요
               </p>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

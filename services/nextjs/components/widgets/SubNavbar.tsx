@@ -62,6 +62,12 @@ const SubNavbar: React.FC = () => {
         <div className="text-4xl md:text-4xl lg:text-6xl">
           {tabInfo.subtitle}
         </div>
+        {/* 설명 */}
+        {tabInfo.description && (
+          <div className="text-gray-600 text-base md:text-lg lg:text-xl font-normal mt-4 md:mt-6">
+            {tabInfo.description}
+          </div>
+        )}
       </div>
     </div>
   );
