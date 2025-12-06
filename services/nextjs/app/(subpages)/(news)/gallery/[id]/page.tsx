@@ -88,8 +88,8 @@ export default function GalleryDetailPage({
           <div className="mb-8 pb-6 border-b border-gray-200">
             <div className="flex justify-between items-start">
               <div>
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">{post.title}</h1>
-                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                <h1 className="text-xl smalltablet:text-2xl pc:text-3xl font-bold text-gray-800">{post.title}</h1>
+                <p className="text-xs smalltablet:text-sm text-gray-500 mt-1">
                   {new Date(post.createdAt).toLocaleDateString('ko-KR')}
                 </p>
               </div>
@@ -144,7 +144,7 @@ export default function GalleryDetailPage({
                   return (
                     <div
                       key={`text-${item.data.id}`}
-                      className="p-4 rounded-lg text-sm sm:text-base md:text-xl text-gray-700 whitespace-pre-wrap"
+                      className="p-4 rounded-lg text-sm smalltablet:text-base pc:text-xl text-gray-700 whitespace-pre-wrap"
                     >
                       {item.data.content}
                     </div>
@@ -204,7 +204,7 @@ export default function GalleryDetailPage({
                 &times;
               </button>
 
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xs sm:text-sm">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xs smalltablet:text-sm">
                 {(() => {
                   const sortedImages = post.images.sort((a, b) => a.order - b.order);
                   return `${selectedIndex + 1} / ${sortedImages.length}`;
