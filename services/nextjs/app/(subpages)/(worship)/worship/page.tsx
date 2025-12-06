@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { getMe, type User } from '@/lib/services';
 
 interface VideoItem {
@@ -50,10 +51,16 @@ function getThumbnailUrl(videoUrl: string): string {
     : '/placeholder.jpg';
 }
 
-export default function WorshipPage() {
+function WorshipPageContent() {
+  const searchParams = useSearchParams();
+  const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const playerRef = useRef<HTMLDivElement | null>(null);
+  
   const [categories, setCategories] = useState<Category[]>([
-    { id: 'sermon', title: '설교', videos: [] },
-    { id: 'praise', title: '찬양', videos: [] }]);
+    { id: 'sermon', title: '주일 설교', videos: [] },
+    { id: 'friday', title: '금요 성령집회', videos: [] },
+    { id: 'praise', title: '주일 찬양', videos: [] }]);
+    
   const [selectedVideo, setSelectedVideo] = useState<{ videoUrl: string; title: string }>({
     videoUrl: 'https://www.youtube.com/watch?v=A8xPDnTkNzI',
     title: '',
@@ -75,6 +82,7 @@ export default function WorshipPage() {
 
     // 영상 데이터 로드
     await loadVideos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -93,29 +101,67 @@ export default function WorshipPage() {
       const newCategories: Category[] = [
         {
           id: 'sermon',
-          title: '설교',
+          title: '주일 설교',
           videos: dbVideos
             .filter(v => v.category === 'sermon')
             .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         },
         {
           id: 'praise',
-          title: '찬양',
+          title: '주일 찬양',
           videos: dbVideos
             .filter(v => v.category === 'praise')
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        },
+        {
+          id: 'friday',
+          title: '금요 성령집회',
+          videos: dbVideos
+            .filter(v => v.category === 'friday')
             .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         },
       ];
 
       setCategories(newCategories);
       
-      // 첫 번째 비디오가 있으면 선택
-      const firstCategoryWithVideo = newCategories.find(cat => cat.videos.length > 0);
-      if (firstCategoryWithVideo && firstCategoryWithVideo.videos[0]) {
-        setSelectedVideo({
-          videoUrl: firstCategoryWithVideo.videos[0].videoUrl,
-          title: firstCategoryWithVideo.title,
-        });
+      // URL 쿼리 파라미터에서 category 확인
+      const categoryParam = searchParams?.get('category');
+      
+      // category 파라미터가 있으면 해당 카테고리의 첫 번째 비디오 선택
+      if (categoryParam) {
+        const targetCategory = newCategories.find(cat => cat.id === categoryParam);
+        if (targetCategory && targetCategory.videos.length > 0) {
+          setSelectedVideo({
+            videoUrl: targetCategory.videos[0].videoUrl,
+            title: targetCategory.title,
+          });
+          
+          // 카테고리로 스크롤 (약간의 지연을 두어 DOM이 업데이트된 후 스크롤)
+          setTimeout(() => {
+            const targetElement = categoryRefs.current[categoryParam];
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+        } else {
+          // 해당 카테고리에 비디오가 없으면 첫 번째 비디오 선택
+          const firstCategoryWithVideo = newCategories.find(cat => cat.videos.length > 0);
+          if (firstCategoryWithVideo && firstCategoryWithVideo.videos[0]) {
+            setSelectedVideo({
+              videoUrl: firstCategoryWithVideo.videos[0].videoUrl,
+              title: firstCategoryWithVideo.title,
+            });
+          }
+        }
+      } else {
+        // category 파라미터가 없으면 첫 번째 비디오 선택
+        const firstCategoryWithVideo = newCategories.find(cat => cat.videos.length > 0);
+        if (firstCategoryWithVideo && firstCategoryWithVideo.videos[0]) {
+          setSelectedVideo({
+            videoUrl: firstCategoryWithVideo.videos[0].videoUrl,
+            title: firstCategoryWithVideo.title,
+          });
+        }
       }
       
       setIsLoading(false);
@@ -230,7 +276,7 @@ export default function WorshipPage() {
     <div className="w-full">
       <div className="py-4 md:py-8 px-3 md:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Main YouTube Player */}
-        <div className="mb-6 md:mb-8">
+        <div ref={playerRef} className="mb-6 md:mb-8">
           <div className="aspect-video w-full bg-black rounded-md md:rounded-lg overflow-hidden shadow-lg">
             <iframe
               width="100%"
@@ -246,7 +292,11 @@ export default function WorshipPage() {
 
         {/* Video Categories */}
         {categories.map((category) => (
-          <div key={category.id} className="mb-8 md:mb-12">
+          <div 
+            key={category.id} 
+            ref={(el) => { categoryRefs.current[category.id] = el; }}
+            className="mb-8 md:mb-12"
+          >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4 md:mb-6 border-b-2 border-gray-200 pb-3">
               <h3 className="text-xl md:text-2xl font-bold text-gray-800">
                 {category.title}
@@ -268,7 +318,17 @@ export default function WorshipPage() {
                   className="cursor-pointer group relative"
                 >
                   <div
-                    onClick={() => setSelectedVideo({ videoUrl: video.videoUrl, title: category.title })}
+                    onClick={() => {
+                      setSelectedVideo({ videoUrl: video.videoUrl, title: category.title });
+                      // 상단 재생 영역으로 스크롤 (약간의 여백 추가)
+                      setTimeout(() => {
+                        if (playerRef.current) {
+                          const elementTop = playerRef.current.getBoundingClientRect().top + window.pageYOffset;
+                          const offset = 80; // 상단에서 80px 위로
+                          window.scrollTo({ top: elementTop - offset, behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }}
                     className="relative aspect-video bg-gray-500 rounded-md md:rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                   >
                     <Image
@@ -340,5 +400,17 @@ export default function WorshipPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function WorshipPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white w-full flex items-center justify-center">
+        <div className="text-xl text-gray-600">로딩 중...</div>
+      </div>
+    }>
+      <WorshipPageContent />
+    </Suspense>
   );
 }
