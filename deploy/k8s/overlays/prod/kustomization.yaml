@@ -6,6 +6,7 @@ namespace: jaejadle
 resources:
   - ../../base
   - resourcequota.yaml
+  - sealed-jaejadle-secret.yaml
 
 commonLabels:
   environment: production
