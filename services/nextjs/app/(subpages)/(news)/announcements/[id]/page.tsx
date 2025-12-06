@@ -116,33 +116,33 @@ export default function AnnouncementDetailPage() {
 
   return (
     <div className="w-full">
-      <div className="py-6 md:py-12 px-4">
-        <div className="max-w-4xl p-4 md:p-6 lg:p-8 rounded-xl bg-gray-100 mx-auto">
+      <div className="py-6 smalltablet:py-12 px-4">
+        <div className="max-w-4xl p-4 smalltablet:p-6 pc:p-8 rounded-xl bg-gray-100 mx-auto">
           {/* 헤더 */}
-          <div className="mb-6 md:mb-8">
-            <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+          <div className="mb-6 smalltablet:mb-8">
+            <div className="flex items-center gap-2 smalltablet:gap-3 mb-3 smalltablet:mb-4">
               {announcement.isImportant && (
-                <span className="px-2 md:px-3 py-0.5 md:py-1 rounded-full text-xs md:text-sm font-semibold bg-red-100 text-red-700">
+                <span className="px-2 smalltablet:px-3 py-0.5 smalltablet:py-1 rounded-full text-xs smalltablet:text-sm font-semibold bg-red-100 text-red-700">
                   중요
                 </span>
               )}
             </div>
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 md:mb-4 wrap-break-word">
+            <h1 className="text-xl smalltablet:text-2xl pc:text-3xl font-bold text-gray-800 mb-3 smalltablet:mb-4 wrap-break-word">
               {announcement.title}
             </h1>
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between text-xs md:text-sm text-gray-600 pb-3 md:pb-4 border-b gap-3 md:gap-0">
-              <div className="flex flex-wrap items-center gap-2 md:gap-4">
+            <div className="flex flex-col smalltablet:flex-row smalltablet:items-center smalltablet:justify-between text-xs smalltablet:text-sm text-gray-600 pb-3 smalltablet:pb-4 border-b gap-3 smalltablet:gap-0">
+              <div className="flex flex-wrap items-center gap-2 smalltablet:gap-4">
                 <span>작성자: {announcement.author.userName}</span>
-                <span className="hidden md:inline">•</span>
-                <span className="hidden md:inline text-xs md:text-sm">{formatDate(announcement.createdAt)}</span>
-                <span className="hidden md:inline">•</span>
+                <span className="hidden smalltablet:inline">•</span>
+                <span className="hidden smalltablet:inline text-xs smalltablet:text-sm">{formatDate(announcement.createdAt)}</span>
+                <span className="hidden smalltablet:inline">•</span>
                 <span>조회수: {announcement.viewCount}</span>
               </div>
               {isAuthor && (
                 <div className="flex gap-2">
                   <button
                     onClick={handleDelete}
-                    className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                    className="px-3 smalltablet:px-4 py-1.5 smalltablet:py-2 text-xs smalltablet:text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     삭제
                   </button>
@@ -152,20 +152,20 @@ export default function AnnouncementDetailPage() {
           </div>
 
           {/* 내용 */}
-          <div className="prose max-w-none mb-6 md:mb-8">
-            <div className="text-sm md:text-base text-gray-800 leading-relaxed whitespace-pre-wrap wrap-break-word">
+          <div className="prose max-w-none mb-6 smalltablet:mb-8">
+            <div className="text-sm smalltablet:text-base text-gray-800 leading-relaxed whitespace-pre-wrap wrap-break-word">
               {announcement.content}
             </div>
           </div>
 
           {/* 첨부 파일 */}
           {announcement.files && announcement.files.length > 0 && (
-            <div className="mb-8 md:mb-12">
-              <div className="border-t pt-4 md:pt-6">
-                <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4">
+            <div className="mb-8 smalltablet:mb-12">
+              <div className="border-t pt-4 smalltablet:pt-6">
+                <h3 className="text-base smalltablet:text-lg font-semibold text-gray-800 mb-3 smalltablet:mb-4">
                   첨부 파일 ({announcement.files.length})
                 </h3>
-                <div className="space-y-2 md:space-y-3">
+                <div className="space-y-2 smalltablet:space-y-3">
                   {announcement.files.map((file) => {
                     const FileIconComponent = getFileIcon(file.fileName);
                     const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(
@@ -175,32 +175,32 @@ export default function AnnouncementDetailPage() {
                     return (
                       <div
                         key={file.id}
-                        className="border rounded-lg p-3 md:p-4 hover:shadow-md transition-shadow bg-gray-50"
+                        className="border rounded-lg p-3 smalltablet:p-4 hover:shadow-md transition-shadow bg-gray-50"
                       >
-                        <div className="flex items-center gap-3 md:gap-4">
+                        <div className="flex items-center gap-3 smalltablet:gap-4">
                           <div className="shrink-0">
-                            <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded flex items-center justify-center">
+                            <div className="w-10 h-10 smalltablet:w-12 smalltablet:h-12 bg-white rounded flex items-center justify-center">
                               <FileIconComponent
-                                className={`w-5 h-5 md:w-6 md:h-6 ${
+                                className={`w-5 h-5 smalltablet:w-6 smalltablet:h-6 ${
                                   isImage ? "text-blue-500" : "text-gray-500"
                                 }`}
                               />
                             </div>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs md:text-sm font-medium text-gray-800 truncate">
+                            <p className="text-xs smalltablet:text-sm font-medium text-gray-800 truncate">
                               {file.fileName}
                             </p>
-                            <p className="text-xs text-gray-500 hidden md:block">
+                            <p className="text-xs text-gray-500 hidden smalltablet:block">
                               클릭하여 다운로드
                             </p>
                           </div>
                           <button
                             onClick={() => handleDownload(file.fileKey, file.fileName)}
-                            className="shrink-0 px-3 md:px-4 py-1.5 md:py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-1 md:gap-2 text-xs md:text-sm"
+                            className="shrink-0 px-3 smalltablet:px-4 py-1.5 smalltablet:py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-1 smalltablet:gap-2 text-xs smalltablet:text-sm"
                           >
-                            <Download className="w-3 h-3 md:w-4 md:h-4" />
-                            <span className="hidden md:inline">다운로드</span>
+                            <Download className="w-3 h-3 smalltablet:w-4 smalltablet:h-4" />
+                            <span className="hidden smalltablet:inline">다운로드</span>
                           </button>
                         </div>
                       </div>

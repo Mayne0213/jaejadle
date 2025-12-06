@@ -21,9 +21,9 @@ export default function DirectionsPage() {
 
   return (
     <div className="bg-white w-full">
-      <div className="max-w-7xl mx-auto space-y-8 md:space-y-12 px-4 py-6 md:py-10">
+      <div className="max-w-7xl mx-auto space-y-8 smalltablet:space-y-12 px-4 py-6 smalltablet:py-10">
         {/* 지도 영역 */}
-        <div className="w-full h-64 md:h-96 lg:h-[480px] rounded-xl overflow-hidden shadow-lg">
+        <div className="w-full h-64 smalltablet:h-96 pc:h-[480px] rounded-xl overflow-hidden shadow-lg">
           {loading ? (
             <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-xl">
               <p className="text-gray-500">지도를 불러오는 중...</p>
@@ -60,12 +60,12 @@ export default function DirectionsPage() {
         </div>
 
           {/* 교회 정보 카드 */}
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 pb-6 px-2 md:px-4 border-b border-gray-400">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">제자들교회 - 인천</h2>
-              <div className="flex flex-col md:flex-row gap-3 md:gap-8 lg:gap-12">
+            <div className="flex flex-col smalltablet:flex-row smalltablet:justify-between smalltablet:items-center gap-4 smalltablet:gap-0 pb-6 px-2 smalltablet:px-4 border-b border-gray-400">
+              <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold text-gray-900">제자들교회 - 인천</h2>
+              <div className="flex flex-col smalltablet:flex-row gap-3 smalltablet:gap-8 pc:gap-12">
 
-                  <div className="flex items-center gap-2 md:gap-3 text-sm md:text-base lg:text-xl font-bold">
-                    <span className="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-50 text-blue-600">
+                  <div className="flex items-center gap-2 smalltablet:gap-3 text-sm smalltablet:text-base pc:text-xl font-bold">
+                    <span className="inline-flex items-center justify-center w-6 h-6 smalltablet:w-8 smalltablet:h-8 rounded-full bg-blue-50 text-blue-600">
                     <MapPin className="w-4 h-4" />
                     </span>
                     <span className="text-gray-800">주소 : 인천광역시 서구 고산후로 95번길 32 명진프라자 3층 본당 / 4층 교육관</span>

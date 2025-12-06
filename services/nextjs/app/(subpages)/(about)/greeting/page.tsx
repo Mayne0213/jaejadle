@@ -8,14 +8,14 @@ export default function GreetingPage() {
         <div className="max-w-7xl mx-auto px-4 pb-6 pt-10">
 
           {/* 인사말 섹션 */}
-          <div className="grid md:grid-cols-7 gap-8 items-start">
+          <div className="grid smalltablet:grid-cols-7 gap-8 items-start">
             {/* 왼쪽: 인사말 (5/7) */}
-              <div className="space-y-6 text-gray-700 leading-relaxed md:col-span-4 text-center md:text-left">
-                <p className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
+              <div className="space-y-6 text-gray-700 leading-relaxed smalltablet:col-span-4 text-center smalltablet:text-left">
+                <p className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold mb-8">
                   <span className="text-[#6d96c5] block text-5xl">Welcome Home!</span>
                 </p>
 
-                <p className="text-sm md:text-base lg:text-lg">
+                <p className="text-sm smalltablet:text-base pc:text-lg">
                   {`제자들교회를 찾아주셔서 감사드립니다.
                   이 땅의 유일한 구주되신 예수님은
                   상처와 교만, 실패와 낙망으로 얼룩진
@@ -23,7 +23,7 @@ export default function GreetingPage() {
                   영생과 함께 참된 기쁨과 소망을 주셨습니다.`}
                 </p>
 
-                <p className="text-sm md:text-base lg:text-lg">
+                <p className="text-sm smalltablet:text-base pc:text-lg">
                   {`광야와 같은 세상 속에서
                   때로는 숨쉬기조차 어려운 하루하루지만,
                   이곳에서 함께 만날 예수님은
@@ -31,7 +31,7 @@ export default function GreetingPage() {
                   위로자가 되어 주실 겁니다.`}
                 </p>
 
-                <p className="text-sm md:text-base lg:text-lg">
+                <p className="text-sm smalltablet:text-base pc:text-lg">
                   {`제자들교회는 세상이 줄 수 없는
                   그 놀라운 위로와 사랑을
                   온전히 누리며 전하는 공동체 입니다.
@@ -40,8 +40,8 @@ export default function GreetingPage() {
               </div>
 
             {/* 오른쪽: 이미지 (2/7) */}
-            <div className="md:col-span-3">
-              <div className="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden">
+            <div className="smalltablet:col-span-3">
+              <div className="relative h-[300px] smalltablet:h-[400px] rounded-xl overflow-hidden">
                 <Image
                   src={person}
                   alt="담임목사"

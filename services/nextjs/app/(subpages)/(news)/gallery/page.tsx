@@ -55,7 +55,7 @@ export default function GalleryPage() {
             <div className="flex justify-end mb-4">
               <Link
                 href="/gallery/write"
-                className="px-4 sm:px-6 py-2 sm:py-2.5 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium text-xs sm:text-sm"
+                className="px-4 smalltablet:px-6 py-2 smalltablet:py-2.5 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium text-xs smalltablet:text-sm"
               >
                 갤러리 작성
               </Link>
@@ -64,7 +64,7 @@ export default function GalleryPage() {
 
           {/* 갤러리 그리드 */}
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 smalltablet:grid-cols-3 gap-4">
               {Array.from({ length: 6 }).map((_, idx) => (
                 <div key={idx} className="bg-gray-200 rounded-lg overflow-hidden animate-pulse">
                   <div className="aspect-4/3" />
@@ -77,13 +77,13 @@ export default function GalleryPage() {
             </div>
           ) : posts.length === 0 ? (
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 text-center py-20 flex items-center justify-center flex-col">
-              <FileTextIcon className="mx-auto h-12 w-12 sm:h-16 sm:w-16 text-gray-300 mb-4" />
-              <p className="text-gray-500 text-base sm:text-lg">
+              <FileTextIcon className="mx-auto h-12 w-12 smalltablet:h-16 smalltablet:w-16 text-gray-300 mb-4" />
+              <p className="text-gray-500 text-base smalltablet:text-lg">
                 등록된 갤러리가 없습니다.
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 smalltablet:grid-cols-3 gap-4">
               {posts.map((post) => (
                 <Link
                   key={post.id}
@@ -100,14 +100,14 @@ export default function GalleryPage() {
                       />
                     )}
                     {post.images.length > 1 && (
-                      <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] sm:text-xs px-2 py-1 rounded">
+                      <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] smalltablet:text-xs px-2 py-1 rounded">
                         +{post.images.length - 1}
                       </div>
                     )}
                   </div>
                   <div className="p-4">
-                    <h3 className="text-sm sm:text-base font-semibold text-gray-800 truncate">{post.title}</h3>
-                    <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                    <h3 className="text-sm smalltablet:text-base font-semibold text-gray-800 truncate">{post.title}</h3>
+                    <p className="text-xs smalltablet:text-sm text-gray-500 mt-1">
                       {new Date(post.createdAt).toLocaleDateString('ko-KR')}
                     </p>
                   </div>
