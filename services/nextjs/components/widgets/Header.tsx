@@ -52,23 +52,23 @@ export default function Header() {
       className={`group fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         shouldShowScrolled
           ? "bg-white shadow-md"
-          : "bg-transparent lg:hover:bg-white lg:hover:shadow-md"
+          : "bg-transparent pc:hover:bg-white pc:hover:shadow-md"
       }`}
     >
       <nav className="max-w-[1400px] mx-auto">
-        <div className="flex justify-between items-center h-[56px] lg:h-[70px] relative z-10 px-6">
+        <div className="flex justify-between items-center h-[56px] pc:h-[70px] relative z-10 px-6">
           {/* 로고 */}
           <div className="shrink-0">
             <Link href="/" className="flex items-center gap-3 group">
               {/* 아이콘 - 모바일은 작게, 데스크톱은 크게 */}
-              <div className="relative w-8 h-8 lg:w-10 lg:h-10">
+              <div className="relative w-8 h-8 pc:w-10 pc:h-10">
                 <Image
                   src={shouldShowScrolled ? iconBlack : iconWhite}
                   alt="제자들교회 로고"
                   width={40}
                   height={40}
                   className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
-                    shouldShowScrolled ? "opacity-100" : "opacity-100 lg:group-hover:opacity-0"
+                    shouldShowScrolled ? "opacity-100" : "opacity-100 pc:group-hover:opacity-0"
                   }`}
                   placeholder="blur"
                 />
@@ -78,21 +78,21 @@ export default function Header() {
                   width={40}
                   height={40}
                   className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
-                    shouldShowScrolled ? "opacity-0" : "opacity-0 lg:group-hover:opacity-100"
+                    shouldShowScrolled ? "opacity-0" : "opacity-0 pc:group-hover:opacity-100"
                   }`}
                   placeholder="blur"
                 />
               </div>
-              <div className={shouldShowScrolled ? "text-black lg:hover:text-black" : "text-white lg:group-hover:text-black"}>
-                <div className="text-xl lg:text-2xl font-bold tracking-wide">제자들교회</div>
+              <div className={shouldShowScrolled ? "text-black pc:hover:text-black" : "text-white pc:group-hover:text-black"}>
+                <div className="text-xl pc:text-2xl font-bold tracking-wide">제자들교회</div>
                 {/* 데스크톱: 영어 이름 표시 */}
-                <div className="hidden lg:block text-xs opacity-90">DISCIPLES CHURCH</div>
+                <div className="hidden pc:block text-xs opacity-90">DISCIPLES CHURCH</div>
               </div>
             </Link>
           </div>
 
           {/* 데스크톱 네비게이션 */}
-          <div className="hidden lg:flex items-center space-x-10">
+          <div className="hidden pc:flex items-center space-x-10">
             {tabs.map((tab, index) => (
               <div
                 key={tab.label}
@@ -102,7 +102,7 @@ export default function Header() {
               >
                 <Link
                   href={tab.submenu[0]?.href || "#"}
-                  className={`${shouldShowScrolled ? "text-black/90 hover:text-black" : "text-white/90 lg:group-hover:text-black/90"} font-medium transition-colors`}
+                  className={`${shouldShowScrolled ? "text-black/90 hover:text-black" : "text-white/90 pc:group-hover:text-black/90"} font-medium transition-colors`}
                 >
                   {tab.label}
                 </Link>
@@ -139,10 +139,10 @@ export default function Header() {
           </div>
 
           {/* 햄버거 메뉴 */}
-          <div className="lg:hidden">
+          <div className="pc:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`${shouldShowScrolled ? "text-black" : "text-white lg:group-hover:text-black"} p-2`}
+              className={`${shouldShowScrolled ? "text-black" : "text-white pc:group-hover:text-black"} p-2`}
             >
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -157,7 +157,7 @@ export default function Header() {
 
         {/* 모바일 메뉴 */}
         {isMenuOpen && (
-          <div className="lg:hidden max-h-[calc(100vh-56px)] border-t border-gray-200 overflow-y-auto pt-4 px-6 pb-6">
+          <div className="pc:hidden max-h-[calc(100vh-56px)] border-t border-gray-200 overflow-y-auto pt-4 px-6 pb-6">
             <div className="space-y-1">
               {tabs.map((tab, index) => {
                 const isExpanded = expandedTabs.has(index);

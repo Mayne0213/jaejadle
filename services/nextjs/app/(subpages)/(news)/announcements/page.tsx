@@ -51,10 +51,10 @@ export default function AnnouncementsPage() {
   if (isLoading) {
     return (
       <div className="space-y-8 w-full flex flex-col items-center">
-        <div className="max-w-7xl px-4 m-4 md:m-8 w-full">
+        <div className="max-w-7xl px-4 m-4 smalltablet:m-8 w-full">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             {/* 테이블 헤더 스켈레톤 - 데스크톱 */}
-            <div className="hidden md:grid md:grid-cols-12 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
+            <div className="hidden smalltablet:grid smalltablet:grid-cols-12 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
               <div className="col-span-1 px-6 py-4 text-center">번호</div>
               <div className="col-span-6 px-6 py-4">제목</div>
               <div className="col-span-2 px-6 py-4 text-center">작성자</div>
@@ -67,10 +67,10 @@ export default function AnnouncementsPage() {
               {[...Array(5)].map((_, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-1 md:grid-cols-12 animate-pulse"
+                  className="grid grid-cols-1 smalltablet:grid-cols-12 animate-pulse"
                 >
                   {/* 모바일 뷰 스켈레톤 */}
-                  <div className="md:hidden px-6 py-4">
+                  <div className="smalltablet:hidden px-6 py-4">
                     <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
                     <div className="flex items-center justify-between">
                       <div className="h-3 bg-gray-200 rounded w-20"></div>
@@ -79,19 +79,19 @@ export default function AnnouncementsPage() {
                   </div>
 
                   {/* 데스크톱 뷰 스켈레톤 */}
-                  <div className="hidden md:block md:col-span-1 px-6 py-4">
+                  <div className="hidden smalltablet:block smalltablet:col-span-1 px-6 py-4">
                     <div className="h-4 bg-gray-200 rounded w-8 mx-auto"></div>
                   </div>
-                  <div className="hidden md:block md:col-span-6 px-6 py-4">
+                  <div className="hidden smalltablet:block smalltablet:col-span-6 px-6 py-4">
                     <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                   </div>
-                  <div className="hidden md:block md:col-span-2 px-6 py-4">
+                  <div className="hidden smalltablet:block smalltablet:col-span-2 px-6 py-4">
                     <div className="h-4 bg-gray-200 rounded w-16 mx-auto"></div>
                   </div>
-                  <div className="hidden md:block md:col-span-2 px-6 py-4">
+                  <div className="hidden smalltablet:block smalltablet:col-span-2 px-6 py-4">
                     <div className="h-4 bg-gray-200 rounded w-20 mx-auto"></div>
                   </div>
-                  <div className="hidden md:block md:col-span-1 px-6 py-4">
+                  <div className="hidden smalltablet:block smalltablet:col-span-1 px-6 py-4">
                     <div className="h-4 bg-gray-200 rounded w-8 mx-auto"></div>
                   </div>
                 </div>
@@ -105,7 +105,7 @@ export default function AnnouncementsPage() {
 
   return (
       <div className="space-y-8 w-full flex flex-col items-center">
-        <div className="max-w-7xl px-4 m-4 md:m-8 w-full">
+        <div className="max-w-7xl px-4 m-4 smalltablet:m-8 w-full">
           {/* 공지 작성 버튼 */}
           {user && (
             <div className="flex justify-end mb-4">
@@ -129,7 +129,7 @@ export default function AnnouncementsPage() {
           ) : (
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
               {/* 테이블 헤더 - 데스크톱 */}
-              <div className="hidden md:grid md:grid-cols-12 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
+              <div className="hidden smalltablet:grid smalltablet:grid-cols-12 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
                 <div className="col-span-1 px-6 py-4 text-center">번호</div>
                 <div className="col-span-6 px-6 py-4">제목</div>
                 <div className="col-span-2 px-6 py-4 text-center">작성자</div>
@@ -143,10 +143,10 @@ export default function AnnouncementsPage() {
                   <Link
                     key={item.id}
                     href={`/announcements/${item.id}`}
-                    className="grid grid-cols-1 md:grid-cols-12 hover:bg-gray-50 transition-colors"
+                    className="grid grid-cols-1 smalltablet:grid-cols-12 hover:bg-gray-50 transition-colors"
                   >
                     {/* 모바일 뷰 */}
-                    <div className="md:hidden px-6 py-4">
+                    <div className="smalltablet:hidden px-6 py-4">
                       <div className="flex items-center gap-2 mb-2">
                         {item.isImportant && (
                           <span className="px-2 py-0.5 bg-orange-100 text-orange-600 text-xs font-bold rounded">
@@ -162,10 +162,10 @@ export default function AnnouncementsPage() {
                     </div>
 
                     {/* 데스크톱 뷰 */}
-                    <div className="hidden md:block md:col-span-1 px-6 py-4 text-center text-sm text-gray-600">
+                    <div className="hidden smalltablet:block smalltablet:col-span-1 px-6 py-4 text-center text-sm text-gray-600">
                       {announcements.length - index}
                     </div>
-                    <div className="hidden md:block md:col-span-6 px-6 py-4">
+                    <div className="hidden smalltablet:block smalltablet:col-span-6 px-6 py-4">
                       <div className="flex items-center gap-2">
                         {item.isImportant && (
                           <span className="px-2 py-0.5 bg-orange-100 text-orange-600 text-xs font-bold rounded">
@@ -177,13 +177,13 @@ export default function AnnouncementsPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="hidden md:block md:col-span-2 px-6 py-4 text-center text-sm text-gray-600">
+                    <div className="hidden smalltablet:block smalltablet:col-span-2 px-6 py-4 text-center text-sm text-gray-600">
                       {item.author.userName}
                     </div>
-                    <div className="hidden md:flex md:col-span-2 px-6 py-4 justify-center text-center text-sm text-gray-600">
+                    <div className="hidden smalltablet:flex smalltablet:col-span-2 px-6 py-4 justify-center text-center text-sm text-gray-600">
                       {formatDate(item.createdAt)}
                     </div>
-                    <div className="hidden md:block md:col-span-1 px-6 py-4 text-center text-sm text-gray-600">
+                    <div className="hidden smalltablet:block smalltablet:col-span-1 px-6 py-4 text-center text-sm text-gray-600">
                       {item.viewCount}
                     </div>
                   </Link>

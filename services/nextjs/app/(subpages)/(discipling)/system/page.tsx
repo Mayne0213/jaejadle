@@ -65,29 +65,29 @@ export default function DiscipleshipSystemPage() {
                 {index > 0 && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
                     {/* 화살표 몸통 */}
-                    <div className="w-8 h-2 sm:h-3 md:h-3" style={{ backgroundColor: stages[index - 1].arrowColor }}></div>
+                    <div className="w-8 h-2 smalltablet:h-3 smalltablet:h-3" style={{ backgroundColor: stages[index - 1].arrowColor }}></div>
 
                     {/* 모바일 화살표 */}
                     <div
-                      className="w-0 h-0 sm:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
+                      className="w-0 h-0 smalltablet:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
                       style={{ borderTopColor: stages[index - 1].arrowColor }}
                     >
                     </div>
                     {/* 태블릿 화살표 */}
                     <div
-                      className="w-0 h-0 hidden sm:block md:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
+                      className="w-0 h-0 hidden smalltablet:block smalltablet:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
                       style={{ borderTopColor: stages[index - 1].arrowColor }}
                     >
                     </div>
                     {/* 중간 화면 화살표 */}
                     <div
-                      className="w-0 h-0 hidden md:block lg:hidden border-l-32 border-l-transparent border-r-32 border-r-transparent border-t-40"
+                      className="w-0 h-0 hidden smalltablet:block pc:hidden border-l-32 border-l-transparent border-r-32 border-r-transparent border-t-40"
                       style={{ borderTopColor: stages[index - 1].arrowColor }}
                     >
                     </div>
                     {/* 데스크톱 화살표 */}
                     <div
-                      className="w-0 h-0 hidden lg:block border-l-40 border-l-transparent border-r-40 border-r-transparent border-t-50"
+                      className="w-0 h-0 hidden pc:block border-l-40 border-l-transparent border-r-40 border-r-transparent border-t-50"
                       style={{ borderTopColor: stages[index - 1].arrowColor }}
                     >
                     </div>
@@ -95,25 +95,25 @@ export default function DiscipleshipSystemPage() {
                 )}
 
                 {/* 단계 박스 */}
-                <div className={`${stage.bgColor} ${stage.textColor} py-6 md:py-8 px-4 md:px-6 lg:px-8 text-center relative w-full`}>
-                  <div className={`${index > 0 ? 'mt-[30px] lg:mt-[50px]' : ''} mb-3 md:mb-4`}>
-                    <stage.icon className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 mx-auto" strokeWidth={1.5} />
+                <div className={`${stage.bgColor} ${stage.textColor} py-6 smalltablet:py-8 px-4 smalltablet:px-6 pc:px-8 text-center relative w-full`}>
+                  <div className={`${index > 0 ? 'mt-[30px] pc:mt-[50px]' : ''} mb-3 smalltablet:mb-4`}>
+                    <stage.icon className="w-16 h-16 smalltablet:w-20 smalltablet:h-20 pc:w-24 pc:h-24 mx-auto" strokeWidth={1.5} />
                   </div>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">
+                  <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold mb-3">
                     {stage.title}
                   </h2>
 
                   {stage.details ? (
-                    <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 text-base md:text-lg lg:text-xl">
+                    <div className="flex flex-wrap justify-center gap-4 smalltablet:gap-6 pc:gap-8 text-base smalltablet:text-lg pc:text-xl">
                       {stage.details.map((detail, idx) => (
                         <div key={idx} className="text-center">
                           <p>{detail.text}</p>
-                          <p className="text-sm md:text-base opacity-90">{detail.period}</p>
+                          <p className="text-sm smalltablet:text-base opacity-90">{detail.period}</p>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-base md:text-lg lg:text-xl opacity-90">
+                    <p className="text-base smalltablet:text-lg pc:text-xl opacity-90">
                       {stage.subtitle}
                     </p>
                   )}

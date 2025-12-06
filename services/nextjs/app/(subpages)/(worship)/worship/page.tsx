@@ -274,10 +274,10 @@ function WorshipPageContent() {
 
   return (
     <div className="w-full">
-      <div className="py-4 md:py-8 px-3 md:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="py-4 smalltablet:py-8 px-3 smalltablet:px-6 pc:px-8 max-w-7xl mx-auto">
         {/* Main YouTube Player */}
-        <div ref={playerRef} className="mb-6 md:mb-8">
-          <div className="aspect-video w-full bg-black rounded-md md:rounded-lg overflow-hidden shadow-lg">
+        <div ref={playerRef} className="mb-6 smalltablet:mb-8">
+          <div className="aspect-video w-full bg-black rounded-md smalltablet:rounded-lg overflow-hidden shadow-lg">
             <iframe
               width="100%"
               height="100%"
@@ -295,23 +295,23 @@ function WorshipPageContent() {
           <div 
             key={category.id} 
             ref={(el) => { categoryRefs.current[category.id] = el; }}
-            className="mb-8 md:mb-12"
+            className="mb-8 smalltablet:mb-12"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4 md:mb-6 border-b-2 border-gray-200 pb-3">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-800">
+            <div className="flex flex-col smalltablet:flex-row smalltablet:items-center smalltablet:justify-between gap-3 smalltablet:gap-0 mb-4 smalltablet:mb-6 border-b-2 border-gray-200 pb-3">
+              <h3 className="text-xl smalltablet:text-2xl font-bold text-gray-800">
                 {category.title}
               </h3>
               {user && (
                 <button
                   onClick={() => handleAddVideo(category.id)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm md:text-base"
+                  className="bg-green-600 hover:bg-green-700 text-white px-3 smalltablet:px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm smalltablet:text-base"
                 >
                   <span>+</span>
                   <span>영상 추가</span>
                 </button>
               )}
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 smalltablet:grid-cols-2 pc:grid-cols-3 gap-4 smalltablet:gap-6">
               {category.videos.map((video) => (
                 <div
                   key={video.id}
@@ -329,7 +329,7 @@ function WorshipPageContent() {
                         }
                       }, 100);
                     }}
-                    className="relative aspect-video bg-gray-500 rounded-md md:rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                    className="relative aspect-video bg-gray-500 rounded-md smalltablet:rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                   >
                     <Image
                       src={getThumbnailUrl(video.videoUrl)}
@@ -341,10 +341,10 @@ function WorshipPageContent() {
 
                     {/* Delete Button - 로그인한 사용자만 표시 */}
                     {user && (
-                      <div className="absolute bottom-1.5 md:bottom-2 right-1.5 md:right-2 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
+                      <div className="absolute bottom-1.5 smalltablet:bottom-2 right-1.5 smalltablet:right-2 flex gap-2 opacity-100 smalltablet:opacity-0 smalltablet:group-hover:opacity-100 transition-opacity duration-200">
                         <button
                           onClick={(e) => handleDelete(video, e)}
-                          className="bg-red-600 hover:bg-red-700 text-white px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium shadow-lg transition-colors"
+                          className="bg-red-600 hover:bg-red-700 text-white px-2 smalltablet:px-3 py-1 rounded-md text-xs smalltablet:text-sm font-medium shadow-lg transition-colors"
                         >
                           삭제
                         </button>
@@ -361,8 +361,8 @@ function WorshipPageContent() {
       {/* Add Modal */}
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 md:p-8 max-w-md w-full shadow-2xl">
-            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-800">새 영상 추가</h3>
+          <div className="bg-white rounded-lg p-6 smalltablet:p-8 max-w-md w-full shadow-2xl">
+            <h3 className="text-xl smalltablet:text-2xl font-bold mb-4 smalltablet:mb-6 text-gray-800">새 영상 추가</h3>
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 YouTube URL
@@ -372,26 +372,26 @@ function WorshipPageContent() {
                 value={newVideoUrl}
                 onChange={(e) => setNewVideoUrl(e.target.value)}
                 placeholder="https://www.youtube.com/watch?v=..."
-                className="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm md:text-base"
+                className="w-full px-3 smalltablet:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm smalltablet:text-base"
               />
               <p className="mt-2 text-xs text-gray-500">
                 예시: https://www.youtube.com/watch?v=A8xPDnTkNzI
               </p>
             </div>
-            <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 sm:justify-end">
+            <div className="flex flex-col-reverse smalltablet:flex-row gap-2 smalltablet:gap-3 smalltablet:justify-end">
               <button
                 onClick={() => {
                   setIsAddModalOpen(false);
                   setAddingCategory('');
                   setNewVideoUrl('');
                 }}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-colors text-sm md:text-base"
+                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-colors text-sm smalltablet:text-base"
               >
                 취소
               </button>
               <button
                 onClick={handleSaveNewVideo}
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm md:text-base"
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm smalltablet:text-base"
               >
                 추가
               </button>
