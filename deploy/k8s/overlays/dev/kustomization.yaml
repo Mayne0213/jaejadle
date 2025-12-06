@@ -7,6 +7,7 @@ resources:
   - ../../base
   - resourcequota.yaml
   - namespace.yaml
+  - sealed-jaejadle-secret.yaml
 
 commonLabels:
   environment: development
