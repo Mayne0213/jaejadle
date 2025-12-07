@@ -61,32 +61,14 @@ const tabs = [
   },
   {
     label: "Next Generation",
-    href: "/kindergarten",
+    href: "/generation",
     imageHref: "/subpages/generation/generationBG.webp",
     sectionIndex: 3,
     submenu: [
       {
-        label: "유치부",
-        englishLabel: "KINDERGARTEN",
-        href: "/kindergarten",
-        description: "",
-      },
-      {
-        label: "유초등부",
-        englishLabel: "ELEMENTARY",
-        href: "/elementary",
-        description: "",
-      },
-      {
-        label: "중고등부",
-        englishLabel: "MIDDLE & HIGH SCHOOL",
-        href: "/middle-high",
-        description: "",
-      },
-      {
-        label: "청년부",
-        englishLabel: "YOUNG ADULTS",
-        href: "/young-adults",
+        label: "다음 세대",
+        englishLabel: "NEXT GENERATION",
+        href: "/generation",
         description: "",
       },
     ],
