@@ -27,6 +27,8 @@ const generateUploadUrl = async (
       `${S3_CONFIG.ENDPOINT}/${S3_CONFIG.BUCKET_NAME}`
     );
 
+    // const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+
     return {
       uploadUrl,
       fileKey,
