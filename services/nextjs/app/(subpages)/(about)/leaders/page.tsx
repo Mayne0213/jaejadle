@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import leader1 from '@/public/subpages/about/leaders/1.webp';
 import leader2 from '@/public/subpages/about/leaders/2.webp';
