@@ -70,17 +70,11 @@ export default function DiscipleshipSystemPage() {
                 {index > 0 && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
                     {/* 화살표 몸통 */}
-                    <div className="w-8 h-2 smalltablet:h-3 smalltablet:h-3" style={{ backgroundColor: stages[index - 1].arrowColor }}></div>
+                    <div className="w-8 h-2 smalltablet:h-3" style={{ backgroundColor: stages[index - 1].arrowColor }} />
 
                     {/* 모바일 화살표 */}
                     <div
                       className="w-0 h-0 smalltablet:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
-                      style={{ borderTopColor: stages[index - 1].arrowColor }}
-                    >
-                    </div>
-                    {/* 태블릿 화살표 */}
-                    <div
-                      className="w-0 h-0 hidden smalltablet:block smalltablet:hidden border-l-24 border-l-transparent border-r-24 border-r-transparent border-t-30"
                       style={{ borderTopColor: stages[index - 1].arrowColor }}
                     >
                     </div>
