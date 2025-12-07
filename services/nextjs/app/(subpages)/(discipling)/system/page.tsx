@@ -1,5 +1,10 @@
 import React from 'react';
-import { Sprout, Plus, TreePine, Globe, Users } from 'lucide-react';
+import Image from 'next/image';
+import system1 from '@/public/subpages/system/icon1.webp';
+import system2 from '@/public/subpages/system/icon2.webp';
+import system3 from '@/public/subpages/system/icon3.webp';
+import system4 from '@/public/subpages/system/icon4.webp';
+import system5 from '@/public/subpages/system/icon5.webp';
 
 export default function DiscipleshipSystemPage() {
   const stages = [
@@ -7,10 +12,10 @@ export default function DiscipleshipSystemPage() {
       id: 'new-family',
       title: '새가족반 - 정착',
       subtitle: '5주 과정',
-      bgColor: 'bg-[#4A9FD8]',
+      bgColor: 'bg-[#016ba4]',
       textColor: 'text-white',
-      icon: Sprout,
-      arrowColor: '#4A9FD8',
+      icon: <Image src={system1} alt="system1" width={100} height={100} />,
+      arrowColor: '#016ba4',
     },
     {
       id: 'basic',
@@ -18,7 +23,7 @@ export default function DiscipleshipSystemPage() {
       subtitle: '12주 과정',
       bgColor: 'bg-white',
       textColor: 'text-[#4A9FD8]',
-      icon: Plus,
+      icon: <Image src={system2} alt="system2" width={100} height={100} />,
       arrowColor: '#FFFFFF',
     },
     {
@@ -29,10 +34,10 @@ export default function DiscipleshipSystemPage() {
         { text: '복음키워드 2단계 - 영적전투', period: '12주 과정' },
         { text: '복음키워드 3단계 - 하나님 나라', period: '6주 과정' },
       ],
-      bgColor: 'bg-[#5FD4A0]',
+      bgColor: 'bg-[#41cc93]',
       textColor: 'text-white',
-      icon: TreePine,
-      arrowColor: '#5FD4A0',
+      icon: <Image src={system3} alt="system3" width={100} height={100} />,
+      arrowColor: '#41cc93',
     },
     {
       id: 'evangelism',
@@ -40,17 +45,17 @@ export default function DiscipleshipSystemPage() {
       subtitle: '6주 과정',
       bgColor: 'bg-white',
       textColor: 'text-[#F08B7C]',
-      icon: Globe,
+      icon: <Image src={system4} alt="system4" width={100} height={100} />,
       arrowColor: '#FFFFFF',
     },
     {
       id: 'ministry',
       title: '사역훈련반 - 일꾼',
       subtitle: '12주 과정',
-      bgColor: 'bg-[#E89A8C]',
+      bgColor: 'bg-[#ed8775]',
       textColor: 'text-white',
-      icon: Users,
-      arrowColor: '#E89A8C',
+      icon: <Image src={system5} alt="system5" width={100} height={100} />,
+      arrowColor: '#ed8775',
     },
   ];
 
@@ -96,8 +101,8 @@ export default function DiscipleshipSystemPage() {
 
                 {/* 단계 박스 */}
                 <div className={`${stage.bgColor} ${stage.textColor} py-6 smalltablet:py-8 px-4 smalltablet:px-6 pc:px-8 text-center relative w-full`}>
-                  <div className={`${index > 0 ? 'mt-[30px] pc:mt-[50px]' : ''} mb-3 smalltablet:mb-4`}>
-                    <stage.icon className="w-16 h-16 smalltablet:w-20 smalltablet:h-20 pc:w-24 pc:h-24 mx-auto" strokeWidth={1.5} />
+                  <div className={`${index > 0 ? 'mt-[30px] pc:mt-[50px]' : ''} mb-3 smalltablet:mb-4 flex justify-center items-center`}>
+                    {stage.icon}
                   </div>
                   <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold mb-3">
                     {stage.title}
