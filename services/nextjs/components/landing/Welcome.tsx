@@ -34,7 +34,7 @@ export default function Welcome() {
           Welcome!
         </h2>
         <p className="text-sm smalltablet:text-base pc:text-lg text-gray-700 leading-relaxed whitespace-pre-line text-end">
-          청주교회에 오신 것을 환영합니다!
+          제자들교회에 오신 것을 환영합니다!
         </p>
         </div>
 
