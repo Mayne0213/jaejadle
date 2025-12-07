@@ -1,7 +1,7 @@
 // MinIO 설정
 export const S3_CONFIG = {
   BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME || 'jaejadle-bucket',
-  REGION: process.env.AWS_REGION || 'us-east-1',
+  REGION: process.env.AWS_REGION || 'ap-east-2',
   ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID || '',
   SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY || '',
   ENDPOINT: process.env.AWS_S3_ENDPOINT || 'https://s3.minio0213.kro.kr',
