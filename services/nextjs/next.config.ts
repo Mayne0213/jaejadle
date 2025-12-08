@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "*.s3.*.amazonaws.com", // AWS S3 (모든 리전)
+      },
+      {
+        protocol: "https",
+        hostname: "s3.*.amazonaws.com", // AWS S3 path-style
+      },
+      {
+        protocol: "https",
         hostname: "img.youtube.com",
       },
     ],
