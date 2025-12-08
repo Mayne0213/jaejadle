@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "s3.minio0213.kro.kr", // MinIO
+        hostname: "s3.minio0213.kro.kr",
       },
       {
         protocol: "https",
