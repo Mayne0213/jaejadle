@@ -15,6 +15,9 @@ export const s3Client = new S3Client({
     accessKeyId: S3_CONFIG.ACCESS_KEY_ID,
     secretAccessKey: S3_CONFIG.SECRET_ACCESS_KEY,
   },
-  // (MinIO는 S3와 API 호환되지만 커스텀 엔드포인트가 필요)
-  ...(process.env.AWS_S3_ENDPOINT && { endpoint: process.env.AWS_S3_ENDPOINT }),
+  // MinIO를 사용하는 경우 endpoint와 path-style 설정 필요
+  ...(process.env.AWS_S3_ENDPOINT && {
+    endpoint: process.env.AWS_S3_ENDPOINT,
+    forcePathStyle: true, // MinIO는 path-style URL 사용 (https://endpoint/bucket/path)
+  }),
 });
