@@ -15,6 +15,6 @@ export const s3Client = new S3Client({
     accessKeyId: S3_CONFIG.ACCESS_KEY_ID,
     secretAccessKey: S3_CONFIG.SECRET_ACCESS_KEY,
   },
-  // MinIO를 사용하는 경우 환경 변수 AWS_S3_ENDPOINT를 설정하면 SDK가 자동으로 처리
-  // ...(process.env.AWS_S3_ENDPOINT && { endpoint: process.env.AWS_S3_ENDPOINT }),
+  // (MinIO는 S3와 API 호환되지만 커스텀 엔드포인트가 필요)
+  ...(process.env.AWS_S3_ENDPOINT && { endpoint: process.env.AWS_S3_ENDPOINT }),
 });
