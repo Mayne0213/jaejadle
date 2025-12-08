@@ -12,7 +12,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "s3.minio0213.kro.kr",
+        hostname: "s3.minio0213.kro.kr", // MinIO
+      },
+      {
+        protocol: "https",
+        hostname: "*.s3.*.amazonaws.com", // AWS S3 (모든 리전)
+      },
+      {
+        protocol: "https",
+        hostname: "s3.*.amazonaws.com", // AWS S3 path-style
       },
       {
         protocol: "https",

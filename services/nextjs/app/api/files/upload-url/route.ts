@@ -19,15 +19,10 @@ const generateUploadUrl = async (
       ContentType: fileType,
     });
 
-    let uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
 
-    // MinIO URL 변경
-    uploadUrl = uploadUrl.replace(
-      `https://${S3_CONFIG.BUCKET_NAME}.s3.${S3_CONFIG.REGION}.amazonaws.com`,
-      `${S3_CONFIG.ENDPOINT}/${S3_CONFIG.BUCKET_NAME}`
-    );
-
-    // const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    // MinIO를 사용할 때만 URL 변경 (AWS S3는 그대로 사용)
+    // AWS S3를 사용할 때는 URL을 변경하면 서명이 맞지 않아 오류 발생
 
     return {
       uploadUrl,
