@@ -34,7 +34,7 @@ jobs:
       - name: Lowercase repository name
         id: lowercase
         run: |
-          echo "repo=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+          echo "repo=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]' | sed 's/bluemayne/mayne0213/')" >> $GITHUB_OUTPUT
 
       - name: Extract metadata (tags, labels)
         id: meta
