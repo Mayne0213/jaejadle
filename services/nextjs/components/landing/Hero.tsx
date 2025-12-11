@@ -11,7 +11,7 @@ export default function Hero() {
 
   const slides = [
     {
-      title: "예수님의 사랑으로",
+      title: "WELCOME!",
       subtitle: "하나되는 제자들교회",
       description: "제자들교회 홈페이지에 방문하신 여러분을 환영합니다",
       image: heroImage1
