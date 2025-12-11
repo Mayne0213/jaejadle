@@ -58,7 +58,7 @@ jobs:
           docker build \
             -t $(echo "$TAGS" | head -n 1) \
             -f ./deploy/docker/Dockerfile.prod \
-            ./services/fastapi
+            ./services/nextjs
 
           # Tag all versions
           FIRST_TAG=$(echo "$TAGS" | head -n 1)
