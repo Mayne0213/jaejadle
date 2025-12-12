@@ -11,7 +11,7 @@ const generateUploadUrl = async (
   folder?: string
 ): Promise<{ uploadUrl: string; fileKey: string }> => {
   try {
-    const fileKey = folder ? `${folder}/${Date.now()}-${fileName}` : `${Date.now()}-${fileName}`;
+    const fileKey = folder ? `Jaejadle/${folder}/${Date.now()}-${fileName}` : `Jaejadle/${Date.now()}-${fileName}`;
     
     const command = new PutObjectCommand({
       Bucket: S3_CONFIG.BUCKET_NAME,
