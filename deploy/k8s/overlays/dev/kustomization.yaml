@@ -7,7 +7,8 @@ resources:
   - ../../base
   - resourcequota.yaml
   - namespace.yaml
-  - sealed-jaejadle-secret.yaml
+  - secretstore.yaml
+  - externalsecret.yaml
 
 commonLabels:
   environment: development
@@ -15,7 +16,7 @@ commonLabels:
 # 이미지 태그 설정
 images:
   - name: ghcr.io/mayne0213/jaejadle
-    newTag: develop-sha-acfdc0f489b7409e749fa79c25e36c32b3c5d60d
+    newTag: develop-sha-ec6ebd7ed988383b61d124b6b4e16c86490e0526
 
 patchesStrategicMerge:
   - deployment-patch.yaml
