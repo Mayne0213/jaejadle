@@ -195,12 +195,12 @@ const SignUpForm = () => {
             {...register("userPhone", {
               required: "전화번호를 입력해주세요",
               pattern: {
-                value: /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/,
-                message: "올바른 전화번호 형식이 아닙니다",
+                value: /^01[0-9][0-9]{7,8}$/,
+                message: "하이픈(-) 없이 숫자만 입력해주세요 (예: 01012345678)",
               },
             })}
             disabled={isSubmitting}
-            placeholder="010-1234-5678"
+            placeholder="01012345678"
             className={`w-full h-12 px-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-50 transition-all ${
               errors.userPhone
                 ? "border-red-300 focus:ring-red-400"
@@ -210,6 +210,30 @@ const SignUpForm = () => {
           {errors.userPhone && (
             <p className="text-red-500 text-xs mt-1">
               {errors.userPhone.message}
+            </p>
+          )}
+        </div>
+
+        {/* 승인번호 */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            승인번호 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            {...register("authCode", {
+              required: "승인번호를 입력해주세요",
+            })}
+            disabled={isSubmitting}
+            className={`w-full h-12 px-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-50 transition-all ${
+              errors.authCode
+                ? "border-red-300 focus:ring-red-400"
+                : "border-gray-200 focus:ring-[#6b95c6]"
+            }`}
+          />
+          {errors.authCode && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.authCode.message}
             </p>
           )}
         </div>
