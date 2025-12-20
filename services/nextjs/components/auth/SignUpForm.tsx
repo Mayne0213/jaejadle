@@ -29,6 +29,7 @@ const SignUpForm = () => {
       userCheckPassword: "",
       userName: "",
       userPhone: "",
+      authCode: "",
     },
   });
 
