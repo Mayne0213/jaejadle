@@ -51,7 +51,7 @@ export default function NewsAndGallery() {
         <div className="grid pc:grid-cols-2 gap-10 smalltablet:gap-12">
           {/* 왼쪽: 소식 */}
           <div>
-            <div className="flex justify-between items-stretch pb-3 smalltablet:pb-4 mb-8 smalltablet:mb-10 border-b border-gray-200">
+            <div className="flex justify-between items-center pb-3 smalltablet:pb-4 mb-8 smalltablet:mb-10 border-b border-gray-200">
               <div>
                 <h2 className="text-3xl smalltablet:text-4xl pc:text-5xl font-black text-gray-900 mb-1 smalltablet:mb-2 tracking-tight">News</h2>
                 <p className="text-gray-600 text-sm smalltablet:text-base">소식</p>
@@ -59,7 +59,7 @@ export default function NewsAndGallery() {
               <Link
                 href="/announcements"
                 aria-label="더보기"
-                className="w-12 smalltablet:w-14 m-2 self-stretch rounded-xl bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
+                className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 shrink-0 rounded-xl bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
               >
                 <svg className="w-4 h-4 smalltablet:w-5 smalltablet:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -123,7 +123,7 @@ export default function NewsAndGallery() {
 
           {/* 오른쪽: 갤러리 */}
           <div>
-            <div className="flex justify-between items-stretch pb-3 smalltablet:pb-4 mb-8 smalltablet:mb-10 border-b border-gray-200">
+            <div className="flex justify-between items-center pb-3 smalltablet:pb-4 mb-8 smalltablet:mb-10 border-b border-gray-200">
               <div>
                 <h2 className="text-3xl smalltablet:text-4xl pc:text-5xl font-black text-gray-900 mb-1 smalltablet:mb-2 tracking-tight">Photos</h2>
                 <p className="text-gray-600 text-sm smalltablet:text-base">앨범</p>
@@ -131,7 +131,7 @@ export default function NewsAndGallery() {
               <Link
                 href="/gallery"
                 aria-label="더보기"
-                className="w-12 smalltablet:w-14 m-2 self-stretch rounded-xl bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
+                className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 shrink-0 rounded-xl bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
               >
                 <svg className="w-4 h-4 smalltablet:w-5 smalltablet:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
