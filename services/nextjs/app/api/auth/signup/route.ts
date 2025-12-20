@@ -10,12 +10,21 @@ export async function POST(req: Request) {
       userCheckPassword,
       userName,
       userPhone,
+      authCode,
     } = await req.json();
 
     // 유효성 검사
-    if (!userId || !userPassword || !userCheckPassword || !userName || !userPhone) {
+    if (!userId || !userPassword || !userCheckPassword || !userName || !userPhone || !authCode) {
       return NextResponse.json(
         { success: false, message: "필수 정보를 모두 입력해주세요." },
+        { status: 400 }
+      );
+    }
+
+    // 승인번호 검사
+    if (authCode !== process.env.CODE) {
+      return NextResponse.json(
+        { success: false, message: "승인번호가 올바르지 않습니다." },
         { status: 400 }
       );
     }

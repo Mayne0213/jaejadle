@@ -59,7 +59,7 @@ function WorshipPageContent() {
   const [categories, setCategories] = useState<Category[]>([
     { id: 'sermon', title: '주일 설교', videos: [] },
     { id: 'friday', title: '금요 성령집회', videos: [] },
-    { id: 'praise', title: '주일 찬양', videos: [] }]);
+  ]);
     
   const [selectedVideo, setSelectedVideo] = useState<{ videoUrl: string; title: string }>({
     videoUrl: 'https://www.youtube.com/watch?v=A8xPDnTkNzI',
@@ -104,13 +104,6 @@ function WorshipPageContent() {
           title: '주일 설교',
           videos: dbVideos
             .filter(v => v.category === 'sermon')
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        },
-        {
-          id: 'praise',
-          title: '주일 찬양',
-          videos: dbVideos
-            .filter(v => v.category === 'praise')
             .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         },
         {
