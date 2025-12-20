@@ -11,5 +11,5 @@ commonLabels:
   app.kubernetes.io/component: web
 
 images:
-  - name: gitea0213.kro.kr/mayne0213/jaejadle
+  - name: gitea0213.kro.kr/bluemayne/jaejadle
     newTag: latest

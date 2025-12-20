@@ -4,7 +4,7 @@ metadata:
   name: jaejadle
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: jaejadle=gitea0213.kro.kr/mayne0213/jaejadle
+    argocd-image-updater.argoproj.io/image-list: jaejadle=gitea0213.kro.kr/bluemayne/jaejadle
     argocd-image-updater.argoproj.io/jaejadle.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: argocd
   finalizers:
