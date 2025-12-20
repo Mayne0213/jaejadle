@@ -1,23 +1,22 @@
 import Image from 'next/image';
 import { Clock, MapPin } from 'lucide-react';
-import leader1 from '@/public/subpages/about/leaders/1.webp';
-import leader2 from '@/public/subpages/about/leaders/2.webp';
-import leader3 from '@/public/subpages/about/leaders/3.webp';
+import youth from '@/public/subpages/generation/youth.webp';
+import elementary from '@/public/subpages/generation/elementary.webp';
+import highschool from '@/public/subpages/generation/highschool.webp';
+import adult from '@/public/subpages/generation/adult.webp';
 
 const DEPARTMENTS = [
   {
     title: '유치부',
     color: '#6d96c5',
-    image: leader1,
-    description: `유치부는 하나님의 사랑을 배우며 자라나는 어린이들을 위한 부서입니다.`,
+    image: youth,
     worshipTime: '11:00-12:00(주일)',
     worshipPlace: '4층 해피키즈',
   },
   {
     title: '유초등부',
     color: '#88aad2',
-    image: leader2,
-    description: `유초등부는 변화하는 시기에 있는 유초등 아이들이 하나님과 함께 성장하는 부서입니다.`,
+    image: elementary,
     worshipTime: '11:00-12:00(주일)',
     worshipPlace: '4층 해피키즈',
     ageRange: '6세 ~ 12세',
@@ -25,8 +24,7 @@ const DEPARTMENTS = [
   {
     title: '중고등부',
     color: '#94b7d6',
-    image: leader2,
-    description: `중고등부는 변화하는 시기에 있는 중고등 아이들이 하나님과 함께 성장하는 부서입니다.`,
+    image: highschool,
     worshipTime: '11:00-12:00(주일)',
     worshipPlace: '4층 교육관',
     ageRange: '13세 ~ 18세',
@@ -34,8 +32,7 @@ const DEPARTMENTS = [
   {
     title: '청년부',
     color: '#88aad2',
-    image: leader3,
-    description: `청년부는 하나님의 말씀으로 삶을 살아가는 청년들을 위한 부서입니다.`,
+    image: adult,
     worshipTime: '16:00-17:00(토요일)',
     worshipPlace: '4층 교육관',
   },
@@ -45,7 +42,7 @@ export default function GenerationPage() {
   return (
     <div className="bg-white w-full">
       <div className="pt-8 smalltablet:pt-12 pc:pt-16 px-4 smalltablet:px-6 pc:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {DEPARTMENTS.map((department, index) => (
             <div key={index} className="mb-8 smalltablet:mb-16 pc:mb-20 p-8 rounded-2xl bg-gray-100 border border-gray-300">
               {/* 섹션 헤더 */}
@@ -60,9 +57,9 @@ export default function GenerationPage() {
               </div>
 
               {/* 부서 소개 섹션 - 왼쪽 이미지, 오른쪽 설명 */}
-              <div className="grid smalltablet:grid-cols-7 gap-6 smalltablet:gap-8 pc:gap-12 items-center">
+              <div className="flex flex-col smalltablet:flex-row items-center justify-center gap-6 smalltablet:gap-8 pc:gap-12">
                 {/* 왼쪽: 이미지 (3/7) */}
-                <div className="smalltablet:col-span-3 order-1">
+                <div className="w-full smalltablet:w-[42.857%] smalltablet:flex-[3]">
                   <div className="group relative aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                     <Image
                       src={department.image}
@@ -76,13 +73,8 @@ export default function GenerationPage() {
                 </div>
 
                 {/* 오른쪽: 설명 (4/7) */}
-                <div className="smalltablet:col-span-4 order-2">
+                <div className="w-full smalltablet:w-[57.143%] smalltablet:flex-[4]">
                   <div className="space-y-6 smalltablet:space-y-8 pc:space-y-10">
-                    {/* 메인 설명 */}
-                    <p className="text-base smalltablet:text-lg pc:text-2xl text-gray-700 leading-relaxed text-center smalltablet:text-left">
-                      {department.description}
-                    </p>
-
                     {/* 예배 정보 */}
                     {/* 모바일: 한 줄에 배치 */}
                     <div className="flex items-center gap-3 smalltablet:hidden justify-center">
@@ -97,7 +89,7 @@ export default function GenerationPage() {
                             style={{ color: department.color }}
                           />
                         </div>
-                        <p className="text-sm text-gray-700 font-medium">
+                        <p className="text-base text-gray-700 font-medium items-center">
                           {department.worshipTime}
                         </p>
                       </div>
@@ -116,7 +108,7 @@ export default function GenerationPage() {
                             style={{ color: department.color }}
                           />
                         </div>
-                        <p className="text-sm text-gray-700 font-medium">
+                        <p className="text-base text-gray-700 font-medium">
                           {department.worshipPlace}
                         </p>
                       </div>
@@ -138,9 +130,9 @@ export default function GenerationPage() {
                         </div>
                         
                         {/* 예배 시간 텍스트 */}
-                        <div className="flex-1">
-                          <p className="text-sm pc:text-base text-gray-500 mb-1 pc:mb-1.5">예배 시간</p>
-                          <p className="text-base pc:text-xl text-gray-700 leading-relaxed font-medium">
+                        <div className="flex-1 items-center">
+                          <p className="text-base pc:text-lg text-gray-500 mb-1 pc:mb-1.5">예배 시간</p>
+                          <p className="text-lg pc:text-2xl text-gray-700 leading-relaxed font-medium">
                             {department.worshipTime}
                           </p>
                         </div>
@@ -161,8 +153,8 @@ export default function GenerationPage() {
                         
                         {/* 예배 장소 텍스트 */}
                         <div className="flex-1">
-                          <p className="text-sm pc:text-base text-gray-500 mb-1 pc:mb-1.5">예배 장소</p>
-                          <p className="text-base pc:text-xl text-gray-700 leading-relaxed font-medium">
+                          <p className="text-base pc:text-lg text-gray-500 mb-1 pc:mb-1.5">예배 장소</p>
+                          <p className="text-lg pc:text-2xl text-gray-700 leading-relaxed font-medium">
                             {department.worshipPlace}
                           </p>
                         </div>

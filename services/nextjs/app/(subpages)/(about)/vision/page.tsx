@@ -13,7 +13,7 @@ const SAHUN_DATA = [
   },
   {
     number: 2,
-    title: '서로사랑',
+    title: '서로 사랑',
     englishTitle: 'Love One Another',
     description: '그리스도의 사랑으로 서로를 섬기고\n하나됨을 이루어가는\n사랑의 공동체',
     Icon: HandHeart,
