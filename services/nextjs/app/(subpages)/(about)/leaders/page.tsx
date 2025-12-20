@@ -6,6 +6,8 @@ import leader4 from '@/public/subpages/about/leaders/4.webp';
 import leader5 from '@/public/subpages/about/leaders/5.webp';
 import leader6 from '@/public/subpages/about/leaders/6.webp';
 import leader7 from '@/public/subpages/about/leaders/7.webp';
+import leader8 from '@/public/subpages/about/leaders/8.webp';
+import leader9 from '@/public/subpages/about/leaders/9.webp';
 
 const LEADER_CATEGORIES = [
   {
@@ -25,8 +27,8 @@ const LEADER_CATEGORIES = [
     color: '#94b7d6',
     members: [
       { name: '안종웅', title: '시무 장로', image: leader7 },
-      { name: '김현종', title: '시무 장로', image: leader1 },
-      { name: '김정태', title: '명예 장로', image: leader2 },
+      { name: '김현종', title: '시무 장로', image: leader8 },
+      { name: '김정태', title: '명예 장로', image: leader9 },
     ],
   },
 ];
