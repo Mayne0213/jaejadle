@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import system1 from '@/public/subpages/system/icon1.webp';
 import system2 from '@/public/subpages/system/icon2.webp';
