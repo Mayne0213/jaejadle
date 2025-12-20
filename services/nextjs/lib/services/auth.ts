@@ -13,6 +13,7 @@ export interface SignUpData {
   userCheckPassword: string;
   userName: string;
   userPhone: string;
+  authCode?: string;
 }
 
 /**
