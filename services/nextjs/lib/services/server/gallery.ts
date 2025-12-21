@@ -44,7 +44,8 @@ const getPresignedUrl = unstable_cache(
   },
   ['s3-presigned-url'],
   {
-    revalidate: 1800, // 30분마다 재검증 (presigned URL은 1시간 유효)
+    revalidate: 3000, // 50분마다 재검증 (presigned URL은 1시간 유효)
+    tags: ['s3-urls'],
   }
 );
 
@@ -52,7 +53,7 @@ const getPresignedUrl = unstable_cache(
  * 서버 사이드에서 갤러리 포스트 목록 조회 (썸네일 URL 포함)
  */
 export const getGalleryPostsServer = unstable_cache(
-  async (limit: number = 4) => {
+  async (limit: number = 3) => {
     const posts = await prisma.galleryPost.findMany({
       orderBy: { createdAt: 'desc' },
       take: limit,
