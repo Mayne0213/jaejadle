@@ -62,25 +62,29 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-3 group">
               {/* 아이콘 - 모바일은 작게, 데스크톱은 크게 */}
               <div className="relative w-8 h-8 pc:w-10 pc:h-10">
+                {/* 흰색 아이콘 */}
                 <Image
-                  src={shouldShowScrolled ? iconBlack : iconWhite}
+                  src={iconWhite}
                   alt="제자들교회 로고"
                   width={40}
                   height={40}
                   className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
-                    shouldShowScrolled ? "opacity-100" : "opacity-100 pc:group-hover:opacity-0"
+                    shouldShowScrolled ? "opacity-0" : "opacity-100 pc:group-hover:opacity-0"
                   }`}
                   placeholder="blur"
+                  priority
                 />
+                {/* 검은색 아이콘 */}
                 <Image
                   src={iconBlack}
                   alt="제자들교회 로고"
                   width={40}
                   height={40}
                   className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
-                    shouldShowScrolled ? "opacity-0" : "opacity-0 pc:group-hover:opacity-100"
+                    shouldShowScrolled ? "opacity-100" : "opacity-0 pc:group-hover:opacity-100"
                   }`}
                   placeholder="blur"
+                  priority
                 />
               </div>
               <div className={shouldShowScrolled || isMenuOpen ? "text-black pc:hover:text-black" : "text-white pc:group-hover:text-black"}>
