@@ -1,35 +1,14 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getGalleryPostsWithThumbnails, GalleryPost } from "@/lib/services/gallery";
-import { getAnnouncements, Announcement } from "@/lib/services/announcement";
+import { getGalleryPostsServer } from "@/lib/services/server/gallery";
+import { getAnnouncementsServer } from "@/lib/services/server/announcement";
 
-export default function NewsAndGallery() {
-  const [newsItems, setNewsItems] = useState<Announcement[]>([]);
-  const [galleryPosts, setGalleryPosts] = useState<GalleryPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const [announcementsResponse, galleryResponse] = await Promise.all([
-          getAnnouncements(1, 6),
-          getGalleryPostsWithThumbnails(1, 4),
-        ]);
-
-        setNewsItems(announcementsResponse.data);
-        setGalleryPosts(galleryResponse.data);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
+export default async function NewsAndGallery() {
+  // 서버 사이드에서 데이터 fetching (캐싱 적용)
+  const [newsItems, galleryPosts] = await Promise.all([
+    getAnnouncementsServer(6),
+    getGalleryPostsServer(4),
+  ]);
 
   // 날짜 포맷 함수
   const formatDate = (dateString: string) => {
@@ -42,8 +21,6 @@ export default function NewsAndGallery() {
       date: `${year}.${month}`
     };
   };
-
-
 
   return (
     <section className="py-16 smalltablet:py-20 pc:py-24 bg-gray-50">
@@ -68,23 +45,7 @@ export default function NewsAndGallery() {
             </div>
 
             <div className="space-y-3">
-              {loading ? (
-                // 로딩 스켈레톤
-                Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className={`bg-white p-4 smalltablet:p-5 rounded-xl border border-gray-200 animate-pulse ${index >= 4 ? 'hidden smalltablet:block' : ''}`}
-                  >
-                    <div className="flex items-start gap-3 smalltablet:gap-4">
-                      <div className="shrink-0 bg-gray-200 w-14 h-14 smalltablet:w-16 smalltablet:h-16 rounded-lg" />
-                      <div className="flex-1 space-y-2">
-                        <div className="h-5 bg-gray-200 rounded w-3/4" />
-                        <div className="h-4 bg-gray-200 rounded w-full" />
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : newsItems.length > 0 ? (
+              {newsItems.length > 0 ? (
                 newsItems.slice(0, 6).map((item, index) => {
                   const { day, date } = formatDate(item.createdAt);
                   return (
@@ -139,21 +100,9 @@ export default function NewsAndGallery() {
               </Link>
             </div>
 
-
-
             {/* 이미지 그리드 */}
             <div className="grid grid-cols-2 gap-3 smalltablet:mx-auto smalltablet:grid-cols-3 smalltablet:gap-4 pc:grid-cols-2">
-              {loading ? (
-                // 로딩 스켈레톤
-                Array.from({ length: 4 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-white rounded-xl overflow-hidden shadow-md border border-gray-200 animate-pulse"
-                  >
-                    <div className="aspect-square bg-gray-200 relative overflow-hidden" />
-                  </div>
-                ))
-              ) : galleryPosts.length > 0 ? (
+              {galleryPosts.length > 0 ? (
                 galleryPosts.map((post) => {
                   const { date } = formatDate(post.createdAt);
                   return (
@@ -204,4 +153,3 @@ export default function NewsAndGallery() {
     </section>
   );
 }
-
