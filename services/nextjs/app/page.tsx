@@ -3,9 +3,6 @@ import Intro from "@/components/landing/Intro";
 import NewsAndGallery from "@/components/landing/NewsAndGallery";
 import Contact from "@/components/landing/Contact";
 import Welcome from "@/components/landing/Welcome";
-import FAQ from "@/components/landing/FAQ";
-import ServiceTimes from "@/components/landing/ServiceTimes";
-import Ministries from "@/components/landing/Ministries";
 
 export default function JaejadlePage() {
 
@@ -14,11 +11,8 @@ export default function JaejadlePage() {
       <Hero />
       <Intro />
       <Welcome />
-      {/* <NewsAndGallery /> */}
+      <NewsAndGallery />
       <Contact />
-      <FAQ />
-      <ServiceTimes />
-      <Ministries />
     </div>
   );
 }
