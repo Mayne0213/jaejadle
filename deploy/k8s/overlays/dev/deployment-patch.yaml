@@ -12,7 +12,5 @@ spec:
         - name: jaejadle-app
           resources:
             requests:
-              memory: "50Mi"
-              cpu: "15m"
-            limits:
-              memory: "150Mi"
+              memory: "128Mi"
+              cpu: "50m"
