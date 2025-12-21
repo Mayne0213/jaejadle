@@ -1,46 +1,112 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import heroImage1 from "@/public/home/hero/image.webp";
+import { Church, BookOpen, GraduationCap, Users, Globe, FileText } from "lucide-react";
+import tabs from "@/const/tabs";
 
 export default function Hero() {
+  // const youtubeVideoId = "gPl8OeTpKnA";
+  
   const slide = {
-    title: "WELCOME!",
-    subtitle: "하나되는 제자들교회",
-    description: "제자들교회 홈페이지에 방문하신 여러분을 환영합니다",
     image: heroImage1
   };
 
+  // Header 메뉴 항목을 한글로 번역하고 아이콘 매핑
+  const menuItems = [
+    {
+      title: "교회 소개",
+      icon: Church,
+      href: tabs[0].href
+    },
+    {
+      title: "예배 안내",
+      icon: BookOpen,
+      href: tabs[1].href
+    },
+    {
+      title: "제자화 시스템",
+      icon: GraduationCap,
+      href: tabs[2].href
+    },
+    {
+      title: "다음 세대",
+      icon: Users,
+      href: tabs[3].href
+    },
+    {
+      title: "선교",
+      icon: Globe,
+      href: tabs[4].href
+    },
+    {
+      title: "주보",
+      icon: FileText,
+      href: tabs[5].href
+    }
+  ];
+
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* 배경 이미지 */}
-      <Image
-        src={slide.image}
-        alt="Hero background"
-        fill
-        priority
-        placeholder="blur"
-        className="object-cover"
-      />
+      {/* <div className="absolute inset-0">
+        <iframe
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full"
+          src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&loop=1&mute=1&controls=0&playsinline=1&playlist=${youtubeVideoId}&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3`}
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          style={{ pointerEvents: 'none' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-800/50 to-slate-900/70" />
+      </div> */}
 
-      {/* 검은색 오버레이 */}
-      <div className="absolute inset-0 bg-black opacity-30" />
+      <div className="absolute inset-0">
+        <Image
+          src={slide.image}
+          alt="Hero background"
+          fill
+          priority
+          placeholder="blur"
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-800/50 to-slate-900/70" />
+      </div>
 
       {/* 메인 컨텐츠 */}
-      <div className="relative h-full flex items-center justify-center">
-        <div className="max-w-7xl mx-auto px-4 smalltablet:px-6 pc:px-8 w-full">
-          <div className="flex flex-col items-center justify-center text-center space-y-6 smalltablet:space-y-8 pc:space-y-10">
-            <div className="text-white space-y-6 smalltablet:space-y-8 pc:space-y-10 animate-fade-in">
-              <div className="space-y-3 smalltablet:space-y-4 pc:space-y-5">
-                <h1 className="text-3xl smalltablet:text-4xl pc:text-5xl font-black leading-tight tracking-tight">
-                  {slide.title}<br />
-                  {slide.subtitle}
-                </h1>
-                <div className="w-16 smalltablet:w-20 pc:w-24 h-1 bg-white mx-auto"></div>
-              </div>
-              <p className="text-base smalltablet:text-lg pc:text-xl leading-relaxed opacity-90 px-4 smalltablet:px-0">
-                {slide.description}
-              </p>
+      <div className="relative h-full flex flex-col">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="max-w-7xl mx-auto px-4 smalltablet:px-6 pc:px-8 w-full">
+            {/* Welcome Home 텍스트 */}
+            <div className="flex items-center justify-center text-center">
+              <h1 className="text-7xl smalltablet:text-7xl pc:text-9xl font-bold tracking-wider text-white">
+                Welcome Home!
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        {/* 하단 메뉴 아이콘 그리드 */}
+        <div className="pb-8 smalltablet:pb-12 pc:pb-16">
+          <div className="max-w-7xl mx-auto px-4 smalltablet:px-6 pc:px-8 w-full">
+            <div className="grid grid-cols-3 hidden smalltablet:grid pc:grid-cols-6 gap-4 smalltablet:gap-6 max-w-6xl mx-auto">
+              {menuItems.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className="group flex flex-col items-center justify-center p-6 smalltablet:p-8 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:border-white/40"
+                  >
+                    <div className="text-white mb-3 smalltablet:mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <IconComponent className="w-12 h-12 smalltablet:w-14 smalltablet:h-14" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-white text-sm smalltablet:text-base font-medium text-center">
+                      {item.title}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -49,7 +115,7 @@ export default function Hero() {
       {/* TOP 버튼 (우측 하단) */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-6 right-6 smalltablet:bottom-8 smalltablet:right-8 bg-white/90 hover:bg-white text-[#6b95c6] px-4 py-2 smalltablet:px-6 smalltablet:py-3 rounded-md text-sm smalltablet:text-base font-bold shadow-lg transition-all z-50 border border-[#6b95c6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6b95c6] active:scale-[0.98]"
+        className="fixed cursor-pointer bottom-6 right-6 smalltablet:bottom-8 smalltablet:right-8 bg-white/90 hover:bg-white text-[#6b95c6] px-4 py-2 smalltablet:px-6 smalltablet:py-3 rounded-md text-sm smalltablet:text-base font-bold shadow-lg transition-all z-50 border border-[#6b95c6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6b95c6] active:scale-[0.98]"
       >
         TOP
       </button>
