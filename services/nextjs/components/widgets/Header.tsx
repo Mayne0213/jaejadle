@@ -171,7 +171,7 @@ export default function Header() {
             />
 
             {/* 모달 메뉴 */}
-            <div className="absolute top-[56px] left-0 right-0 bg-white max-h-[calc(100vh-56px)] overflow-y-auto pt-4 px-6 pb-6 transition-all  z-30 animate-fadeInFast">
+            <div className="absolute top-[56px] left-0 right-0 bg-white max-h-[calc(100vh-56px)] overflow-y-auto pt-4 px-6 pb-6 transition-all  z-30 animate-fade-in-fast">
               <div className="space-y-1">
                 {tabs.map((tab, index) => {
                   const isExpanded = expandedTabs.has(index);
@@ -212,7 +212,7 @@ export default function Header() {
                       </div>
                       {/* 서브 탭들 */}
                       {isExpanded && (
-                        <div className="ml-4 space-y-1 pb-2 animate-fadeInFast">
+                        <div className="ml-4 space-y-1 pb-2 animate-fade-in-fast">
                           {tab.submenu.map((item) => (
                             <Link
                               key={item.href}
