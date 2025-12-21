@@ -7,7 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import iconBlack from "@/public/icon_black.webp";
 import iconWhite from "@/public/icon_white.webp";
-import AuthButton from "@/components/widgets/AuthButton";
 import tabs from "@/const/tabs";
 
 export default function Header() {
@@ -18,21 +17,10 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // 로그인/회원가입 페이지인지 확인
-  const isAuthPage = pathname === "/login" || pathname === "/signup";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // 로그인/회원가입 페이지 또는 모바일 메뉴가 열렸을 때 항상 스크롤된 상태로 표시
   // hover는 CSS로만 처리 (데스크톱에서만 작동)
-  const shouldShowScrolled = isAuthPage || isScrolled || isMenuOpen || hoveredTab !== null;
+  const shouldShowScrolled =  isScrolled || isMenuOpen || hoveredTab !== null;
 
   // 모바일 메뉴에서 탭 확장/축소 토글
   const toggleTab = (index: number) => {
@@ -139,7 +127,6 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <AuthButton isScrolled={shouldShowScrolled} />
           </div>
 
           {/* 햄버거 메뉴 */}
@@ -228,9 +215,6 @@ export default function Header() {
                     </div>
                   );
                 })}
-              </div>
-              <div className="mt-4 text-center pb-6">
-                <AuthButton isScrolled={true} />
               </div>
             </div>
           </div>
