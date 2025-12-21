@@ -1,25 +1,76 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { getGalleryPostsServer } from "@/lib/services/server/gallery";
-import { getAnnouncementsServer } from "@/lib/services/server/announcement";
+import { useEffect, useState } from "react";
 
-export default async function NewsAndGallery() {
-  // 서버 사이드에서 데이터 fetching (캐싱 적용)
-  const [newsItems, galleryPosts] = await Promise.all([
-    getAnnouncementsServer(6),
-    getGalleryPostsServer(4),
-  ]);
+interface Announcement {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+}
 
-  // 날짜 포맷 함수
+interface GalleryPost {
+  id: number;
+  title: string;
+  createdAt: string;
+  thumbnailUrl?: string;
+}
+
+export default function NewsAndGalleryClient() {
+  const [newsItems, setNewsItems] = useState<Announcement[]>([]);
+  const [galleryPosts, setGalleryPosts] = useState<GalleryPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [announcementsRes, galleryRes] = await Promise.all([
+          fetch('/api/announcements?limit=6'),
+          fetch('/api/gallery?limit=3'),
+        ]);
+
+        const [announcementsData, galleryData] = await Promise.all([
+          announcementsRes.json(),
+          galleryRes.json(),
+        ]);
+
+        setNewsItems(announcementsData.data || []);
+
+        // 갤러리 썸네일 URL 가져오기
+        const galleryWithUrls = await Promise.all(
+          (galleryData.data || []).map(async (post: any) => {
+            if (post.images?.[0]?.fileKey) {
+              const urlRes = await fetch('/api/files/download-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fileKey: post.images[0].fileKey }),
+              });
+              const urlData = await urlRes.json();
+              return { ...post, thumbnailUrl: urlData.data?.downloadUrl };
+            }
+            return post;
+          })
+        );
+
+        setGalleryPosts(galleryWithUrls);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
-    return {
-      day,
-      date: `${year}.${month}`
-    };
+    return { day, date: `${year}.${month}` };
   };
 
   return (
@@ -45,7 +96,19 @@ export default async function NewsAndGallery() {
             </div>
 
             <div className="space-y-3">
-              {newsItems.length > 0 ? (
+              {loading ? (
+                Array.from({ length: 4 }).map((_, index) => (
+                  <div key={index} className="bg-white p-4 smalltablet:p-5 rounded-xl border border-gray-200 animate-pulse">
+                    <div className="flex items-start gap-3 smalltablet:gap-4">
+                      <div className="shrink-0 bg-gray-200 w-14 h-14 smalltablet:w-16 smalltablet:h-16 rounded-lg" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-5 bg-gray-200 rounded w-3/4" />
+                        <div className="h-4 bg-gray-200 rounded w-full" />
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : newsItems.length > 0 ? (
                 newsItems.slice(0, 6).map((item, index) => {
                   const { day, date } = formatDate(item.createdAt);
                   return (
@@ -55,13 +118,10 @@ export default async function NewsAndGallery() {
                       className={`bg-white hover:bg-gray-50 p-4 smalltablet:p-5 rounded-xl transition-all duration-200 cursor-pointer border border-gray-200 group block ${index >= 4 ? 'hidden smalltablet:block' : ''}`}
                     >
                       <div className="flex items-start gap-3 smalltablet:gap-4">
-                        {/* 날짜 박스 */}
                         <div className="shrink-0 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] text-white w-14 h-14 smalltablet:w-16 smalltablet:h-16 rounded-lg flex flex-col items-center justify-center">
                           <div className="text-xl smalltablet:text-2xl font-bold">{day}</div>
                           <div className="text-xs mt-0.5 smalltablet:mt-1">{date}</div>
                         </div>
-
-                        {/* 컨텐츠 */}
                         <div className="flex-1">
                           <h3 className="text-base smalltablet:text-lg font-bold text-gray-900 mb-1 smalltablet:mb-2 group-hover:text-[#6b95c6] transition-colors">
                             {item.title}
@@ -75,9 +135,7 @@ export default async function NewsAndGallery() {
                   );
                 })
               ) : (
-                <div className="text-center py-8 text-gray-500">
-                  아직 공지사항이 없습니다.
-                </div>
+                <div className="text-center py-8 text-gray-500">아직 공지사항이 없습니다.</div>
               )}
             </div>
           </div>
@@ -100,9 +158,12 @@ export default async function NewsAndGallery() {
               </Link>
             </div>
 
-            {/* 이미지 그리드 */}
             <div className="grid grid-cols-2 gap-3 smalltablet:mx-auto smalltablet:grid-cols-3 smalltablet:gap-4 pc:grid-cols-2">
-              {galleryPosts.length > 0 ? (
+              {loading ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className="aspect-square bg-gray-200 rounded-xl animate-pulse" />
+                ))
+              ) : galleryPosts.length > 0 ? (
                 galleryPosts.map((post) => {
                   const { date } = formatDate(post.createdAt);
                   return (
@@ -111,7 +172,6 @@ export default async function NewsAndGallery() {
                       href={`/gallery/${post.id}`}
                       className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border border-gray-200 block"
                     >
-                      {/* 이미지 영역 */}
                       <div className="aspect-square bg-gray-100 relative overflow-hidden">
                         {post.thumbnailUrl ? (
                           <Image
@@ -128,8 +188,6 @@ export default async function NewsAndGallery() {
                           </div>
                         )}
                       </div>
-
-                      {/* 정보 오버레이 */}
                       <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent transition-opacity flex items-end">
                         <div className="p-2.5 smalltablet:p-3 text-white w-full">
                           <h3 className="text-xs smalltablet:text-sm font-bold mb-0.5 smalltablet:mb-1">
@@ -142,9 +200,7 @@ export default async function NewsAndGallery() {
                   );
                 })
               ) : (
-                <div className="col-span-2 text-center py-8 text-gray-500">
-                  아직 갤러리가 없습니다.
-                </div>
+                <div className="col-span-2 text-center py-8 text-gray-500">아직 갤러리가 없습니다.</div>
               )}
             </div>
           </div>

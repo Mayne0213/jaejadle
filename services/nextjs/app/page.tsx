@@ -1,6 +1,6 @@
 import Hero from "@/components/landing/Hero";
 import Intro from "@/components/landing/Intro";
-import NewsAndGalleryClient from "@/components/landing/NewsAndGalleryClient";
+import NewsAndGallery from "@/components/landing/NewsAndGallery";
 import Contact from "@/components/landing/Contact";
 import Welcome from "@/components/landing/Welcome";
 
@@ -11,7 +11,7 @@ export default function JaejadlePage() {
       <Hero />
       <Intro />
       <Welcome />
-      <NewsAndGalleryClient />
+      <NewsAndGallery />
       <Contact />
     </div>
   );
