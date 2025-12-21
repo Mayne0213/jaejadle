@@ -54,6 +54,7 @@ const getPresignedUrl = unstable_cache(
  */
 export const getGalleryPostsServer = unstable_cache(
   async (limit: number = 3) => {
+    console.time('📊 Gallery DB Query');
     const posts = await prisma.galleryPost.findMany({
       orderBy: { createdAt: 'desc' },
       take: limit,
@@ -64,8 +65,10 @@ export const getGalleryPostsServer = unstable_cache(
         },
       },
     });
+    console.timeEnd('📊 Gallery DB Query');
 
     // 썸네일 URL 생성 (병렬 처리)
+    console.time('🔐 S3 URL Generation');
     const postsWithThumbnails = await Promise.all(
       posts.map(async (post) => {
         const thumbnailUrl = post.images[0]
@@ -87,6 +90,7 @@ export const getGalleryPostsServer = unstable_cache(
         };
       })
     );
+    console.timeEnd('🔐 S3 URL Generation');
 
     return postsWithThumbnails;
   },

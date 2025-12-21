@@ -23,6 +23,7 @@ export interface Announcement {
  */
 export const getAnnouncementsServer = unstable_cache(
   async (limit: number = 6) => {
+    console.time('📰 Announcements DB Query');
     const announcements = await prisma.announcement.findMany({
       include: {
         author: {
@@ -36,6 +37,7 @@ export const getAnnouncementsServer = unstable_cache(
       orderBy: { createdAt: 'desc' },
       take: limit,
     });
+    console.timeEnd('📰 Announcements DB Query');
 
     return announcements.map(announcement => ({
       ...announcement,
