@@ -16,7 +16,7 @@ commonLabels:
 # 이미지 태그 설정
 images:
   - name: gitea0213.kro.kr/bluemayne/jaejadle
-    newTag: develop-sha-39d1d2043e9015228cca659a7f1cb80c2a23c4f2
+    newTag: develop-sha-dfff155a842f1f46480e279b05438ff698162b7f
 
 patchesStrategicMerge:
   - deployment-patch.yaml

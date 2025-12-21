@@ -24,13 +24,7 @@ export default function Hero() {
       />
 
       {/* 검은색 오버레이 */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-
-      {/* 배경 장식 */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-10 right-10 w-48 h-48 smalltablet:top-20 smalltablet:right-20 smalltablet:w-64 smalltablet:h-64 pc:w-80 pc:h-80 rounded-full bg-white/20 blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-48 h-48 smalltablet:bottom-20 smalltablet:left-20 smalltablet:w-64 smalltablet:h-64 pc:w-80 pc:h-80 rounded-full bg-white/10 blur-3xl"></div>
-      </div>
+      <div className="absolute inset-0 bg-black opacity-30" />
 
       {/* 메인 컨텐츠 */}
       <div className="relative h-full flex items-center justify-center">
