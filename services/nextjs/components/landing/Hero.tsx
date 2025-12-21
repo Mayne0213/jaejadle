@@ -36,7 +36,7 @@ export default function Hero() {
       <div className="relative h-full flex items-center justify-center">
         <div className="max-w-7xl mx-auto px-4 smalltablet:px-6 pc:px-8 w-full">
           <div className="flex flex-col items-center justify-center text-center space-y-6 smalltablet:space-y-8 pc:space-y-10">
-            <div className="text-white space-y-6 smalltablet:space-y-8 pc:space-y-10 animate-fadeIn">
+            <div className="text-white space-y-6 smalltablet:space-y-8 pc:space-y-10 animate-fade-in">
               <div className="space-y-3 smalltablet:space-y-4 pc:space-y-5">
                 <h1 className="text-3xl smalltablet:text-4xl pc:text-5xl font-black leading-tight tracking-tight">
                   {slide.title}<br />
