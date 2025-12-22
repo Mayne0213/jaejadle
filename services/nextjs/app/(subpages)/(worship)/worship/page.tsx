@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { getMe, type User } from '@/lib/services';
+import { getMe, swapWorshipVideos, type User } from '@/lib/services';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 
 interface VideoItem {
   id: number;
@@ -36,6 +37,11 @@ function extractYouTubeId(url: string): string | null {
     // embed/ID 형식
     if (urlObj.pathname.startsWith('/embed/')) {
       return urlObj.pathname.split('/embed/')[1]?.split('?')[0] || null;
+    }
+    // live/ID 형식
+    if (urlObj.pathname.startsWith('/live/')) {
+      const liveId = urlObj.pathname.split('/live/')[1]?.split('?')[0];
+      return liveId || null;
     }
     return null;
   } catch {
@@ -97,21 +103,21 @@ function WorshipPageContent() {
       const result = await response.json();
       const dbVideos: VideoItem[] = result.data || [];
 
-      // 카테고리별로 그룹화 (최신순 정렬)
+      // 카테고리별로 그룹화 (order 필드로 내림차순 정렬 - 높은 order가 앞으로)
       const newCategories: Category[] = [
         {
           id: 'sermon',
           title: '주일 설교',
           videos: dbVideos
             .filter(v => v.category === 'sermon')
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            .sort((a, b) => b.order - a.order)
         },
         {
           id: 'friday',
           title: '금요 성령집회',
           videos: dbVideos
             .filter(v => v.category === 'friday')
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            .sort((a, b) => b.order - a.order)
         },
       ];
 
@@ -234,12 +240,14 @@ function WorshipPageContent() {
       const result = await response.json();
       const newVideo = result.data;
 
-      // 로컬 state 업데이트
+      // 로컬 state 업데이트 - 새 영상이 가장 앞으로 가도록 전체 목록을 다시 정렬
       setCategories(prev => prev.map(category => {
         if (category.id === addingCategory) {
+          const updatedVideos = [...category.videos, newVideo];
+          // order 기준 내림차순 정렬 (높은 order가 앞으로)
           return {
             ...category,
-            videos: [...category.videos, newVideo]
+            videos: updatedVideos.sort((a, b) => b.order - a.order)
           };
         }
         return category;
@@ -251,6 +259,54 @@ function WorshipPageContent() {
     } catch (error) {
       console.error('Error adding video:', error);
       alert(error instanceof Error ? error.message : '영상 추가에 실패했습니다.');
+    }
+  };
+
+  const moveVideo = async (categoryId: string, videoId: number, direction: 'up' | 'down') => {
+    if (!user) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
+    const category = categories.find(cat => cat.id === categoryId);
+    if (!category) return;
+
+    const videoIndex = category.videos.findIndex(v => v.id === videoId);
+    if (videoIndex === -1) return;
+
+    // 이동할 새 인덱스 계산
+    const newIndex = direction === 'up' ? videoIndex - 1 : videoIndex + 1;
+
+    // 범위 체크
+    if (newIndex < 0 || newIndex >= category.videos.length) return;
+
+    // 교환할 두 비디오의 ID
+    const video1Id = category.videos[videoIndex].id;
+    const video2Id = category.videos[newIndex].id;
+
+    // 낙관적 업데이트 (UI 즉시 반영)
+    const newVideos = [...category.videos];
+    [newVideos[videoIndex], newVideos[newIndex]] = [newVideos[newIndex], newVideos[videoIndex]];
+
+    setCategories(prev => prev.map(cat =>
+      cat.id === categoryId ? { ...cat, videos: newVideos } : cat
+    ));
+
+    try {
+      // 서버에 순서 변경 요청 (두 비디오만 교환)
+      const updatedVideos = await swapWorshipVideos(video1Id, video2Id);
+      
+      // 서버 응답으로 상태 업데이트 (order 값이 정확히 반영됨)
+      setCategories(prev => prev.map(cat =>
+        cat.id === categoryId ? { ...cat, videos: updatedVideos } : cat
+      ));
+    } catch (error) {
+      console.error('Error swapping videos:', error);
+      // 실패 시 원래 상태로 롤백
+      setCategories(prev => prev.map(cat =>
+        cat.id === categoryId ? { ...cat, videos: category.videos } : cat
+      ));
+      alert('영상 순서 변경에 실패했습니다.');
     }
   };
 
@@ -297,7 +353,7 @@ function WorshipPageContent() {
               {user && (
                 <button
                   onClick={() => handleAddVideo(category.id)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-3 smalltablet:px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm smalltablet:text-base"
+                  className="bg-[#6d96c5] hover:bg-[#88aad2] text-white px-3 smalltablet:px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm smalltablet:text-base"
                 >
                   <span>+</span>
                   <span>영상 추가</span>
@@ -305,10 +361,10 @@ function WorshipPageContent() {
               )}
             </div>
             <div className="grid grid-cols-2 smalltablet:grid-cols-2 pc:grid-cols-3 gap-4 smalltablet:gap-6">
-              {category.videos.map((video) => (
+              {category.videos.map((video, index) => (
                 <div
                   key={video.id}
-                  className="cursor-pointer group relative"
+                  className="group relative rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300"
                 >
                   <div
                     onClick={() => {
@@ -322,28 +378,75 @@ function WorshipPageContent() {
                         }
                       }, 100);
                     }}
-                    className="relative aspect-video bg-gray-500 rounded-md smalltablet:rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                    className="relative aspect-video bg-linear-to-br from-gray-800 to-gray-900 overflow-hidden cursor-pointer"
                   >
                     <Image
                       src={getThumbnailUrl(video.videoUrl)}
                       alt={category.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="object-cover pc:group-hover:scale-105 transition-transform duration-500"
                       unoptimized
                     />
-
-                    {/* Delete Button - 로그인한 사용자만 표시 */}
-                    {user && (
-                      <div className="absolute bottom-1.5 smalltablet:bottom-2 right-1.5 smalltablet:right-2 flex gap-2 opacity-100 smalltablet:opacity-0 smalltablet:group-hover:opacity-100 transition-opacity duration-200">
+                    
+                    {/* 재생 오버레이 */}
+                    <div className="absolute inset-0 bg-black/0 pc:group-hover:bg-black/10 transition-colors duration-300" />
+                    
+                    {/* 재생 아이콘 */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl pc:group-hover:scale-110 pc:group-hover:bg-white transition-all duration-300">
+                        <div className="w-0 h-0 border-l-12 smalltablet:border-l-14 border-l-gray-800 border-t-7 smalltablet:border-t-8 border-t-transparent border-b-7 smalltablet:border-b-8 border-b-transparent ml-1" />
+                      </div>
+                    </div>
+                  </div>
+ 
+                  {/* Action Buttons - 로그인한 사용자만 표시 */}
+                  {user && (
+                    <div className="flex flex-col p-4 smalltablet:flex-row smalltablet:items-center smalltablet:justify-between smalltablet:gap-2 smalltablet:p-3 bg-linear-to-br from-slate-50 via-white to-slate-50 border-t border-gray-100">
+                      <div className="grid grid-cols-3 gap-1.5 w-full smalltablet:flex smalltablet:gap-2 smalltablet:w-auto">
                         <button
-                          onClick={(e) => handleDelete(video, e)}
-                          className="bg-red-600 hover:bg-red-700 text-white px-2 smalltablet:px-3 py-1 rounded-md text-xs smalltablet:text-sm font-medium shadow-lg transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            moveVideo(category.id, video.id, 'up');
+                          }}
+                          disabled={index === 0}
+                          className={`flex items-center justify-center rounded-lg min-h-[32px] smalltablet:rounded-xl smalltablet:min-w-[40px] smalltablet:min-h-[40px] transition-all font-medium text-white shadow-md active:scale-95 ${
+                            index === 0
+                              ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                              : 'bg-[#88aad2] hover:bg-[#94b7d6] pc:hover:shadow-lg'
+                          }`}
+                          aria-label="위로 이동"
                         >
-                          삭제
+                          <ArrowUp className="cursor-pointer w-4 h-4 smalltablet:w-5 smalltablet:h-5" strokeWidth={2.5} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            moveVideo(category.id, video.id, 'down');
+                          }}
+                          disabled={index === category.videos.length - 1}
+                          className={`flex items-center justify-center rounded-lg min-h-[32px] smalltablet:rounded-xl smalltablet:min-w-[40px] smalltablet:min-h-[40px] transition-all font-medium text-white shadow-md active:scale-95 ${
+                            index === category.videos.length - 1
+                              ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                              : 'bg-[#94b7d6] hover:bg-[#a9c6e1] pc:hover:shadow-lg'
+                          }`}
+                          aria-label="아래로 이동"
+                        >
+                          <ArrowDown className="cursor-pointer w-4 h-4 smalltablet:w-5 smalltablet:h-5" strokeWidth={2.5} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(video, e);
+                          }}
+                          className="cursor-pointer flex flex-col items-center justify-center gap-0.5 bg-red-400 hover:bg-red-500 pc:hover:shadow-lg text-white rounded-lg font-semibold text-xs shadow-md active:scale-95 transition-all min-h-[32px] smalltablet:rounded-xl smalltablet:min-w-[40px] smalltablet:min-h-[40px]"
+                          aria-label="영상 삭제"
+                        >
+                          <span className="hidden smalltablet:inline">삭제</span>
+                          <span className="smalltablet:hidden">X</span>
                         </button>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -384,7 +487,7 @@ function WorshipPageContent() {
               </button>
               <button
                 onClick={handleSaveNewVideo}
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm smalltablet:text-base"
+                className="px-4 py-2 bg-[#6d96c5] hover:bg-[#88aad2] text-white rounded-lg font-medium transition-colors text-sm smalltablet:text-base"
               >
                 추가
               </button>

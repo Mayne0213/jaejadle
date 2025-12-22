@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
@@ -151,10 +151,6 @@ export default function CreateAnnouncementPage() {
               <textarea
                 {...register("content", {
                   required: "내용을 입력해주세요",
-                  minLength: {
-                    value: 10,
-                    message: "내용은 10자 이상이어야 합니다",
-                  },
                 })}
                 disabled={isSubmitting}
                 placeholder="내용을 입력해주세요"

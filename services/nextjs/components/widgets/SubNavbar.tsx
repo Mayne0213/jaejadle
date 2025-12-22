@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -9,8 +9,7 @@ import { getTabInfo } from "@/lib/tabs";
 const SubNavbar: React.FC = () => {
   const pathname = usePathname();
 
-  // 한 번만 조회하고 메모이제이션
-  const tabInfo = useMemo(() => getTabInfo(pathname), [pathname]);
+  const tabInfo = getTabInfo(pathname);
 
   if (!tabInfo) return null;
 

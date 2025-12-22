@@ -28,7 +28,7 @@ export default function NewsAndGalleryClient() {
       try {
         const [announcementsRes, galleryRes] = await Promise.all([
           fetch('/api/announcements?limit=6'),
-          fetch('/api/gallery?limit=3'),
+          fetch('/api/gallery?limit=4'),
         ]);
 
         const [announcementsData, galleryData] = await Promise.all([
@@ -40,7 +40,7 @@ export default function NewsAndGalleryClient() {
 
         // 갤러리 썸네일 URL 가져오기
         const galleryWithUrls = await Promise.all(
-          (galleryData.data || []).map(async (post: any) => {
+          (galleryData.data || []).map(async (post: GalleryPost & { images?: Array<{ fileKey: string }> }) => {
             if (post.images?.[0]?.fileKey) {
               const urlRes = await fetch('/api/files/download-url', {
                 method: 'POST',
@@ -87,7 +87,7 @@ export default function NewsAndGalleryClient() {
               <Link
                 href="/announcements"
                 aria-label="더보기"
-                className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 shrink-0 flex-none rounded-xl bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
+                className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 shrink-0 flex-none rounded-xl bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
               >
                 <svg className="w-4 h-4 smalltablet:w-5 smalltablet:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -150,7 +150,7 @@ export default function NewsAndGalleryClient() {
               <Link
                 href="/gallery"
                 aria-label="더보기"
-                className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 shrink-0 flex-none rounded-xl bg-gradient-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
+                className="w-12 h-12 smalltablet:w-14 smalltablet:h-14 shrink-0 flex-none rounded-xl bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5f89bc] text-white flex items-center justify-center transition-colors shadow-sm border border-[#6b95c6]"
               >
                 <svg className="w-4 h-4 smalltablet:w-5 smalltablet:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
