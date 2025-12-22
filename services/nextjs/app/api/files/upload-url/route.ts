@@ -34,7 +34,8 @@ const generateUploadUrl = async (
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    let { fileName, fileType, folder = 'uploads' } = body;
+    const { fileName, fileType } = body;
+    let { folder = 'uploads' } = body;
 
     // folder에서 시작/끝 슬래시 제거
     if (folder) {

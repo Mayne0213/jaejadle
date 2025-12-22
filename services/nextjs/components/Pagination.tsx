@@ -1,5 +1,3 @@
-'use client';
-
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -44,7 +42,11 @@ export default function Pagination({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+        className={`px-3 py-2 rounded-lg border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+          currentPage === 1
+            ? 'border-gray-300 text-gray-400'
+            : 'border-[#94b7d6] text-[#6d96c5] hover:bg-[#a9c6e1]'
+        }`}
       >
         이전
       </button>
@@ -54,10 +56,10 @@ export default function Pagination({
           <button
             key={idx}
             onClick={() => onPageChange(page)}
-            className={`px-3 py-2 rounded-lg transition-colors ${
+            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
               currentPage === page
-                ? 'bg-blue-500 text-white'
-                : 'border border-gray-300 hover:bg-gray-100'
+                ? 'bg-[#6d96c5] text-white'
+                : 'border border-[#94b7d6] text-[#6d96c5] hover:bg-[#a9c6e1]'
             }`}
           >
             {page}
@@ -72,7 +74,11 @@ export default function Pagination({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+        className={`px-3 py-2 rounded-lg border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+          currentPage === totalPages
+            ? 'border-gray-300 text-gray-400'
+            : 'border-[#94b7d6] text-[#6d96c5] hover:bg-[#a9c6e1]'
+        }`}
       >
         다음
       </button>

@@ -49,6 +49,7 @@ export default function Welcome() {
                 alt="청주에덴교회"
                 fill
                 className="object-contain drop-shadow-2xl"
+                placeholder="blur"
               />
             </div>
           </div>

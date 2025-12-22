@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import { X, Upload, Image as ImageIcon, FileText, File as FileIcon } from "lucide-react";

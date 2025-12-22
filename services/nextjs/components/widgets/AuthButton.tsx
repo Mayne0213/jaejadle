@@ -1,39 +1,22 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
-import { getMe, type User } from "@/lib/services";
+import { signOut, useSession } from "next-auth/react";
 
-interface AuthButtonProps {
-  isScrolled?: boolean;
-}
-
-const AuthButton = ({ isScrolled = true }: AuthButtonProps) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+const AuthButton = ({ 
+  shouldShowScrolled = false,
+  onLinkClick
+}: { 
+  shouldShowScrolled: boolean;
+  onLinkClick?: () => void;
+}) => {
+  const { data: session, status } = useSession();
   const router = useRouter();
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const userData = await getMe();
-      setUser(userData);
-    } catch {
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleLogout = async () => {
     try {
       await signOut({ redirect: false });
-      setUser(null);
       router.push("/");
       router.refresh();
     } catch (error) {
@@ -41,38 +24,38 @@ const AuthButton = ({ isScrolled = true }: AuthButtonProps) => {
     }
   };
 
-  if (isLoading) {
+  if (status === "loading") {
     return (
-      <div className="flex items-center space-x-4 justify-center pc:justify-start w-full pc:w-auto">
-        <div className="h-9 w-20 bg-gray-200 animate-pulse rounded-lg"></div>
+      <div className="flex items-center">
+        <div className="h-9 w-18 bg-gray-400 animate-pulse rounded-lg"/>
       </div>
     );
   }
 
-  if (user) {
+  if (session?.user) {
     return (
       <div className="flex items-center gap-3">
         {/* 구분선 */}
-        <div className={`h-6 w-px ${
-          isScrolled 
+        <div className={`h-6 w-px transition-colors ${
+          shouldShowScrolled
             ? "bg-gray-300" 
-            : "bg-white/30"
+            : "bg-white/30 pc:group-hover:bg-gray-300"
         }`} />
         
         <span className={`text-sm transition-colors ${
-          isScrolled 
+          shouldShowScrolled
             ? "text-gray-600" 
-            : "text-white/90"
+            : "text-white/90 pc:group-hover:text-gray-600"
         }`}>
-          {user.userName}님
+          {session.user.name}님
         </span>
         
         <button
           onClick={handleLogout}
           className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-            isScrolled
+            shouldShowScrolled
               ? "text-gray-700 hover:text-gray-900 bg-gray-200 hover:bg-gray-300"
-              : "text-white hover:text-gray-200 bg-white/10 hover:bg-white/20"
+              : "text-white hover:text-gray-200 bg-white/10 hover:bg-white/20 pc:group-hover:text-gray-700 pc:group-hover:bg-gray-200 pc:group-hover:hover:text-gray-900 pc:group-hover:hover:bg-gray-300"
           }`}
         >
           로그아웃
@@ -82,12 +65,15 @@ const AuthButton = ({ isScrolled = true }: AuthButtonProps) => {
   }
 
   return (
+    <div className="flex items-center">
       <Link
         href="/login"
-        className="px-4 py-2 text-sm font-medium text-white bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] rounded-lg shadow-md hover:shadow-lg transition-all"
+        onClick={onLinkClick}
+        className="px-4 py-2 w-18 text-center text-sm font-medium text-white bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] rounded-lg shadow-md hover:shadow-lg transition-all"
       >
         로그인
       </Link>
+    </div>
   );
 };
 

@@ -29,7 +29,6 @@ const LoginForm = () => {
       } else {
         // 로그인 성공 시 홈으로 이동
         router.push("/");
-        router.refresh();
       }
     } catch {
       setError("로그인에 실패했습니다.");
