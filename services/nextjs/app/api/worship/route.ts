@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     if (category) {
       const videos = await prisma.worshipVideo.findMany({
         where: { category },
-        orderBy: { order: 'asc' },
+        orderBy: { order: 'desc' },
       });
       return NextResponse.json({
         success: true,
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const videos = await prisma.worshipVideo.findMany({
       orderBy: [
         { category: 'asc' },
-        { order: 'asc' },
+        { order: 'desc' },
       ],
     });
     return NextResponse.json({
@@ -49,13 +49,27 @@ function isValidYouTubeUrl(url: string): boolean {
     const urlObj = new URL(url);
     const hostname = urlObj.hostname.toLowerCase();
 
-    // YouTube 도메인만 확인 (videoId는 검증하지 않음)
-    return (
+    // pathname에서 첫 번째 경로 세그먼트 추출 (예: /watch, /embed, /live 등)
+    const pathSegments = urlObj.pathname.split('/').filter(segment => segment);
+    const firstSegment = pathSegments[0]?.toLowerCase();
+
+    // YouTube 도메인과 지원하는 경로 형식 확인
+    const isSupportedDomain = (
       hostname === 'www.youtube.com' ||
       hostname === 'youtube.com' ||
       hostname === 'm.youtube.com' ||
       hostname === 'youtu.be'
     );
+
+    // 지원하는 경로 형식 확인 (/watch, /embed, /live 등)
+    const isSupportedPath = (
+      !firstSegment || // youtu.be/ID 형식
+      firstSegment === 'watch' ||
+      firstSegment === 'embed' ||
+      firstSegment === 'live'
+    );
+
+    return isSupportedDomain && isSupportedPath;
   } catch {
     return false;
   }
@@ -89,19 +103,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 다음 order 값 가져오기
-    const maxOrder = await prisma.worshipVideo.findFirst({
+    // 카테고리 내 기존 영상 확인 (order 내림차순)
+    const existingVideos = await prisma.worshipVideo.findMany({
       where: { category },
       orderBy: { order: 'desc' },
-      select: { order: true },
     });
-    const order = maxOrder ? maxOrder.order + 1 : 0;
+
+    // 기존 영상이 9개 이상이면 order가 가장 낮은(마지막) 영상 삭제
+    if (existingVideos.length >= 9) {
+      const videoToDelete = existingVideos[existingVideos.length - 1];
+      await prisma.worshipVideo.delete({
+        where: { id: videoToDelete.id },
+      });
+    }
+
+    // 새 영상은 현재 최고 order + 1로 설정 (맨 앞에 추가)
+    const maxOrder = existingVideos.length > 0 ? existingVideos[0].order : 0;
+    const newOrder = maxOrder + 1;
 
     const newVideo = await prisma.worshipVideo.create({
       data: {
         category,
         videoUrl,
-        order,
+        order: newOrder,
       },
     });
 
@@ -136,7 +160,7 @@ export async function DELETE(request: NextRequest) {
       where: { id: Number(id) },
     });
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: true,
       message: "영상이 삭제되었습니다."
     });
