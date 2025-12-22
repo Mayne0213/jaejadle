@@ -378,7 +378,7 @@ function WorshipPageContent() {
                         }
                       }, 100);
                     }}
-                    className="relative aspect-video bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden cursor-pointer"
+                    className="relative aspect-video bg-linear-to-br from-gray-800 to-gray-900 overflow-hidden cursor-pointer"
                   >
                     <Image
                       src={getThumbnailUrl(video.videoUrl)}
@@ -401,7 +401,7 @@ function WorshipPageContent() {
  
                   {/* Action Buttons - 로그인한 사용자만 표시 */}
                   {user && (
-                    <div className="flex flex-col p-4 smalltablet:flex-row smalltablet:items-center smalltablet:justify-between smalltablet:gap-2 smalltablet:p-3 bg-gradient-to-br from-slate-50 via-white to-slate-50 border-t border-gray-100">
+                    <div className="flex flex-col p-4 smalltablet:flex-row smalltablet:items-center smalltablet:justify-between smalltablet:gap-2 smalltablet:p-3 bg-linear-to-br from-slate-50 via-white to-slate-50 border-t border-gray-100">
                       <div className="grid grid-cols-3 gap-1.5 w-full smalltablet:flex smalltablet:gap-2 smalltablet:w-auto">
                         <button
                           onClick={(e) => {
