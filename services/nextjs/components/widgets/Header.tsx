@@ -49,17 +49,17 @@ export default function Header() {
 
   return (
     <header
-      className={`group fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`group pr-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         shouldShowScrolled || isMenuOpen
           ? "bg-white shadow-md"
           : "bg-transparent pc:hover:bg-white pc:hover:shadow-md"
       }`}
     >
       <nav className="max-w-[1400px] mx-auto">
-        <div className="flex justify-between items-center h-[56px] pc:h-[70px] relative z-10 px-6">
+        <div className="flex justify-between items-stretch h-[56px] pc:h-[70px] relative z-10">
           {/* 로고 */}
           <div className="shrink-0">
-            <Link href="/" className="flex items-center gap-3 group">
+            <Link href="/" className="flex items-center gap-3 group h-full px-6">
               {/* 아이콘 - 모바일은 작게, 데스크톱은 크게 */}
               <div className="relative w-8 h-8 pc:w-10 pc:h-10">
                 {/* 흰색 아이콘 */}
@@ -96,17 +96,17 @@ export default function Header() {
           </div>
 
           {/* 데스크톱 네비게이션 */}
-          <div className="hidden pc:flex items-center space-x-10">
+          <div className="hidden pc:flex">
             {tabs.map((tab, index) => (
               <div
                 key={tab.label}
-                className="relative"
+                className="relative flex items-stretch"
                 onMouseEnter={() => setHoveredTab(index)}
                 onMouseLeave={() => setHoveredTab(null)}
               >
                 <Link
                   href={tab.submenu[0]?.href || "#"}
-                  className={`${shouldShowScrolled ? "text-black/90 hover:text-black" : "text-white/90 pc:group-hover:text-black/90"} font-medium transition-colors`}
+                  className={`${shouldShowScrolled ? "text-black hover:text-black" : "text-white/90 pc:group-hover:text-black/90"} font-medium transition-colors flex items-center px-6`}
                 >
                   {tab.label}
                 </Link>
@@ -114,22 +114,22 @@ export default function Header() {
                 {/* 말풍선 스타일 드롭다운 */}
                 {tab.submenu.length > 1 && (
                   <div
-                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-7 z-50 transition-all duration-300 ease-in-out ${
+                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 transition-all duration-300 ease-in-out ${
                       hoveredTab === index
                         ? "opacity-100 translate-y-0 pointer-events-auto"
                         : "opacity-0 -translate-y-2 pointer-events-none"
                     }`}
                   >
-                    {/* 말풍선 꼬리 (위쪽 삼각형) */}
-                    <div className="absolute top-7 left-1/2 -translate-x-1/2 w-0 h-0 border-l-14 border-l-transparent border-r-14 border-r-transparent border-b-14 border-b-gray-500"/>
-
                     {/* 말풍선 본체 */}
-                    <div className="bg-gray-500 text-white rounded-3xl shadow-xl overflow-hidden min-w-[180px] mt-3.5">
+                    <div className="bg-gray-500 text-white rounded-3xl shadow-xl overflow-visible min-w-[180px] relative">
+                      {/* 말풍선 꼬리 (위쪽 삼각형) - 박스 안쪽 최상단에 위치 */}
+                      <div className="absolute left-1/2 -translate-x-1/2 -top-3 w-0 h-0 border-l-14 border-l-transparent border-r-14 border-r-transparent border-b-14 border-b-gray-500"/>
+                      
                       {tab.submenu.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="block px-6 py-3 hover:bg-white/10 transition-colors text-center border-b border-gray-600"
+                          className="block px-6 py-3 hover:bg-white/10 transition-colors text-center border-b border-gray-600 last:border-b-0"
                         >
                           {item.label}
                         </Link>
@@ -139,14 +139,14 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <AuthButton isScrolled={shouldShowScrolled} />
+            <AuthButton shouldShowScrolled={shouldShowScrolled} />
           </div>
 
           {/* 햄버거 메뉴 */}
-          <div className="pc:hidden">
+          <div className="pc:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`${shouldShowScrolled || isMenuOpen ? "text-black" : "text-white pc:group-hover:text-black"} p-2 transition-colors duration-300`}
+              className={`${shouldShowScrolled || isMenuOpen ? "text-black" : "text-white pc:group-hover:text-black"} flex items-center px-6 transition-colors duration-300`}
             >
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -171,7 +171,7 @@ export default function Header() {
             />
 
             {/* 모달 메뉴 */}
-            <div className="absolute top-[56px] left-0 right-0 bg-white max-h-[calc(100vh-56px)] overflow-y-auto pt-4 px-6 pb-6 transition-all  z-30 animate-fade-in-fast">
+            <div className="absolute top-[56px] left-0 right-0 border-b border-gray-300 bg-white max-h-[calc(100vh-56px)] overflow-y-auto pt-4 px-6 pb-6 transition-all  z-30 animate-fade-in-fast">
               <div className="space-y-1">
                 {tabs.map((tab, index) => {
                   const isExpanded = expandedTabs.has(index);
@@ -230,7 +230,7 @@ export default function Header() {
                 })}
               </div>
               <div className="mt-4 text-center pb-6">
-                <AuthButton isScrolled={true} />
+                <AuthButton shouldShowScrolled={true} onLinkClick={() => setIsMenuOpen(false)} />
               </div>
             </div>
           </div>

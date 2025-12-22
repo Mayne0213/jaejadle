@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MapPin } from 'lucide-react';
 import { useKakaoLoader, Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 

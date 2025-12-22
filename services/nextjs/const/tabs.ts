@@ -33,7 +33,7 @@ const tabs = [
   },
   {
     label: "Worship",
-    href: "/sunday",
+    href: "/worship",
     imageHref: "/subpages/worship/worshipBG.webp",
     sectionIndex: 1,
     submenu: [

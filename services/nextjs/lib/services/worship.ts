@@ -17,7 +17,8 @@ export interface WorshipVideoData {
 }
 
 export interface ReorderVideosData {
-  videoIds: number[];
+  videoId1: number;
+  videoId2: number;
 }
 
 /**
@@ -49,12 +50,12 @@ export async function deleteWorshipVideo(id: number): Promise<void> {
 }
 
 /**
- * 영상 순서 변경
+ * 영상 순서 변경 (두 비디오의 순서를 교환)
  */
-export async function reorderWorshipVideos(videoIds: number[]): Promise<WorshipVideo[]> {
+export async function swapWorshipVideos(videoId1: number, videoId2: number): Promise<WorshipVideo[]> {
   return apiPut<WorshipVideo[], ReorderVideosData>(
     API_ENDPOINTS.WORSHIP.REORDER,
-    { videoIds }
+    { videoId1, videoId2 }
   );
 }
 

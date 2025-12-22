@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -36,7 +36,7 @@ export default function GalleryPage() {
   const fetchPosts = async (page: number) => {
     setLoading(true);
     try {
-      const result = await getGalleryPostsWithThumbnails(page, 12);
+      const result = await getGalleryPostsWithThumbnails(page, 9);
       setPosts(result.data);
       setTotalPages(result.pagination.totalPages);
     } catch (error) {
@@ -65,7 +65,7 @@ export default function GalleryPage() {
           {/* 갤러리 그리드 */}
           {loading ? (
             <div className="grid grid-cols-2 smalltablet:grid-cols-3 gap-4">
-              {Array.from({ length: 6 }).map((_, idx) => (
+              {Array.from({ length: 9 }).map((_, idx) => (
                 <div key={idx} className="bg-gray-200 rounded-lg overflow-hidden animate-pulse">
                   <div className="aspect-4/3" />
                   <div className="p-4">
