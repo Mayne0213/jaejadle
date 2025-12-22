@@ -43,6 +43,7 @@ export default function Intro() {
                 fill
                 placeholder="blur"
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
               {/* 검은색 오버레이 */}
               <div className="absolute inset-0 z-10 bg-black opacity-50 group-hover:opacity-20 transition-opacity"/>

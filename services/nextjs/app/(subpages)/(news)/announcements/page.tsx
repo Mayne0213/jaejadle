@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   getMe,
@@ -9,29 +9,39 @@ import {
   type Announcement,
 } from "@/lib/services";
 import { FileTextIcon } from "lucide-react";
+import Pagination from "@/components/Pagination";
 
 export default function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [user, setUser] = useState <User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    loadData();
+    checkAuth();
   }, []);
 
-  const loadData = async () => {
-    try {
-      // 사용자 인증 확인
-      try {
-        const userData = await getMe();
-        setUser(userData);
-      } catch {
-        setUser(null);
-      }
+  useEffect(() => {
+    loadData(currentPage);
+  }, [currentPage]);
 
+  const checkAuth = async () => {
+    try {
+      const userData = await getMe();
+      setUser(userData);
+    } catch {
+      setUser(null);
+    }
+  };
+
+  const loadData = async (page: number) => {
+    setIsLoading(true);
+    try {
       // 공지사항 목록 불러오기
-      const announcementsResponse = await getAnnouncements(1, 10);
+      const announcementsResponse = await getAnnouncements(page, 10);
       setAnnouncements(announcementsResponse.data);
+      setTotalPages(announcementsResponse.pagination.totalPages);
     } catch (error) {
       console.error("Failed to load announcements:", error);
     } finally {
@@ -191,6 +201,13 @@ export default function AnnouncementsPage() {
               </div>
             </div>
           )}
+
+          {/* Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       </div>
   );

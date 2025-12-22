@@ -26,9 +26,9 @@ const LEADER_CATEGORIES = [
     title: '장로',
     color: '#94b7d6',
     members: [
-      { name: '안종웅', title: '시무 장로', image: leader7 },
-      { name: '김현종', title: '시무 장로', image: leader8 },
-      { name: '김정태', title: '명예 장로', image: leader9 },
+      { name: '김정태', title: '명예 장로', image: leader7 },
+      { name: '안중옹', title: '장로', image: leader8 },
+      { name: '김현종', title: '장로', image: leader9 },
     ],
   },
 ];

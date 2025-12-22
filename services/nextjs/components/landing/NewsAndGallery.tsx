@@ -28,7 +28,7 @@ export default function NewsAndGalleryClient() {
       try {
         const [announcementsRes, galleryRes] = await Promise.all([
           fetch('/api/announcements?limit=6'),
-          fetch('/api/gallery?limit=3'),
+          fetch('/api/gallery?limit=4'),
         ]);
 
         const [announcementsData, galleryData] = await Promise.all([
@@ -40,7 +40,7 @@ export default function NewsAndGalleryClient() {
 
         // 갤러리 썸네일 URL 가져오기
         const galleryWithUrls = await Promise.all(
-          (galleryData.data || []).map(async (post: any) => {
+          (galleryData.data || []).map(async (post: GalleryPost & { images?: Array<{ fileKey: string }> }) => {
             if (post.images?.[0]?.fileKey) {
               const urlRes = await fetch('/api/files/download-url', {
                 method: 'POST',
