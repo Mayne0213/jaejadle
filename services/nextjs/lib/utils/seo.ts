@@ -146,7 +146,7 @@ export function generatePageMetadata({
 }) {
   const baseUrl = 'https://disciples-church.com';
   const fullUrl = generateCanonicalUrl(url, baseUrl);
-  const ogImage = image ? generateOgImageUrl(image, baseUrl) : `${baseUrl}/opengraph-image`;
+  const ogImage = image ? generateOgImageUrl(image, baseUrl) : `${baseUrl}/opengraph-image.jpg`;
 
   return {
     title,

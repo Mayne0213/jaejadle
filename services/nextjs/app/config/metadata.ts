@@ -49,11 +49,11 @@ export const metadata: Metadata = {
     description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회입니다. 예배, 양육, 선교, 교제를 통해 그리스도의 제자로 성장하는 공동체입니다.",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "제자들교회 - 인천",
-        type: "image/png",
+        type: "image/jpeg",
       }
     ],
   },
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "제자들교회 - 인천",
     description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회",
-    images: ["/twitter-image"],
+    images: ["/twitter-image.jpg"],
     creator: "@jaejadle",
     site: "@jaejadle",
   },
