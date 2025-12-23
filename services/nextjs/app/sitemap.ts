@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://disciples-church.com'
+  const baseUrl = 'https://www.disciples-church.com'
   
   // 정적 페이지들
   const staticPages = [
