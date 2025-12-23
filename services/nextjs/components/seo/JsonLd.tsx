@@ -20,8 +20,8 @@ export function OrganizationJsonLd() {
     '@type': 'Church',
     name: '제자들교회',
     alternateName: '인천 제자들교회',
-    url: 'https://disciples-jaejadle.com',
-    logo: 'https://disciples-jaejadle.com/logo.webp',
+    url: 'https://disciples-church.com',
+    logo: 'https://disciples-church.com/logo.webp',
     description: '인천 제자들교회 - 성경적 제자도를 실천하는 교회',
     address: {
       '@type': 'PostalAddress',
@@ -50,14 +50,14 @@ export function WebSiteJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: '제자들교회',
-    url: 'https://disciples-jaejadle.com',
+    url: 'https://disciples-church.com',
     description: '인천 제자들교회 - 성경적 제자도를 실천하는 교회',
     inLanguage: 'ko-KR',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://disciples-jaejadle.com/search?q={search_term_string}',
+        urlTemplate: 'https://disciples-church.com/search?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },
@@ -116,7 +116,7 @@ export function ServiceEventJsonLd({ event }: { event: ServiceEvent }) {
     organizer: {
       '@type': 'Church',
       name: '제자들교회',
-      url: 'https://disciples-jaejadle.com',
+      url: 'https://disciples-church.com',
     },
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     eventStatus: 'https://schema.org/EventScheduled',
@@ -153,7 +153,7 @@ export function ArticleJsonLd({ article }: { article: ArticleData }) {
       name: '제자들교회',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://disciples-jaejadle.com/logo.webp',
+        url: 'https://disciples-church.com/logo.webp',
       },
     },
     image: article.image,
