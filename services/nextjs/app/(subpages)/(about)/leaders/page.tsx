@@ -1,5 +1,15 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import leader1 from '@/public/subpages/about/leaders/1.webp';
+
+export const metadata: Metadata = {
+  title: '교역자 및 직분자',
+  description: '제자들교회의 교역자와 직분자를 소개합니다. 담임목사, 부목사, 전도사, 장로들이 함께 섬기고 있습니다.',
+  openGraph: {
+    title: '교역자 및 직분자 | 제자들교회',
+    description: '제자들교회의 교역자와 직분자 소개',
+  },
+};
 import leader2 from '@/public/subpages/about/leaders/2.webp';
 import leader3 from '@/public/subpages/about/leaders/3.webp';
 import leader4 from '@/public/subpages/about/leaders/4.webp';

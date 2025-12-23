@@ -1,7 +1,17 @@
+import { Metadata } from 'next';
 import React from 'react';
 import Image from 'next/image';
 import missionMap from "@/public/subpages/mission/mission/missionMap.webp";
 import missionMapKorea from "@/public/subpages/mission/mission/missionMapKorea.webp";
+
+export const metadata: Metadata = {
+  title: '선교',
+  description: '제자들교회의 국내외 선교 사역을 소개합니다. 복음의 능력으로 땅 끝까지 그리스도의 증인이 되어 갑니다.',
+  openGraph: {
+    title: '선교 | 제자들교회',
+    description: '제자들교회 선교 사역 - 국내외 선교 현황',
+  },
+};
 
 export default function MissionPage() {
   return (

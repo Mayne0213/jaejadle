@@ -1,9 +1,19 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import system1 from '@/public/subpages/system/icon1.webp';
 import system2 from '@/public/subpages/system/icon2.webp';
 import system3 from '@/public/subpages/system/icon3.webp';
 import system4 from '@/public/subpages/system/icon4.webp';
 import system5 from '@/public/subpages/system/icon5.webp';
+
+export const metadata: Metadata = {
+  title: '제자화 시스템',
+  description: '제자들교회의 체계적인 제자훈련 시스템입니다. 새가족반부터 사역훈련반까지 단계별 양육 과정을 통해 성숙한 제자로 성장합니다.',
+  openGraph: {
+    title: '제자화 시스템 | 제자들교회',
+    description: '제자들교회 제자훈련 시스템 - 정착부터 일꾼까지',
+  },
+};
 
 export default function DiscipleshipSystemPage() {
   const stages = [
