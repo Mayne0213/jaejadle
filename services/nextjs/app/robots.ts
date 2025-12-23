@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://disciples-jaejadle.com/sitemap.xml',
+    sitemap: 'https://disciples-church.com/sitemap.xml',
   }
 }
 
