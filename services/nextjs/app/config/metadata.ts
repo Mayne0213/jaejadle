@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   // metadataBase: 소셜 미디어 이미지 URL 해석을 위한 기본 URL
-  metadataBase: new URL("https://disciples-jaejadle.com"),
+  metadataBase: new URL("https://disciples-church.com"),
   
   // 기본 메타데이터
   title: {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://disciples-jaejadle.com",
+    url: "https://disciples-church.com",
     siteName: "제자들교회",
     title: "제자들교회 - 인천",
     description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회입니다. 예배, 양육, 선교, 교제를 통해 그리스도의 제자로 성장하는 공동체입니다.",
@@ -92,9 +92,9 @@ export const metadata: Metadata = {
 
   // 기타
   alternates: {
-    canonical: "https://disciples-jaejadle.com",
+    canonical: "https://disciples-church.com",
     languages: {
-      'ko-KR': 'https://disciples-jaejadle.com',
+      'ko-KR': 'https://disciples-church.com',
     },
   },
 

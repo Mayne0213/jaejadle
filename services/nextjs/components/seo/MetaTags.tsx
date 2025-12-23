@@ -36,7 +36,7 @@ export function generateMetadata({
   publishedTime,
   modifiedTime,
 }: MetaTagsProps): Metadata {
-  const baseUrl = 'https://disciples-jaejadle.com';
+  const baseUrl = 'https://disciples-church.com';
   const fullUrl = `${baseUrl}${url}`;
   const ogImage = image ? `${baseUrl}${image}` : `${baseUrl}/opengraph-image`;
 
