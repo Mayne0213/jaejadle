@@ -1,6 +1,16 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { Clock, MapPin } from 'lucide-react';
 import youth from '@/public/subpages/generation/youth.webp';
+
+export const metadata: Metadata = {
+  title: '다음세대',
+  description: '제자들교회 다음세대 부서를 소개합니다. 유치부, 유초등부, 중고등부, 청년부가 함께 신앙으로 성장하고 있습니다.',
+  openGraph: {
+    title: '다음세대 | 제자들교회',
+    description: '제자들교회 다음세대 - 유치부, 유초등부, 중고등부, 청년부',
+  },
+};
 import elementary from '@/public/subpages/generation/elementary.webp';
 import highschool from '@/public/subpages/generation/highschool.webp';
 import adult from '@/public/subpages/generation/adult.webp';

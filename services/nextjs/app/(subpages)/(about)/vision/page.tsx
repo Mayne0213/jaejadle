@@ -1,7 +1,17 @@
+import { Metadata } from 'next';
 import React from 'react';
 import Image from 'next/image';
 import { Target, BookOpen, HandHeart, Sprout } from 'lucide-react';
 import logo from '@/public/logo.webp';
+
+export const metadata: Metadata = {
+  title: '교회 비전',
+  description: '제자들교회의 사훈과 사명을 소개합니다. 말씀 안에, 서로 사랑, 많은 열매를 맺는 성경적 제자도 공동체입니다.',
+  openGraph: {
+    title: '교회 비전 | 제자들교회',
+    description: '제자들교회의 사훈과 사명 - 말씀 안에, 서로 사랑, 많은 열매',
+  },
+};
 
 const SAHUN_DATA = [
   {
