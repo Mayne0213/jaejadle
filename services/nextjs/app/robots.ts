@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://disciples-church.com/sitemap.xml',
+    sitemap: 'https://www.disciples-church.com/sitemap.xml',
   }
 }
 
