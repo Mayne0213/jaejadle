@@ -1,5 +1,15 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import person from '@/public/subpages/about/greetings/person.webp';
+
+export const metadata: Metadata = {
+  title: '담임목사 인사말',
+  description: '제자들교회 담임목사 김경한 목사님의 인사말입니다. 세상이 줄 수 없는 놀라운 위로와 사랑을 온전히 누리며 전하는 공동체입니다.',
+  openGraph: {
+    title: '담임목사 인사말 | 제자들교회',
+    description: '제자들교회 담임목사 김경한 목사님의 인사말입니다.',
+  },
+};
 
 export default function GreetingPage() {
   return (
