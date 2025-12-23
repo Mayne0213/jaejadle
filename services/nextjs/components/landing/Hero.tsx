@@ -14,9 +14,12 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-screen overflow-hidden pt-safe">
+      {/* 노치 영역 표시 (빨간색) */}
+      <div className="absolute top-0 left-0 right-0 bg-red-500 z-50 notch-area" />
+      
       {/* 배경 슬라이드 */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 -top-safe">
         {/* 비디오 배경 */}
         <div 
           className={`absolute inset-0 transition-opacity duration-1000 ${
