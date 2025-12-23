@@ -29,7 +29,7 @@ export function truncateDescription(description: string, maxLength = 160): strin
  * @param baseUrl - 기본 URL (기본값: https://disciples-jaejadle.com)
  * @returns 완전한 이미지 URL
  */
-export function generateOgImageUrl(path: string, baseUrl = 'https://disciples-church.com'): string {
+export function generateOgImageUrl(path: string, baseUrl = 'https://www.disciples-church.com'): string {
   if (path.startsWith('http')) return path;
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
 }
@@ -40,7 +40,7 @@ export function generateOgImageUrl(path: string, baseUrl = 'https://disciples-ch
  * @param baseUrl - 기본 URL (기본값: https://disciples-jaejadle.com)
  * @returns Canonical URL
  */
-export function generateCanonicalUrl(pathname: string, baseUrl = 'https://disciples-church.com'): string {
+export function generateCanonicalUrl(pathname: string, baseUrl = 'https://www.disciples-church.com'): string {
   const cleanPath = pathname.replace(/\/$/, ''); // 끝의 슬래시 제거
   return `${baseUrl}${cleanPath}`;
 }
@@ -144,9 +144,9 @@ export function generatePageMetadata({
   type?: 'website' | 'article';
   noIndex?: boolean;
 }) {
-  const baseUrl = 'https://disciples-church.com';
+  const baseUrl = 'https://www.disciples-church.com';
   const fullUrl = generateCanonicalUrl(url, baseUrl);
-  const ogImage = image ? generateOgImageUrl(image, baseUrl) : `${baseUrl}/opengraph-image`;
+  const ogImage = image ? generateOgImageUrl(image, baseUrl) : `${baseUrl}/opengraph-image.jpg`;
 
   return {
     title,
