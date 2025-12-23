@@ -2,60 +2,81 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   // metadataBase: 소셜 미디어 이미지 URL 해석을 위한 기본 URL
-  metadataBase: new URL("https://jaejadle.com"),
+  metadataBase: new URL("https://disciples-jaejadle.com"),
   
   // 기본 메타데이터
   title: {
     default: "제자들교회 - 인천",
     template: "%s | 제자들교회"
   },
-  description: "마음속 비를 막아주는 따뜻한 마음주치의, 마음우산. 나의 잠재력을 발휘하는 건강한 일상으로 여유와 품격을 더한 올바른 진료",
+  description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회입니다. 예배, 양육, 선교, 교제를 통해 그리스도의 제자로 성장하는 공동체입니다.",
   keywords: [
     "제자들교회",
-    "인천",
+    "인천교회",
+    "인천 교회",
     "교회",
-    "마음우산",
-    "마음주치의",
-    "상담",
-    "치유",
-    "회복"
+    "예배",
+    "찬양",
+    "설교",
+    "기독교",
+    "제자도",
+    "제자훈련",
+    "성경공부",
+    "소그룹",
+    "다음세대",
+    "청년부",
+    "주일예배",
+    "수요예배",
+    "선교",
+    "봉사",
+    "신앙",
+    "믿음",
+    "교제",
+    "공동체"
   ],
   authors: [{ name: "제자들교회" }],
   creator: "제자들교회",
+  publisher: "제자들교회",
+  category: "religion",
 
   // Open Graph (Facebook, KakaoTalk 등)
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://jaejadle.kro.kr",
+    url: "https://disciples-jaejadle.com",
     siteName: "제자들교회",
     title: "제자들교회 - 인천",
-    description: "마음속 비를 막아주는 따뜻한 마음주치의, 마음우산. 나의 잠재력을 발휘하는 건강한 일상으로 여유와 품격을 더한 올바른 진료",
+    description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회입니다. 예배, 양육, 선교, 교제를 통해 그리스도의 제자로 성장하는 공동체입니다.",
     images: [
       {
-        url: "/og-image.jpg", // TODO: public/og-image.jpg (1200x630px) 준비 필요
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "제자들교회"
+        alt: "제자들교회 - 인천",
+        type: "image/png",
       }
-    ]
+    ],
   },
 
   // Twitter Card
   twitter: {
     card: "summary_large_image",
     title: "제자들교회 - 인천",
-    description: "마음속 비를 막아주는 따뜻한 마음주치의, 마음우산.",
-    images: ["/og-image.jpg"],
+    description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회",
+    images: ["/twitter-image"],
+    creator: "@jaejadle",
+    site: "@jaejadle",
   },
 
   // 검색 엔진 최적화
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
@@ -66,16 +87,54 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code", // Google Search Console에서 발급받은 코드
     // naver: "your-naver-verification-code", // 네이버 서치어드바이저
+    // other: "your-other-verification-code",
   },
 
   // 기타
   alternates: {
-    canonical: "https://jaejadle.kro.kr",
+    canonical: "https://disciples-jaejadle.com",
+    languages: {
+      'ko-KR': 'https://disciples-jaejadle.com',
+    },
   },
 
   // 아이콘
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon_black.webp", type: "image/webp" },
+    ],
+    apple: [
+      { url: "/icon_white.webp", type: "image/webp" },
+    ],
+    other: [
+      {
+        rel: "icon",
+        url: "/logo.webp",
+        type: "image/webp",
+      },
+    ],
+  },
+
+  // 앱 링크 (모바일 앱이 있는 경우)
+  // appleWebApp: {
+  //   capable: true,
+  //   title: "제자들교회",
+  //   statusBarStyle: "black-translucent",
+  // },
+
+  // 포맷 감지
+  formatDetection: {
+    telephone: true,
+    date: true,
+    address: true,
+    email: true,
+  },
+
+  // 기타 메타 태그
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
   },
 };

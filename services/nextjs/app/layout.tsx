@@ -4,6 +4,7 @@ import Header from "@/components/widgets/Header";
 import Footer from "@/components/widgets/Footer";
 import SessionProvider from "@/components/providers/SessionProvider";
 import { metadata } from "./config";
+import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" >
+      <head>
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
