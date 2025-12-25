@@ -8,6 +8,7 @@ resources:
   - resourcequota.yaml
   - secretstore.yaml
   - externalsecret.yaml
+  - ingress.yaml
 
 commonLabels:
   environment: production
