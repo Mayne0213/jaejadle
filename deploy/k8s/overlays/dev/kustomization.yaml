@@ -9,6 +9,7 @@ resources:
   - namespace.yaml
   - secretstore.yaml
   - externalsecret.yaml
+  - ingress.yaml
 
 commonLabels:
   environment: development
