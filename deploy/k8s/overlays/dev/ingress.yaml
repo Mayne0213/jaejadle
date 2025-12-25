@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaejadle-dev-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Next.js Streaming SSR을 위해 버퍼링 비활성화
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+spec:
+  ingressClassName: haproxy
+  tls:
+  - hosts:
+    - dev.jaejadle.kro.kr
+    secretName: jaejadle-dev-tls
+  rules:
+    - host: dev.jaejadle.kro.kr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaejadle-service
+                port:
+                  number: 80
