@@ -69,26 +69,18 @@ export const metadata: Metadata = {
   },
 
   // 검색 엔진 최적화
-  // robots: {
-  //   index: false,
-  //   follow: true,
-  //   nocache: false,
-  //   googleBot: {
-  //     index: false,
-  //     follow: true,
-  //     noimageindex: false,
-  //     "max-video-preview": -1,
-  //     "max-image-preview": "large",
-  //     "max-snippet": -1,
-  //   },
-  // },
-  robots: "noindex, follow",
-
-  // 검증 (Google Search Console 등록 후 추가)
-  verification: {
-    google: "your-google-verification-code", // Google Search Console에서 발급받은 코드
-    // naver: "your-naver-verification-code", // 네이버 서치어드바이저
-    // other: "your-other-verification-code",
+  robots: {
+    index: false,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: false,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 
   // 기타
