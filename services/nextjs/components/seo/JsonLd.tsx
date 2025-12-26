@@ -50,9 +50,19 @@ export function WebSiteJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: '제자들교회',
+    alternateName: '인천 제자들교회',
     url: 'https://www.disciples-church.com',
     description: '인천 제자들교회 - 성경적 제자도를 실천하는 교회',
     inLanguage: 'ko-KR',
+    publisher: {
+      '@type': 'Church',
+      name: '제자들교회',
+      url: 'https://www.disciples-church.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.disciples-church.com/logo.webp',
+      },
+    },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
