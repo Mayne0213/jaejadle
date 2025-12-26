@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     default: "제자들교회 - 인천",
     template: "%s | 제자들교회"
   },
+  applicationName: "제자들교회",
   description: "인천 제자들교회 - 성경적 제자도를 실천하는 교회입니다. 예배, 양육, 선교, 교제를 통해 그리스도의 제자로 성장하는 공동체입니다.",
   keywords: [
     "제자들교회",
@@ -70,11 +71,11 @@ export const metadata: Metadata = {
 
   // 검색 엔진 최적화
   robots: {
-    index: false,
+    index: true,
     follow: true,
     nocache: false,
     googleBot: {
-      index: false,
+      index: true,
       follow: true,
       noimageindex: false,
       "max-video-preview": -1,
@@ -94,18 +95,15 @@ export const metadata: Metadata = {
   // 아이콘
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon_black.webp", type: "image/webp" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon_black.webp", type: "image/webp", sizes: "any" },
+      { url: "/logo.webp", type: "image/webp", sizes: "any" },
     ],
     apple: [
-      { url: "/icon_white.webp", type: "image/webp" },
+      { url: "/icon_white.webp", type: "image/webp", sizes: "any" },
     ],
-    other: [
-      {
-        rel: "icon",
-        url: "/logo.webp",
-        type: "image/webp",
-      },
+    shortcut: [
+      { url: "/favicon.ico" },
     ],
   },
 
