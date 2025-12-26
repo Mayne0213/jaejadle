@@ -69,20 +69,20 @@ export const metadata: Metadata = {
   },
 
   // 검색 엔진 최적화
-  // robots: {
-  //   index: false,
-  //   follow: true,
-  //   nocache: false,
-  //   googleBot: {
-  //     index: false,
-  //     follow: true,
-  //     noimageindex: false,
-  //     "max-video-preview": -1,
-  //     "max-image-preview": "large",
-  //     "max-snippet": -1,
-  //   },
-  // },
-  robots: "noindex, follow",
+  robots: {
+    index: false,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: false,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  // robots: "noindex, follow",
 
   // 검증 (Google Search Console 등록 후 추가)
   verification: {
