@@ -100,20 +100,8 @@ export const metadata: Metadata = {
     },
   },
 
-  // 아이콘
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon_black.webp", type: "image/webp", sizes: "any" },
-      { url: "/logo.webp", type: "image/webp", sizes: "any" },
-    ],
-    apple: [
-      { url: "/icon_white.webp", type: "image/webp", sizes: "any" },
-    ],
-    shortcut: [
-      { url: "/favicon.ico" },
-    ],
-  },
+  // 아이콘 - Next.js App Router가 자동으로 icon.tsx와 apple-icon.tsx를 처리
+  // favicon.ico는 app 폴더에 있으면 자동으로 사용됨
 
   // 앱 링크 (모바일 앱이 있는 경우)
   // appleWebApp: {
