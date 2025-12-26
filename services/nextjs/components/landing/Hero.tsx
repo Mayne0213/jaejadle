@@ -15,11 +15,9 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen overflow-hidden pt-safe">
-      {/* 노치 영역 표시 (빨간색) */}
-      <div className="absolute top-0 left-0 right-0 bg-red-500 z-50 notch-area" />
       
       {/* 배경 슬라이드 */}
-      <div className="absolute inset-0 -top-safe">
+      <div className="absolute inset-0">
         {/* 비디오 배경 */}
         <div 
           className={`absolute inset-0 transition-opacity duration-1000 ${
@@ -37,7 +35,7 @@ export default function Hero() {
             poster="/home/hero/image2.webp"
             style={{ pointerEvents: 'none' }}
           >
-            <source src="/home/hero/video1.mp4" type="video/mp4" />
+            <source src="/home/hero/video1.webm" type="video/webm" />
           </video>
           <div className="absolute inset-0 bg-linear-to-b from-slate-900/40 via-slate-900/60 to-slate-900/80" />
         </div>

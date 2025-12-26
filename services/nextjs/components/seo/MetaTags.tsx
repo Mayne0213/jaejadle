@@ -33,8 +33,6 @@ export function generateMetadata({
   url,
   type = 'website',
   author,
-  publishedTime,
-  modifiedTime,
 }: MetaTagsProps): Metadata {
   const baseUrl = 'https://www.disciples-church.com';
   const fullUrl = `${baseUrl}${url}`;
