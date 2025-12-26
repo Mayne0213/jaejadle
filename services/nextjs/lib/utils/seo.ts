@@ -61,7 +61,7 @@ export function normalizeKeywords(keywords: string | string[]): string[] {
  * @param data - 데이터 객체
  * @returns JSON-LD 문자열
  */
-export function generateJsonLd(type: string, data: Record<string, any>): string {
+export function generateJsonLd(type: string, data: Record<string, unknown>): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': type,
