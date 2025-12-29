@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: jaejadle-app
-          image: gitea0213.kro.kr/bluemayne/jaejadle:latest
+          image: github.com/Mayne0213/jaejadle:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
