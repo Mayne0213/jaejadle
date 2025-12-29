@@ -16,7 +16,7 @@ commonLabels:
 # 이미지 태그 설정
 images:
   - name: github.com/Mayne0213/jaejadle
-    newTag: main-sha-788a8c647a85ba93a9ec9fb97176746f5433c410
+    newTag: main-sha-62d81e0f85352a21c62bdf7fe8c59958ee457b5f
 
 patchesStrategicMerge:
   - deployment-patch.yaml
