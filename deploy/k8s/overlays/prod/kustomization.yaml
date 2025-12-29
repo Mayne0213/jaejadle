@@ -15,7 +15,7 @@ commonLabels:
 
 # 이미지 태그 설정
 images:
-  - name: gitea0213.kro.kr/bluemayne/jaejadle
+  - name: github.com/Mayne0213/jaejadle
     newTag: main-sha-94a2e80cafab356d0d977d3a427b4d3be6d1b05e
 
 patchesStrategicMerge:
