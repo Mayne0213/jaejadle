@@ -6,7 +6,6 @@ namespace: jaejadle
 resources:
   - ../../base
   - resourcequota.yaml
-  - secretstore.yaml
   - externalsecret.yaml
   - ingress.yaml
 
@@ -15,8 +14,8 @@ commonLabels:
 
 # 이미지 태그 설정
 images:
-  - name: github.com/Mayne0213/jaejadle
-    newTag: main-sha-94a2e80cafab356d0d977d3a427b4d3be6d1b05e
+  - name: ghcr.io/mayne0213/jaejadle
+    newTag: main-sha-47c51721d86e737cafee3c25aad293c6af745120
 
 patchesStrategicMerge:
   - deployment-patch.yaml
