@@ -74,12 +74,6 @@ export default function Hero() {
               >
                 Welcome Home!
               </h1>
-              <p 
-                className="hidden smalltablet:block text-base smalltablet:text-lg pc:text-xl text-white/90 font-light tracking-wider
-                           animate-[fade-in-up_1s_ease-out_0.3s_both,float_3s_ease-in-out_infinite_1.3s]"
-              >
-                제자들교회에 오신 것을 환영합니다.
-              </p>
             </div>
           </div>
         </div>

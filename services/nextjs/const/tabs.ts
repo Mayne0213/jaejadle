@@ -52,9 +52,33 @@ const tabs = [
     sectionIndex: 2,
     submenu: [
       {
-        label: "제자화 시스템",
-        englishLabel: "DISCIPLESHIP SYSTEM",
-        href: "/system",
+        label: "새가족반",
+        englishLabel: "NEW FAMILY",
+        href: "/system/new-family",
+        description: "",
+      },
+      {
+        label: "기초양육반",
+        englishLabel: "BASIC TRAINING",
+        href: "/system/basic",
+        description: "",
+      },
+      {
+        label: "제자훈련반",
+        englishLabel: "DISCIPLE TRAINING",
+        href: "/system/disciple",
+        description: "",
+      },
+      {
+        label: "전도훈련반",
+        englishLabel: "EVANGELISM TRAINING",
+        href: "/system/evangelism",
+        description: "",
+      },
+      {
+        label: "사역훈련반",
+        englishLabel: "MINISTRY TRAINING",
+        href: "/system/ministry",
         description: "",
       },
     ],
