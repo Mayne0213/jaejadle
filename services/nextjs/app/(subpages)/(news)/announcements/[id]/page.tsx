@@ -11,6 +11,7 @@ import {
   type Announcement,
 } from "@/lib/services";
 import { Download, FileText, Image as ImageIcon, File as FileIcon } from "lucide-react";
+import SignedImage from "@/components/SignedImage";
 
 export default function AnnouncementDetailPage() {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
@@ -171,7 +172,43 @@ export default function AnnouncementDetailPage() {
                     const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(
                       file.fileName.split(".").pop()?.toLowerCase() || ""
                     );
+                    const isJpgOrPng = ["jpg", "jpeg", "png"].includes(
+                      file.fileName.split(".").pop()?.toLowerCase() || ""
+                    );
 
+                    // jpg/png 이미지는 바로 표시
+                    if (isJpgOrPng) {
+                      return (
+                        <div
+                          key={file.id}
+                          className="border rounded-lg p-3 smalltablet:p-4 hover:shadow-md transition-shadow bg-gray-50"
+                        >
+                          <div className="mb-3">
+                            <p className="text-xs smalltablet:text-sm font-medium text-gray-800 mb-2">
+                              {file.fileName}
+                            </p>
+                            <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                              <SignedImage
+                                fileKey={file.fileKey}
+                                alt={file.fileName}
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              />
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleDownload(file.fileKey, file.fileName)}
+                            className="w-full px-3 smalltablet:px-4 py-1.5 smalltablet:py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center justify-center gap-1 smalltablet:gap-2 text-xs smalltablet:text-sm"
+                          >
+                            <Download className="w-3 h-3 smalltablet:w-4 smalltablet:h-4" />
+                            <span>다운로드</span>
+                          </button>
+                        </div>
+                      );
+                    }
+
+                    // 다른 파일 형식은 기존 방식대로 표시
                     return (
                       <div
                         key={file.id}
