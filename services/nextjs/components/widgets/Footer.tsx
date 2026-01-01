@@ -13,9 +13,11 @@ export default function Footer() {
             <p>
               담임목사 : 김경한  |  주소 : 인천광역시 서구 고산후로 95번길 32 명진프라자 3층 / 4층
             </p>
-            <p className="text-slate-500">
-              COPYRIGHT © 2026 제자들교회 DISCIPLES CHURCH. All rights reserved.
-            </p>
+            <Link href="/login" className="text-slate-500">
+              <p>
+                COPYRIGHT © 2026 제자들교회 DISCIPLES CHURCH. All rights reserved.
+              </p>
+            </Link>
           </div>
 
           {/* 아이콘들 */}

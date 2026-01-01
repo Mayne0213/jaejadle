@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import system1 from '@/public/subpages/system/icon1.webp';
 import system2 from '@/public/subpages/system/icon2.webp';
 import system3 from '@/public/subpages/system/icon3.webp';
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function DiscipleshipSystemPage() {
+function DiscipleshipSystemPageContent() {
   const stages = [
     {
       id: 'new-family',
@@ -70,11 +72,15 @@ export default function DiscipleshipSystemPage() {
 
   return (
     <div className="bg-white w-full">
-      <div className="pt-8">
+      <div className="py-8">
           {/* 시스템 플로우 */}
-          <div className="space-y-0">
+          <div className="space-y-0 max-w-6xl mx-auto rounded-2xl overflow-hidden border border-gray-400 shadow-lg">
             {stages.map((stage, index) => (
-              <div key={stage.id} className={`relative`}>
+              <Link
+                key={stage.id}
+                href={`/system/${stage.id}`}
+                className="relative block cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:z-10"
+              >
                 {/* 상단 화살표 (두 번째 섹션부터) */}
                 {index > 0 && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
@@ -103,11 +109,18 @@ export default function DiscipleshipSystemPage() {
                 )}
 
                 {/* 단계 박스 */}
-                <div className={`${stage.bgColor} ${stage.textColor} py-6 smalltablet:py-8 px-4 smalltablet:px-6 pc:px-8 text-center relative w-full`}>
-                  <div className={`${index > 0 ? 'mt-[30px] pc:mt-[50px]' : ''} mb-3 smalltablet:mb-4 flex justify-center items-center`}>
+                <div className={`${stage.bgColor} ${stage.textColor} py-6 smalltablet:py-8 px-4 smalltablet:px-6 pc:px-8 text-center relative w-full transition-all duration-300 group-hover:brightness-105`}>
+                  {/* 클릭 가능 표시 - 오른쪽 상단 화살표 */}
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className={`${stage.textColor === 'text-white' ? 'bg-white/20' : 'bg-gray-900/10'} rounded-full p-2 backdrop-blur-sm`}>
+                      <ArrowRight className={`w-5 h-5 smalltablet:w-6 smalltablet:h-6 ${stage.textColor}`} strokeWidth={2.5} />
+                    </div>
+                  </div>
+
+                  <div className={`${index > 0 ? 'mt-[30px] pc:mt-[50px]' : ''} mb-3 smalltablet:mb-4 flex justify-center items-center transition-transform duration-300 group-hover:scale-110`}>
                     {stage.icon}
                   </div>
-                  <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold mb-3">
+                  <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold mb-3 transition-transform duration-300 group-hover:scale-105">
                     {stage.title}
                   </h2>
 
@@ -125,9 +138,17 @@ export default function DiscipleshipSystemPage() {
                       {stage.subtitle}
                     </p>
                   )}
+
+                  {/* 클릭 안내 텍스트 */}
+                  <div className="mt-4 smalltablet:mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="text-xs smalltablet:text-sm font-medium opacity-80 flex items-center justify-center gap-2">
+                      <span>클릭하여 자세히 보기</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </p>
+                  </div>
                 </div>
 
-              </div>
+              </Link>
             ))}
           </div>
       </div>
@@ -135,3 +156,6 @@ export default function DiscipleshipSystemPage() {
   );
 }
 
+export default function DiscipleshipSystemPage() {
+  return <DiscipleshipSystemPageContent />;
+}
