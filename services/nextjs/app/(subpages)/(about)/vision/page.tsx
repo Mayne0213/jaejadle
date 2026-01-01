@@ -135,7 +135,6 @@ export default function VisionPage() {
                         <item.Icon className="w-10 h-10 smalltablet:w-12 smalltablet:h-12" strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs smalltablet:text-sm text-gray-400 font-semibold mb-1">{item.number}</div>
                         <h3 className="text-base smalltablet:text-lg font-bold text-gray-900 mb-1 wrap-break-words">
                           {item.title}
                         </h3>
@@ -155,7 +154,6 @@ export default function VisionPage() {
                         <item.Icon className="w-10 h-10 smalltablet:w-12 smalltablet:h-12" strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 smalltablet:text-right min-w-0">
-                        <div className="text-xs smalltablet:text-sm text-gray-400 font-semibold mb-1">{item.number}</div>
                         <h3 className="text-base smalltablet:text-lg font-bold text-gray-900 mb-1 wrap-break-words">
                           {item.title}
                         </h3>
