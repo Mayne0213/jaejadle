@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import iconBlack from "@/public/icon_black.webp";
 import iconWhite from "@/public/icon_white.webp";
-import AuthButton from "@/components/widgets/AuthButton";
+// import AuthButton from "@/components/widgets/AuthButton";
 import tabs from "@/const/tabs";
 
 export default function Header() {
@@ -105,7 +105,7 @@ export default function Header() {
                 onMouseLeave={() => setHoveredTab(null)}
               >
                 <Link
-                  href={tab.submenu[0]?.href || "#"}
+                  href={tab.href || tab.submenu[0]?.href || "#"}
                   className={`${shouldShowScrolled ? "text-black hover:text-black" : "text-white/90 pc:group-hover:text-black/90"} font-medium transition-colors flex items-center px-6`}
                 >
                   {tab.label}
@@ -139,7 +139,7 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <AuthButton shouldShowScrolled={shouldShowScrolled} />
+            {/* <AuthButton shouldShowScrolled={shouldShowScrolled} /> */}
           </div>
 
           {/* 햄버거 메뉴 */}
@@ -183,8 +183,9 @@ export default function Header() {
                       toggleTab(index);
                     } else {
                       // 서브메뉴가 없는 경우 바로 이동
-                      if (firstSubmenuHref !== "#") {
-                        router.push(firstSubmenuHref);
+                      const targetHref = tab.href || firstSubmenuHref;
+                      if (targetHref !== "#") {
+                        router.push(targetHref);
                         setIsMenuOpen(false);
                       }
                     }
@@ -229,9 +230,9 @@ export default function Header() {
                   );
                 })}
               </div>
-              <div className="mt-4 text-center pb-6">
+              {/* <div className="mt-4 text-center pb-6">
                 <AuthButton shouldShowScrolled={true} onLinkClick={() => setIsMenuOpen(false)} />
-              </div>
+              </div> */}
             </div>
           </div>
         )}
