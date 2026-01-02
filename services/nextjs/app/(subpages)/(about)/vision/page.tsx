@@ -174,7 +174,7 @@ export default function VisionPage() {
               <div className="w-12 smalltablet:w-14 pc:w-16 h-1 bg-[#6d96c5] mx-auto mb-3 smalltablet:mb-4"/>
               <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold text-gray-900">교회 심볼</h2>
             </div>
-            <div className="bg-[#a9c6e1] rounded-2xl smalltablet:rounded-3xl p-6 smalltablet:p-8 pc:p-10 pc:p-12">
+            <div className="bg-[#a9c6e1] rounded-2xl smalltablet:rounded-3xl p-6 smalltablet:p-8 pc:p-10">
               <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col pc:flex-row gap-6 smalltablet:gap-8">
                   {/* 로고 이미지 */}
