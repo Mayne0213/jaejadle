@@ -2,38 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  getMe,
-  getAnnouncements,
-  type User,
-  type Announcement,
-} from "@/lib/services";
+import { getAnnouncements, type Announcement } from "@/lib/services";
+import { useAuth, usePagination } from "@/hooks";
 import { FileTextIcon } from "lucide-react";
 import Pagination from "@/components/Pagination";
 
 export default function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-  const [user, setUser] = useState <User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
+  const { user } = useAuth();
+  const { currentPage, totalPages, setCurrentPage, setTotalPages } = usePagination();
 
   useEffect(() => {
     loadData(currentPage);
   }, [currentPage]);
-
-  const checkAuth = async () => {
-    try {
-      const userData = await getMe();
-      setUser(userData);
-    } catch {
-      setUser(null);
-    }
-  };
 
   const loadData = async (page: number) => {
     setIsLoading(true);

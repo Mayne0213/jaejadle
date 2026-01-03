@@ -2,16 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { isValidYouTubeUrl, getYouTubeThumbnailUrl, getYouTubeEmbedUrl } from "@/lib/utils/youtube";
 
-// GET: 모든 예배 영상 또는 특정 카테고리 영상 가져오기
+// GET: 모든 제자훈련 영상 또는 특정 stage 영상 가져오기
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const category = searchParams.get('category');
+    const stage = searchParams.get('stage');
 
-    if (category) {
-      const videos = await prisma.worshipVideo.findMany({
-        where: { category },
-        orderBy: { order: 'desc' },
+    if (stage) {
+      const videos = await prisma.discipleVideo.findMany({
+        where: { stage },
+        orderBy: [
+          { step: 'asc' },
+          { order: 'desc' },
+        ],
       });
       // 썸네일 및 embed URL 추가
       const videosWithUrls = videos.map(video => ({
@@ -25,9 +28,10 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    const videos = await prisma.worshipVideo.findMany({
+    const videos = await prisma.discipleVideo.findMany({
       orderBy: [
-        { category: 'asc' },
+        { stage: 'asc' },
+        { step: 'asc' },
         { order: 'desc' },
       ],
     });
@@ -42,8 +46,8 @@ export async function GET(request: NextRequest) {
       data: videosWithUrls,
     });
   } catch (error) {
-    console.error("Error fetching worship videos:", error);
-    const errorMessage = error instanceof Error ? error.message : "예배 영상 조회에 실패했습니다.";
+    console.error("Error fetching disciple videos:", error);
+    const errorMessage = error instanceof Error ? error.message : "제자훈련 영상 조회에 실패했습니다.";
     return NextResponse.json(
       { success: false, error: errorMessage },
       { status: 500 }
@@ -55,11 +59,11 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { category, videoUrl } = body;
+    const { stage, step, videoUrl } = body;
 
-    if (!category || typeof category !== 'string') {
+    if (!stage || typeof stage !== 'string') {
       return NextResponse.json(
-        { success: false, message: "카테고리가 유효하지 않습니다." },
+        { success: false, message: "stage가 유효하지 않습니다." },
         { status: 400 }
       );
     }
@@ -79,27 +83,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 카테고리 내 기존 영상 확인 (order 내림차순)
-    const existingVideos = await prisma.worshipVideo.findMany({
-      where: { category },
+    // stage/step 내 기존 영상 확인하여 최고 order 값 가져오기
+    const existingVideo = await prisma.discipleVideo.findFirst({
+      where: { stage, step: step || null },
       orderBy: { order: 'desc' },
     });
 
-    // 기존 영상이 9개 이상이면 order가 가장 낮은(마지막) 영상 삭제
-    if (existingVideos.length >= 9) {
-      const videoToDelete = existingVideos[existingVideos.length - 1];
-      await prisma.worshipVideo.delete({
-        where: { id: videoToDelete.id },
-      });
-    }
-
     // 새 영상은 현재 최고 order + 1로 설정 (맨 앞에 추가)
-    const maxOrder = existingVideos.length > 0 ? existingVideos[0].order : 0;
+    const maxOrder = existingVideo?.order ?? 0;
     const newOrder = maxOrder + 1;
 
-    const newVideo = await prisma.worshipVideo.create({
+    const newVideo = await prisma.discipleVideo.create({
       data: {
-        category,
+        stage,
+        step: step || null,
         videoUrl,
         order: newOrder,
       },
@@ -110,8 +107,8 @@ export async function POST(request: NextRequest) {
       data: newVideo,
     }, { status: 201 });
   } catch (error) {
-    console.error("Error creating worship video:", error);
-    const errorMessage = error instanceof Error ? error.message : "예배 영상 생성에 실패했습니다.";
+    console.error("Error creating disciple video:", error);
+    const errorMessage = error instanceof Error ? error.message : "제자훈련 영상 생성에 실패했습니다.";
     return NextResponse.json(
       { success: false, message: errorMessage },
       { status: 500 }
@@ -132,7 +129,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await prisma.worshipVideo.delete({
+    await prisma.discipleVideo.delete({
       where: { id: Number(id) },
     });
 
@@ -141,8 +138,8 @@ export async function DELETE(request: NextRequest) {
       message: "영상이 삭제되었습니다."
     });
   } catch (error) {
-    console.error("Error deleting worship video:", error);
-    const errorMessage = error instanceof Error ? error.message : "예배 영상 삭제에 실패했습니다.";
+    console.error("Error deleting disciple video:", error);
+    const errorMessage = error instanceof Error ? error.message : "제자훈련 영상 삭제에 실패했습니다.";
     return NextResponse.json(
       { success: false, message: errorMessage },
       { status: 500 }

@@ -3,40 +3,25 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  GalleryPost,
-  getGalleryPostsWithThumbnails,
-  getMe,
-  type User,
-} from '@/lib/services';
+import { GalleryPost, getGalleryPosts } from '@/lib/services';
+import { useAuth, usePagination } from '@/hooks';
 import Pagination from '@/components/Pagination';
 import { FileTextIcon } from 'lucide-react';
 
 export default function GalleryPage() {
   const [posts, setPosts] = useState<GalleryPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useAuth();
+  const { currentPage, totalPages, setCurrentPage, setTotalPages } = usePagination();
 
   useEffect(() => {
-    checkAuth();
     fetchPosts(currentPage);
   }, [currentPage]);
-
-  const checkAuth = async () => {
-    try {
-      const userData = await getMe();
-      setUser(userData);
-    } catch {
-      setUser(null);
-    }
-  };
 
   const fetchPosts = async (page: number) => {
     setLoading(true);
     try {
-      const result = await getGalleryPostsWithThumbnails(page, 9);
+      const result = await getGalleryPosts(page, 9);
       setPosts(result.data);
       setTotalPages(result.pagination.totalPages);
     } catch (error) {
