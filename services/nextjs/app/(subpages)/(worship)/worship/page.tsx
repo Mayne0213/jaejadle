@@ -3,7 +3,9 @@
 import React, { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { getMe, swapWorshipVideos, type User } from '@/lib/services';
+import { swapWorshipVideos } from '@/lib/services';
+import { useAuth } from '@/hooks';
+import { extractYouTubeId, getYouTubeThumbnailUrl } from '@/lib/utils/youtube';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 
 interface VideoItem {
@@ -18,43 +20,6 @@ interface Category {
   id: string;
   title: string;
   videos: VideoItem[];
-}
-
-// YouTube URL에서 ID 추출하는 유틸리티 함수
-function extractYouTubeId(url: string): string | null {
-  try {
-    const urlObj = new URL(url);
-    const hostname = urlObj.hostname.toLowerCase();
-
-    // watch?v= 형식
-    if (urlObj.searchParams.has('v')) {
-      return urlObj.searchParams.get('v');
-    }
-    // youtu.be/ID 형식
-    if (hostname === 'youtu.be') {
-      return urlObj.pathname.slice(1).split('?')[0];
-    }
-    // embed/ID 형식
-    if (urlObj.pathname.startsWith('/embed/')) {
-      return urlObj.pathname.split('/embed/')[1]?.split('?')[0] || null;
-    }
-    // live/ID 형식
-    if (urlObj.pathname.startsWith('/live/')) {
-      const liveId = urlObj.pathname.split('/live/')[1]?.split('?')[0];
-      return liveId || null;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
-
-// YouTube URL에서 썸네일 URL 생성
-function getThumbnailUrl(videoUrl: string): string {
-  const videoId = extractYouTubeId(videoUrl);
-  return videoId
-    ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
-    : '/placeholder.jpg';
 }
 
 function WorshipPageContent() {
@@ -75,25 +40,13 @@ function WorshipPageContent() {
   const [addingCategory, setAddingCategory] = useState<string>('');
   const [newVideoUrl, setNewVideoUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
 
-  const loadData = useCallback(async () => {
-    // 사용자 인증 확인
-    try {
-      const userData = await getMe();
-      setUser(userData);
-    } catch {
-      setUser(null);
-    }
-
-    // 영상 데이터 로드
-    await loadVideos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { user } = useAuth();
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    loadVideos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadVideos = async () => {
     try {
@@ -381,7 +334,7 @@ function WorshipPageContent() {
                     className="relative aspect-video bg-linear-to-br from-gray-800 to-gray-900 overflow-hidden cursor-pointer"
                   >
                     <Image
-                      src={getThumbnailUrl(video.videoUrl)}
+                      src={getYouTubeThumbnailUrl(video.videoUrl)}
                       alt={category.title}
                       fill
                       className="object-cover pc:group-hover:scale-105 transition-transform duration-500"

@@ -15,6 +15,7 @@ export interface AnnouncementFile {
   mimeType?: string | null;
   createdAt: string;
   updatedAt: string;
+  signedUrl?: string;
 }
 
 export interface Announcement {
@@ -32,7 +33,7 @@ export interface Announcement {
 
 export interface CreateAnnouncementData {
   title: string;
-  content: string;
+  content?: string;
   isImportant: boolean;
   authorId: number;
   files?: {
