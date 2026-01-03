@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ClipLoader } from 'react-spinners';
-import { GalleryPost, getGalleryPostWithUrls, deleteGalleryPost, getMe, getSortedGalleryContent, type User, type GalleryContentItem } from '@/lib/services';
+import { GalleryPost, getGalleryPost, deleteGalleryPost, getSortedGalleryContent, type GalleryContentItem } from '@/lib/services';
+import { useAuth, useImageModal } from '@/hooks';
 
 export default function GalleryDetailPage({
   params,
@@ -15,23 +16,17 @@ export default function GalleryDetailPage({
   const { id } = use(params);
   const router = useRouter();
   const [post, setPost] = useState<GalleryPost | null>(null);
-  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [deleting, setDeleting] = useState(false);
 
+  const { user } = useAuth();
+  const sortedImages = post?.images.sort((a, b) => a.order - b.order) || [];
+  const { selectedIndex, isOpen, open, close, next, prev } = useImageModal(sortedImages.length);
+
   const loadData = useCallback(async () => {
-    // 사용자 인증 확인
-    try {
-      const userData = await getMe();
-      setUser(userData);
-    } catch {
-      setUser(null);
-    }
-    // 갤러리 포스트 불러오기
     setLoading(true);
     try {
-      const data = await getGalleryPostWithUrls(parseInt(id, 10));
+      const data = await getGalleryPost(parseInt(id, 10));
       setPost(data);
     } catch (error) {
       console.error('Failed to fetch post:', error);
@@ -125,9 +120,8 @@ export default function GalleryDetailPage({
                       }}
                       onClick={() => {
                         // 전체 이미지 배열에서의 인덱스 찾기
-                        const allImages = post.images.sort((a, b) => a.order - b.order);
-                        const actualIndex = allImages.findIndex(img => img.id === item.data.id);
-                        setSelectedIndex(actualIndex);
+                        const actualIndex = sortedImages.findIndex(img => img.id === item.data.id);
+                        open(actualIndex);
                       }}
                     >
                       {item.data.displayUrl && (
@@ -155,43 +149,37 @@ export default function GalleryDetailPage({
           </div>
 
           {/* 이미지 모달 */}
-          {selectedIndex !== null && (
+          {isOpen && selectedIndex !== null && (
             <div
               className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
-              onClick={() => setSelectedIndex(null)}
+              onClick={close}
             >
               <button
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300 z-10"
                 onClick={(e) => {
                   e.stopPropagation();
-                  const sortedImages = post.images.sort((a, b) => a.order - b.order);
-                  setSelectedIndex(prev => prev !== null && prev > 0 ? prev - 1 : sortedImages.length - 1);
+                  prev();
                 }}
               >
                 &lsaquo;
               </button>
 
               <div className="relative max-w-4xl max-h-[90vh] w-full h-full mx-16">
-                {(() => {
-                  const sortedImages = post.images.sort((a, b) => a.order - b.order);
-                  const currentImage = sortedImages[selectedIndex];
-                  return currentImage?.displayUrl ? (
-                    <Image
-                      src={currentImage.displayUrl}
-                      alt={`${post.title} - ${selectedIndex + 1}`}
-                      fill
-                      className="object-contain"
-                    />
-                  ) : null;
-                })()}
+                {sortedImages[selectedIndex]?.displayUrl && (
+                  <Image
+                    src={sortedImages[selectedIndex].displayUrl}
+                    alt={`${post.title} - ${selectedIndex + 1}`}
+                    fill
+                    className="object-contain"
+                  />
+                )}
               </div>
 
               <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300 z-10"
                 onClick={(e) => {
                   e.stopPropagation();
-                  const sortedImages = post.images.sort((a, b) => a.order - b.order);
-                  setSelectedIndex(prev => prev !== null && prev < sortedImages.length - 1 ? prev + 1 : 0);
+                  next();
                 }}
               >
                 &rsaquo;
@@ -199,16 +187,13 @@ export default function GalleryDetailPage({
 
               <button
                 className="absolute top-4 right-4 text-white text-3xl hover:text-gray-300"
-                onClick={() => setSelectedIndex(null)}
+                onClick={close}
               >
                 &times;
               </button>
 
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xs smalltablet:text-sm">
-                {(() => {
-                  const sortedImages = post.images.sort((a, b) => a.order - b.order);
-                  return `${selectedIndex + 1} / ${sortedImages.length}`;
-                })()}
+                {selectedIndex + 1} / {sortedImages.length}
               </div>
             </div>
           )}

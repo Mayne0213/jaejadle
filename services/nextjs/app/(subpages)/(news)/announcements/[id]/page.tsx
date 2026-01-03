@@ -1,25 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
 import {
-  getMe,
   getAnnouncementById,
   deleteAnnouncement,
   getDownloadUrl,
-  type User,
   type Announcement,
+  type AnnouncementFile,
 } from "@/lib/services";
-import { Download, FileText, Image as ImageIcon, File as FileIcon } from "lucide-react";
-import SignedImage from "@/components/SignedImage";
+import { useAuth, useImageModal } from "@/hooks";
+import { Download } from "lucide-react";
+
+const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 
 export default function AnnouncementDetailPage() {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
-  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
+
+  const { user } = useAuth();
+
+  // 이미지 파일만 필터링 (API에서 signedUrl 포함)
+  const imageFiles = useMemo(() => {
+    if (!announcement?.files) return [];
+    return announcement.files.filter((file) => {
+      const ext = file.fileName.split(".").pop()?.toLowerCase();
+      return IMAGE_EXTENSIONS.includes(ext || "") && file.signedUrl;
+    }) as (AnnouncementFile & { signedUrl: string })[];
+  }, [announcement?.files]);
+
+  const { selectedIndex, isOpen, open, close, next, prev } = useImageModal(imageFiles.length);
 
   useEffect(() => {
     loadData();
@@ -28,15 +42,7 @@ export default function AnnouncementDetailPage() {
 
   const loadData = async () => {
     try {
-      // 사용자 인증 확인
-      try {
-        const userData = await getMe();
-        setUser(userData);
-      } catch {
-        setUser(null);
-      }
-
-      // 공지사항 상세 불러오기
+      // 공지사항 상세 불러오기 (signedUrl 포함)
       const announcementData = await getAnnouncementById(parseInt(id));
       setAnnouncement(announcementData);
     } catch {
@@ -77,27 +83,14 @@ export default function AnnouncementDetailPage() {
     });
   };
 
-  const getFileIcon = (fileName: string) => {
-    const extension = fileName.split(".").pop()?.toLowerCase();
-    if (["jpg", "jpeg", "png", "gif", "webp"].includes(extension || "")) {
-      return ImageIcon;
-    } else if (extension === "pdf") {
-      return FileText;
-    } else {
-      return FileIcon;
-    }
-  };
-
-  const handleDownload = async (fileKey: string, fileName: string) => {
-    try {
-      // Pre-signed URL 받아오기 (파일명 포함)
-      const downloadUrl = await getDownloadUrl(fileKey, fileName);
-
-      // 다운로드 (ResponseContentDisposition이 설정되어 자동으로 다운로드됨)
-      window.open(downloadUrl, '_blank');
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("다운로드에 실패했습니다.");
+  const handleDownloadAll = async () => {
+    for (const img of imageFiles) {
+      try {
+        const downloadUrl = await getDownloadUrl(img.fileKey, img.fileName);
+        window.open(downloadUrl, '_blank');
+      } catch (error) {
+        console.error("Download failed:", error);
+      }
     }
   };
 
@@ -118,7 +111,7 @@ export default function AnnouncementDetailPage() {
   return (
     <div className="w-full">
       <div className="py-6 smalltablet:py-12 px-4">
-        <div className="max-w-4xl p-4 smalltablet:p-6 pc:p-8 rounded-xl bg-gray-100 mx-auto">
+        <div className="max-w-7xl p-4 smalltablet:p-6 pc:p-8 rounded-xl bg-gray-100 mx-auto">
           {/* 헤더 */}
           <div className="mb-6 smalltablet:mb-8">
             <div className="flex items-center gap-2 smalltablet:gap-3 mb-3 smalltablet:mb-4">
@@ -152,103 +145,94 @@ export default function AnnouncementDetailPage() {
             </div>
           </div>
 
-          {/* 내용 */}
-          <div className="prose max-w-none mb-6 smalltablet:mb-8">
-            <div className="text-sm smalltablet:text-base text-gray-800 leading-relaxed whitespace-pre-wrap wrap-break-word">
-              {announcement.content}
-            </div>
-          </div>
-
-          {/* 첨부 파일 */}
-          {announcement.files && announcement.files.length > 0 && (
-            <div className="mb-8 smalltablet:mb-12">
-              <div className="border-t pt-4 smalltablet:pt-6">
-                <h3 className="text-base smalltablet:text-lg font-semibold text-gray-800 mb-3 smalltablet:mb-4">
-                  첨부 파일 ({announcement.files.length})
-                </h3>
-                <div className="space-y-2 smalltablet:space-y-3">
-                  {announcement.files.map((file) => {
-                    const FileIconComponent = getFileIcon(file.fileName);
-                    const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(
-                      file.fileName.split(".").pop()?.toLowerCase() || ""
-                    );
-                    const isJpgOrPng = ["jpg", "jpeg", "png"].includes(
-                      file.fileName.split(".").pop()?.toLowerCase() || ""
-                    );
-
-                    // jpg/png 이미지는 바로 표시
-                    if (isJpgOrPng) {
-                      return (
-                        <div
-                          key={file.id}
-                          className="border rounded-lg p-3 smalltablet:p-4 hover:shadow-md transition-shadow bg-gray-50"
-                        >
-                          <div className="mb-3">
-                            <p className="text-xs smalltablet:text-sm font-medium text-gray-800 mb-2">
-                              {file.fileName}
-                            </p>
-                            <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                              <SignedImage
-                                fileKey={file.fileKey}
-                                alt={file.fileName}
-                                fill
-                                className="object-contain"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                              />
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => handleDownload(file.fileKey, file.fileName)}
-                            className="w-full px-3 smalltablet:px-4 py-1.5 smalltablet:py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center justify-center gap-1 smalltablet:gap-2 text-xs smalltablet:text-sm"
-                          >
-                            <Download className="w-3 h-3 smalltablet:w-4 smalltablet:h-4" />
-                            <span>다운로드</span>
-                          </button>
-                        </div>
-                      );
-                    }
-
-                    // 다른 파일 형식은 기존 방식대로 표시
-                    return (
-                      <div
-                        key={file.id}
-                        className="border rounded-lg p-3 smalltablet:p-4 hover:shadow-md transition-shadow bg-gray-50"
-                      >
-                        <div className="flex items-center gap-3 smalltablet:gap-4">
-                          <div className="shrink-0">
-                            <div className="w-10 h-10 smalltablet:w-12 smalltablet:h-12 bg-white rounded flex items-center justify-center">
-                              <FileIconComponent
-                                className={`w-5 h-5 smalltablet:w-6 smalltablet:h-6 ${
-                                  isImage ? "text-blue-500" : "text-gray-500"
-                                }`}
-                              />
-                            </div>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs smalltablet:text-sm font-medium text-gray-800 truncate">
-                              {file.fileName}
-                            </p>
-                            <p className="text-xs text-gray-500 hidden smalltablet:block">
-                              클릭하여 다운로드
-                            </p>
-                          </div>
-                          <button
-                            onClick={() => handleDownload(file.fileKey, file.fileName)}
-                            className="shrink-0 px-3 smalltablet:px-4 py-1.5 smalltablet:py-2 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center gap-1 smalltablet:gap-2 text-xs smalltablet:text-sm"
-                          >
-                            <Download className="w-3 h-3 smalltablet:w-4 smalltablet:h-4" />
-                            <span className="hidden smalltablet:inline">다운로드</span>
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
+          {/* 이미지 갤러리 */}
+          {imageFiles.length > 0 && (
+            <div className="space-y-4 mb-6">
+              {imageFiles.map((img, index) => (
+                <div
+                  key={img.id}
+                  className="relative w-full bg-gray-200 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => open(index)}
+                >
+                  <Image
+                    src={img.signedUrl}
+                    alt={`${announcement.title} - ${index + 1}`}
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto object-contain"
+                  />
                 </div>
-              </div>
+              ))}
+
+              {/* 전체 다운로드 버튼 */}
+              <button
+                onClick={handleDownloadAll}
+                className="w-full px-4 py-3 bg-linear-to-br from-[#7ba5d6] to-[#6b95c6] hover:from-[#6b95c6] hover:to-[#5b85b6] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-semibold flex items-center justify-center gap-2 text-sm"
+              >
+                <Download className="w-4 h-4" />
+                <span>이미지 다운로드 ({imageFiles.length})</span>
+              </button>
+            </div>
+          )}
+
+          {/* 이미지가 없는 경우 */}
+          {imageFiles.length === 0 && (
+            <div className="text-center text-gray-500 py-8">
+              첨부된 이미지가 없습니다.
             </div>
           )}
         </div>
       </div>
+
+      {/* 이미지 모달 */}
+      {isOpen && selectedIndex !== null && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+          onClick={close}
+        >
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300 z-10"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+          >
+            &lsaquo;
+          </button>
+
+          <div className="relative max-w-7xl max-h-[90vh] w-full h-full mx-16">
+            {imageFiles[selectedIndex]?.signedUrl && (
+              <Image
+                src={imageFiles[selectedIndex].signedUrl}
+                alt={`${announcement.title} - ${selectedIndex + 1}`}
+                fill
+                className="object-contain"
+              />
+            )}
+          </div>
+
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300 z-10"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+          >
+            &rsaquo;
+          </button>
+
+          <button
+            className="absolute top-4 right-4 text-white text-3xl hover:text-gray-300"
+            onClick={close}
+          >
+            &times;
+          </button>
+
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xs smalltablet:text-sm">
+            {selectedIndex + 1} / {imageFiles.length}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

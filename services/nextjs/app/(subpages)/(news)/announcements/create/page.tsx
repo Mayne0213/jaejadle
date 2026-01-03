@@ -1,27 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import {
-  getMe,
-  createAnnouncement,
-  uploadFile,
-  type User,
-} from "@/lib/services";
-import FileUpload, { PendingFile } from "@/components/FileUpload";
+import { createAnnouncement, uploadFile } from "@/lib/services";
+import { useAuth } from "@/hooks";
+import ImageUpload, { PendingImage } from "@/components/ImageUpload";
 
 interface AnnouncementFormData {
   title: string;
-  content: string;
   isImportant: boolean;
 }
 
 export default function CreateAnnouncementPage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [pendingFiles, setPendingFiles] = useState<PendingFile[]>([]);
+  const [pendingImages, setPendingImages] = useState<PendingImage[]>([]);
   const router = useRouter();
+
+  const { user, isLoading } = useAuth();
 
   const {
     register,
@@ -30,32 +25,23 @@ export default function CreateAnnouncementPage() {
   } = useForm<AnnouncementFormData>({
     defaultValues: {
       title: "",
-      content: "",
       isImportant: false,
     },
   });
 
+  // 로그인하지 않은 경우 리다이렉트
   useEffect(() => {
-    checkAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const userData = await getMe();
-      setUser(userData);
-      setIsLoading(false);
-    } catch {
+    if (!isLoading && !user) {
       alert("로그인이 필요합니다.");
       router.push("/login");
     }
-  };
+  }, [isLoading, user, router]);
 
   const onSubmit = async (data: AnnouncementFormData) => {
     if (!user) return;
 
     try {
-      // 폼 제출 시에만 파일 업로드
+      // 이미지 업로드
       let uploadedFiles: {
         fileKey: string;
         fileName: string;
@@ -63,36 +49,37 @@ export default function CreateAnnouncementPage() {
         mimeType: string;
       }[] = [];
 
-      if (pendingFiles.length > 0) {
-        const uploadPromises = pendingFiles.map(async (pf) => {
-          const result = await uploadFile(pf.file, "/announcement");
+      if (pendingImages.length > 0) {
+        const sortedImages = [...pendingImages].sort((a, b) => a.order - b.order);
+        const uploadPromises = sortedImages.map(async (img) => {
+          const result = await uploadFile(img.file, "/announcement");
           return {
             fileKey: result.fileKey,
-            fileName: pf.file.name,
-            fileSize: pf.file.size,
-            mimeType: pf.file.type,
+            fileName: img.file.name,
+            fileSize: img.file.size,
+            mimeType: img.file.type,
           };
         });
         uploadedFiles = await Promise.all(uploadPromises);
       }
 
-      // 파일은 별도로 전달 (content에 포함하지 않음)
       await createAnnouncement({
         ...data,
+        content: "", // 내용 필드는 빈 문자열로 전송
         authorId: user.id,
         files: uploadedFiles.length > 0 ? uploadedFiles : undefined,
       });
 
       // 미리보기 URL 정리
-      pendingFiles.forEach((pf) => {
-        if (pf.preview) URL.revokeObjectURL(pf.preview);
+      pendingImages.forEach((img) => {
+        if (img.preview) URL.revokeObjectURL(img.preview);
       });
 
-      alert("공지사항이 등록되었습니다.");
+      alert("주보가 등록되었습니다.");
       router.push("/announcements");
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : "공지사항 등록에 실패했습니다.";
+        err instanceof Error ? err.message : "주보 등록에 실패했습니다.";
       alert(errorMessage);
     }
   };
@@ -143,31 +130,6 @@ export default function CreateAnnouncementPage() {
               )}
             </div>
 
-            {/* 내용 */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                내용 <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                {...register("content", {
-                  required: "내용을 입력해주세요",
-                })}
-                disabled={isSubmitting}
-                placeholder="내용을 입력해주세요"
-                rows={10}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-50 transition-all resize-none ${
-                  errors.content
-                    ? "border-red-300 focus:ring-red-400"
-                    : "border-gray-300 focus:ring-blue-500"
-                }`}
-              />
-              {errors.content && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.content.message}
-                </p>
-              )}
-            </div>
-
             {/* 중요 공지 체크박스 */}
             <div className="flex items-center">
               <input
@@ -185,12 +147,11 @@ export default function CreateAnnouncementPage() {
               </label>
             </div>
 
-            {/* 파일 업로드 */}
-            <FileUpload
-              files={pendingFiles}
-              onFilesChange={setPendingFiles}
+            {/* 이미지 업로드 */}
+            <ImageUpload
+              images={pendingImages}
+              onImagesChange={setPendingImages}
               disabled={isSubmitting}
-              description="이미지, PDF, 문서 등 모든 파일 형식 지원"
             />
 
             {/* 버튼 */}
