@@ -42,5 +42,13 @@ export const API_ENDPOINTS = {
     REORDER: "/api/worship/reorder",
     NEXT_ORDER: (category: string) => `/api/worship/next-order?category=${category}`,
   },
+
+  // 제자훈련 관련 엔드포인트
+  DISCIPLE: {
+    BASE: "/api/disciple-videos",
+    BY_ID: (id: number) => `/api/disciple-videos?id=${id}`,
+    BY_STAGE: (stage: string) => `/api/disciple-videos?stage=${stage}`,
+    REORDER: "/api/disciple-videos/reorder",
+  },
 } as const;
 

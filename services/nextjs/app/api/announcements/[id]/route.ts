@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { s3Client, S3_CONFIG } from '@/const';
+import { generateSignedUrl } from '@/lib/s3';
+
+const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'];
 
 // GET: 특정 공지사항 조회
 export async function GET(
@@ -34,9 +37,24 @@ export async function GET(
       },
     });
 
+    // 이미지 파일에 signedUrl 추가
+    const filesWithUrls = await Promise.all(
+      (announcement.files || []).map(async (file) => {
+        const ext = file.fileName.split('.').pop()?.toLowerCase();
+        const isImage = IMAGE_EXTENSIONS.includes(ext || '');
+        return {
+          ...file,
+          signedUrl: isImage ? await generateSignedUrl(file.fileKey) : undefined,
+        };
+      })
+    );
+
     return NextResponse.json({
       success: true,
-      data: announcement,
+      data: {
+        ...announcement,
+        files: filesWithUrls,
+      },
     });
   } catch (err) {
     console.error('Get announcement error:', err);

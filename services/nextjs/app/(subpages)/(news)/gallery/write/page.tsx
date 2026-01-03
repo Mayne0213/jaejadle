@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { uploadGalleryFiles, createGalleryPost, calculateImageAspectRatio } from "@/lib/services";
 import { X, ArrowUp, ArrowDown, Plus } from "lucide-react";
+import { extractImagesFromClipboard } from "@/components/ImageUpload";
 
 type ContentItem =
   | { type: "image"; id: string; file: File; preview: string; order: number }
@@ -16,16 +17,34 @@ export default function GalleryWritePage() {
   const [items, setItems] = useState<ContentItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
-  const addImages = (files: File[]) => {
-    const newItems: ContentItem[] = files.map((file) => ({
-      type: "image",
-      id: `img-${Date.now()}-${Math.random()}`,
-      file,
-      preview: URL.createObjectURL(file),
-      order: items.length,
-    }));
-    setItems([...items, ...newItems]);
-  };
+  const addImages = useCallback((files: File[]) => {
+    setItems((prevItems) => {
+      const newItems: ContentItem[] = files.map((file, index) => ({
+        type: "image",
+        id: `img-${Date.now()}-${Math.random()}`,
+        file,
+        preview: URL.createObjectURL(file),
+        order: prevItems.length + index,
+      }));
+      return [...prevItems, ...newItems];
+    });
+  }, []);
+
+  // 클립보드 붙여넣기 핸들러
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      if (submitting) return;
+
+      const imageFiles = extractImagesFromClipboard(e);
+      if (imageFiles.length > 0) {
+        e.preventDefault();
+        addImages(imageFiles);
+      }
+    };
+
+    document.addEventListener("paste", handlePaste);
+    return () => document.removeEventListener("paste", handlePaste);
+  }, [submitting, addImages]);
 
   const addTextBlock = () => {
     const newItem: ContentItem = {
@@ -167,7 +186,10 @@ export default function GalleryWritePage() {
             <div className="space-y-4">
               {items.length === 0 ? (
                 <div className="text-center py-12 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
-                  이미지나 텍스트를 추가해주세요
+                  <p className="mb-2">이미지나 텍스트를 추가해주세요</p>
+                  <p className="text-sm text-blue-600 font-medium">
+                    Ctrl+V로 이미지 붙여넣기 가능
+                  </p>
                 </div>
               ) : (
                 items

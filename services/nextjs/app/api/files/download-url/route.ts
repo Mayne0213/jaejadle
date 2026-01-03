@@ -1,26 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { S3_CONFIG, s3Client } from '@/const';
-
-// 파일 다운로드 URL 생성
-const generateDownloadUrl = async (fileKey: string, fileName?: string): Promise<string> => {
-  try {
-    const command = new GetObjectCommand({
-      Bucket: S3_CONFIG.BUCKET_NAME,
-      Key: fileKey,
-      ResponseContentDisposition: fileName 
-        ? `attachment; filename="${encodeURIComponent(fileName)}"`
-        : 'attachment',
-    });
-
-    const downloadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-
-    return downloadUrl;
-  } catch {
-    throw new Error('다운로드 URL 생성에 실패했습니다.');
-  }
-};
+import { generateSignedUrl } from '@/lib/s3';
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const downloadUrl = await generateDownloadUrl(fileKey, fileName);
+    const downloadUrl = await generateSignedUrl(fileKey, { fileName });
 
     return NextResponse.json({
       success: true,

@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { title, content, isImportant, authorId, files } = body;
 
-    if (!title || !content || !authorId) {
+    if (!title || !authorId) {
       return NextResponse.json(
         { success: false, message: '필수 필드가 누락되었습니다.' },
         { status: 400 }
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     const announcement = await prisma.announcement.create({
       data: {
         title,
-        content,
+        content: content || "",
         isImportant: isImportant || false,
         authorId,
         files: files && files.length > 0 ? {
