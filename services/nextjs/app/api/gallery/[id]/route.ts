@@ -2,6 +2,30 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { s3Client, S3_CONFIG } from '@/const';
+import { generateSignedUrl } from '@/lib/s3';
+
+interface GalleryImage {
+  id: number;
+  fileKey: string;
+  postId: number;
+  order: number;
+  aspectRatio: number | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface GalleryTextBlock {
+  id: number;
+  postId: number;
+  content: string;
+  order: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+type ContentItem =
+  | { type: 'image'; data: GalleryImage & { displayUrl: string } }
+  | { type: 'text'; data: GalleryTextBlock };
 
 // GET: 갤러리 포스트 상세 조회
 export async function GET(
@@ -38,9 +62,27 @@ export async function GET(
       );
     }
 
+    // 이미지에 displayUrl 추가
+    const imagesWithUrls = await Promise.all(
+      post.images.map(async (img) => ({
+        ...img,
+        displayUrl: await generateSignedUrl(img.fileKey),
+      }))
+    );
+
+    // 이미지와 텍스트 블록을 order 순서로 정렬하여 반환
+    const sortedContent: ContentItem[] = [
+      ...imagesWithUrls.map((img) => ({ type: 'image' as const, data: img })),
+      ...(post.textBlocks || []).map((text) => ({ type: 'text' as const, data: text })),
+    ].sort((a, b) => a.data.order - b.data.order);
+
     return NextResponse.json({
       success: true,
-      data: post,
+      data: {
+        ...post,
+        images: imagesWithUrls,
+        sortedContent,
+      },
     });
   } catch (err) {
     console.error('Get gallery post error:', err);
