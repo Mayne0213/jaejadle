@@ -8,6 +8,8 @@ export interface WorshipVideo {
   order: number;
   createdAt: string;
   updatedAt: string;
+  thumbnailUrl?: string;
+  embedUrl?: string;
 }
 
 export interface WorshipVideoData {

@@ -1,6 +1,6 @@
 import { apiPost, apiDelete, apiGet } from "@/lib/api";
 import { API_ENDPOINTS } from "@/const";
-import { uploadFile, getDownloadUrl } from "./file";
+import { uploadFile } from "./file";
 import { PaginatedResponse } from "@/lib/utils";
 
 export interface GalleryImage {
@@ -23,7 +23,7 @@ export interface GalleryTextBlock {
   updatedAt: string;
 }
 
-export type GalleryContentItem = 
+export type GalleryContentItem =
   | { type: 'image'; data: GalleryImage }
   | { type: 'text'; data: GalleryTextBlock };
 
@@ -36,6 +36,7 @@ export interface GalleryPost {
   images: GalleryImage[];
   textBlocks?: GalleryTextBlock[];
   thumbnailUrl?: string;
+  sortedContent?: GalleryContentItem[];
 }
 
 export interface CreateGalleryPostData {
@@ -73,7 +74,7 @@ export function calculateImageAspectRatio(file: File): Promise<number> {
 export type GalleryPostPaginatedResponse = PaginatedResponse<GalleryPost>;
 
 /**
- * 갤러리 포스트 목록 조회 (pagination)
+ * 갤러리 포스트 목록 조회 (pagination, thumbnailUrl 포함)
  */
 export async function getGalleryPosts(
   page = 1,
@@ -89,65 +90,28 @@ export async function getGalleryPosts(
 }
 
 /**
- * 갤러리 포스트 목록 조회 (thumbnailUrl 포함)
- */
-export async function getGalleryPostsWithThumbnails(
-  page = 1,
-  limit = 12
-): Promise<GalleryPostPaginatedResponse> {
-  const result = await getGalleryPosts(page, limit);
-  const postsWithThumbnails = await Promise.all(
-    result.data.map(async (post) => ({
-      ...post,
-      thumbnailUrl: post.images[0]
-        ? await getDownloadUrl(post.images[0].fileKey)
-        : undefined,
-    }))
-  );
-  return {
-    data: postsWithThumbnails,
-    pagination: result.pagination,
-  };
-}
-
-/**
- * 갤러리 포스트 상세 조회
+ * 갤러리 포스트 상세 조회 (displayUrl, sortedContent 포함)
  */
 export async function getGalleryPost(id: number): Promise<GalleryPost> {
   return apiGet<GalleryPost>(API_ENDPOINTS.GALLERY.BY_ID(id));
 }
 
 /**
- * 갤러리 포스트 상세 조회 (displayUrl 포함)
- */
-export async function getGalleryPostWithUrls(id: number): Promise<GalleryPost> {
-  const post = await getGalleryPost(id);
-  const imagesWithUrls = await Promise.all(
-    post.images.map(async (img) => ({
-      ...img,
-      displayUrl: await getDownloadUrl(img.fileKey),
-    }))
-  );
-  return {
-    ...post,
-    images: imagesWithUrls,
-  };
-}
-
-/**
- * 갤러리 포스트의 이미지와 텍스트 블록을 order 순서로 정렬하여 반환
+ * 갤러리 포스트의 정렬된 콘텐츠 반환 (백엔드에서 이미 정렬됨)
  */
 export function getSortedGalleryContent(post: GalleryPost): GalleryContentItem[] {
+  // 백엔드에서 sortedContent가 제공되면 그대로 사용
+  if (post.sortedContent) {
+    return post.sortedContent;
+  }
+
+  // fallback: 클라이언트에서 정렬
   const items: GalleryContentItem[] = [
     ...post.images.map((img) => ({ type: 'image' as const, data: img })),
     ...(post.textBlocks || []).map((text) => ({ type: 'text' as const, data: text })),
   ];
-  
-  return items.sort((a, b) => {
-    const orderA = a.type === 'image' ? a.data.order : a.data.order;
-    const orderB = b.type === 'image' ? b.data.order : b.data.order;
-    return orderA - orderB;
-  });
+
+  return items.sort((a, b) => a.data.order - b.data.order);
 }
 
 /**

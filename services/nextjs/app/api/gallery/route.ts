@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getPaginationParams, createPaginatedResponse } from '@/lib/utils';
+import { generateSignedUrl } from '@/lib/s3';
 
 interface GalleryItem {
   type: 'image' | 'text';
@@ -31,9 +32,19 @@ export async function GET(request: NextRequest) {
       prisma.galleryPost.count(),
     ]);
 
+    // 썸네일 URL 생성
+    const postsWithThumbnails = await Promise.all(
+      posts.map(async (post) => ({
+        ...post,
+        thumbnailUrl: post.images[0]
+          ? await generateSignedUrl(post.images[0].fileKey)
+          : undefined,
+      }))
+    );
+
     return NextResponse.json({
       success: true,
-      ...createPaginatedResponse(posts, total, page, limit),
+      ...createPaginatedResponse(postsWithThumbnails, total, page, limit),
     });
   } catch (err) {
     console.error('Get gallery posts error:', err);

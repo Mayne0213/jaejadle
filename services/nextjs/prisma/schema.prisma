@@ -111,3 +111,18 @@ model WorshipVideo {
   @@index([category])
   @@map("worship_videos")
 }
+
+model DiscipleVideo {
+  id        Int      @id @default(autoincrement())
+  stage     String   // 'new-family', 'basic', 'disciple', 'evangelism', 'ministry'
+  step      String?  // '1단계 - 십자가', '2단계 - 영적전투', '3단계 - 하나님 나라' (disciple stage only)
+  videoUrl  String   // YouTube video URL
+  order     Int      // Display order within stage/step
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([stage, step, order])
+  @@index([stage])
+  @@index([stage, step])
+  @@map("disciple_videos")
+}
