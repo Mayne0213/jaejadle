@@ -15,7 +15,7 @@ commonLabels:
 # 이미지 태그 설정
 images:
   - name: ghcr.io/mayne0213/jaejadle
-    newTag: main-sha-d8ff37d4e3a20a86e7730a87fe1a99037f536c29
+    newTag: main-sha-51422a061aaff8eafda8bcacdcb62880382f9574
 
 patchesStrategicMerge:
   - deployment-patch.yaml
