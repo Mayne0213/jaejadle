@@ -1,8 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules
-services/nextjs/node_modules
+nextjs/node_modules
 .pnp
 .pnp.*
 .yarn/*
@@ -15,12 +14,11 @@ services/nextjs/node_modules
 coverage
 
 # next.js
-services/nextjs/.next/
-.next/
-/out/
+nextjs/.next/
+nextjs/out/
 
 # production
-/build
+nextjs/build
 
 # misc
 .DS_Store
@@ -41,13 +39,13 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+nextjs/tsconfig.tsbuildinfo
+nextjs/next-env.d.ts
 
 # prisma
-/prisma/dev.db
-/prisma/dev.db-journal
-/prisma/*.db
-/prisma/*.db-journal
+nextjs/prisma/client
+nextjs/prisma/*.db
+nextjs/prisma/*.db-journal
 
 # IDE
 .vscode

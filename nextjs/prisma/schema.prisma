@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  userId       String   @unique
+  userPassword String
+  userName     String
+  userPhone    String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  announcements Announcement[]
+
+  @@map("users")
+}
+
+model Announcement {
+  id          Int      @id @default(autoincrement())
+  title       String   @default("")
+  content     String   @default("") @db.Text
+  isImportant Boolean  @default(false)
+  viewCount   Int      @default(0)
+  authorId    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  files  AnnouncementFile[]
+
+  @@index([authorId])
+  @@map("announcements")
+}
+
+model AnnouncementFile {
+  id             Int      @id @default(autoincrement())
+  announcementId Int
+  fileKey        String   // S3 file key
+  fileName       String   // 원본 파일명
+  fileSize       Int?     // 파일 크기 (bytes)
+  mimeType       String?  // MIME type
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  announcement Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+
+  @@index([announcementId])
+  @@map("announcement_files")
+}
+
+model GalleryPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @default("")  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  images     GalleryImage[]
+  textBlocks GalleryTextBlock[]
+
+  @@map("gallery_posts")
+}
+
+model GalleryImage {
+  id          Int      @id @default(autoincrement())
+  fileKey     String
+  postId      Int      @default(0)
+  order       Int      @default(0) // 이미지 순서
+  aspectRatio Float?   // 이미지 비율 (width / height)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  post GalleryPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([postId, order])
+  @@map("gallery_images")
+}
+
+model GalleryTextBlock {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  content   String   @db.Text
+  order     Int      // 텍스트 블록 순서
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post GalleryPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([postId, order])
+  @@map("gallery_text_blocks")
+}
+
+model WorshipVideo {
+  id        Int      @id @default(autoincrement())
+  category  String   // 'sermon', 'praise', 'sunday-school', 'special'
+  videoUrl  String   // YouTube video URL
+  order     Int      // Display order within category
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, order])
+  @@index([category])
+  @@map("worship_videos")
+}
+
+model DiscipleVideo {
+  id        Int      @id @default(autoincrement())
+  stage     String   // 'new-family', 'basic', 'disciple', 'evangelism', 'ministry'
+  step      String?  // '1단계 - 십자가', '2단계 - 영적전투', '3단계 - 하나님 나라' (disciple stage only)
+  videoUrl  String   // YouTube video URL
+  order     Int      // Display order within stage/step
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([stage, step, order])
+  @@index([stage])
+  @@index([stage, step])
+  @@map("disciple_videos")
+}
