@@ -22,22 +22,6 @@ export default function manifest(): MetadataRoute.Manifest {
         type: 'image/webp',
         purpose: 'maskable',
       },
-      {
-        src: '/icon_white.webp',
-        sizes: 'any',
-        type: 'image/webp',
-      },
-      {
-        src: '/icon_white.webp',
-        sizes: 'any',
-        type: 'image/webp',
-        purpose: 'maskable',
-      },
-      {
-        src: '/logo.webp',
-        sizes: 'any',
-        type: 'image/webp',
-      },
     ],
     categories: ['church', 'religion', 'community'],
     lang: 'ko-KR',
