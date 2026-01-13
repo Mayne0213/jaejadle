@@ -100,7 +100,7 @@ export const metadata: Metadata = {
       { url: "/logo.webp", type: "image/webp", sizes: "any" },
     ],
     apple: [
-      { url: "/icon_white.webp", type: "image/webp", sizes: "any" },
+      { url: "/icon_black.webp", type: "image/webp", sizes: "any" },
     ],
     shortcut: [
       { url: "/favicon.ico" },
