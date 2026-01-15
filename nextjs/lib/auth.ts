@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
-  secret: process.env.AUTH_SECRET || process.env.JWT_SECRET,
+  secret: process.env.AUTH_SECRET || process.env.JAEJADLE_JWT_SECRET,
   providers: [
     Credentials({
       name: "Credentials",
