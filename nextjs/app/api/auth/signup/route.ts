@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     }
 
     // 승인번호 검사
-    if (authCode !== process.env.CODE) {
+    if (authCode !== process.env.JAEJADLE_CODE) {
       return NextResponse.json(
         { success: false, message: "승인번호가 올바르지 않습니다." },
         { status: 400 }
