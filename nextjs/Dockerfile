@@ -1,18 +1,18 @@
-# Multi-stage build for Next.js application using Bun
-FROM docker.io/oven/bun:1-alpine AS builder
+# Multi-stage build for Next.js application
+FROM docker.io/library/node:20-alpine AS builder
 WORKDIR /app
 
 # Install dependencies
 RUN apk add --no-cache libc6-compat
 
 # Install dependencies
-COPY package.json bun.lock* bun.lockb* package-lock.json* ./
+COPY package.json package-lock.json* ./
 COPY prisma ./prisma
-RUN bun install --frozen-lockfile --backend=copyfile
+RUN npm ci
 
 # Generate Prisma Client
 ARG DATABASE_URL="mysql://build:build@localhost:3306/build"
-RUN bunx prisma generate
+RUN npx prisma generate
 
 # Copy source and build
 COPY . .
@@ -21,9 +21,12 @@ COPY . .
 ARG NEXT_PUBLIC_KAKAO_MAP_KEY
 ENV NEXT_PUBLIC_KAKAO_MAP_KEY=$NEXT_PUBLIC_KAKAO_MAP_KEY
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN bun run build
+RUN npm run build
 
-# Production image using Node.js for runtime stability
+# Verify standalone output exists
+RUN test -d .next/standalone || (echo "ERROR: standalone directory not found" && exit 1)
+
+# Production image
 FROM docker.io/library/node:20-alpine AS runner
 WORKDIR /app
 
