@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import React from 'react';
 import Image from 'next/image';
-import { Target, BookOpen, HandHeart, Sprout } from 'lucide-react';
+import { BookOpen, HandHeart, Sprout } from 'lucide-react';
 import logo from '@/public/logo.webp';
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ const SAHUN_DATA = [
   {
     number: 1,
     title: '말씀 안에',
+    verse: '요8:31',
     englishTitle: 'In the Word',
     description: '하나님의 말씀을 삶의 중심에 두고\n성경적 가치관으로 살아가는\n믿음의 공동체',
     Icon: BookOpen,
@@ -24,6 +25,7 @@ const SAHUN_DATA = [
   {
     number: 2,
     title: '서로 사랑',
+    verse: '요13:34~35',
     englishTitle: 'Love One Another',
     description: '그리스도의 사랑으로 서로를 섬기고\n하나됨을 이루어가는\n사랑의 공동체',
     Icon: HandHeart,
@@ -31,47 +33,34 @@ const SAHUN_DATA = [
   {
     number: 3,
     title: '많은 열매',
+    verse: '요15:5',
     englishTitle: 'Abundant Fruit',
     description: '복음의 능력으로 영혼을 구원하고\n생명의 열매를 풍성히 맺는\n선교의 공동체',
     Icon: Sprout,
   },
 ];
 
-const CHURCH_SINJO_LEFT = [
+const CHURCH_SINJO_DATA = [
   {
     number: '01',
     title: '말씀으로 살아가는 제자들교회',
-    englishTitle: 'Living by the Word',
     subtitle: '하나님의 말씀으로',
     Icon: BookOpen,
     color: '#a9c6e1',
   },
   {
-    number: '03',
-    title: '복음전도와 선교를 위해 존재하는 제자들교회',
-    englishTitle: 'For Evangelism and Mission',
-    subtitle: '복음의 능력으로',
-    Icon: Target,
-    color: '#6d96c5',
-  },
-];
-
-const CHURCH_SINJO_RIGHT = [
-  {
     number: '02',
     title: '서로 사랑하는 제자들교회',
-    englishTitle: 'Loving One Another',
     subtitle: '그리스도의 사랑으로',
     Icon: HandHeart,
     color: '#94b7d6',
   },
   {
-    number: '04',
-    title: '복음으로 변화되는 제자들교회',
-    englishTitle: 'Transformed by Gospel',
-    subtitle: '생명의 능력으로',
+    number: '03',
+    title: '복음전도와 선교를 위해 존재하는 제자들교회',
+    subtitle: '복음의 능력으로',
     Icon: Sprout,
-    color: '#88aad2',
+    color: '#6d96c5',
   },
 ];
 
@@ -99,6 +88,9 @@ export default function VisionPage() {
                     <h3 className="text-xl smalltablet:text-lg pc:text-2xl font-bold text-gray-900 mb-1 text-center px-2">
                       {item.title}
                     </h3>
+                    <p className="text-xs smalltablet:text-[10px] pc:text-sm text-gray-400 mb-1 text-center">
+                      {item.verse}
+                    </p>
                     <p className="text-xs smalltablet:text-[10px] pc:text-sm text-gray-400 mb-2 smalltablet:mb-3 pc:mb-4 text-center uppercase tracking-wide">
                       {item.englishTitle}
                     </p>
@@ -117,53 +109,24 @@ export default function VisionPage() {
               <div className="w-12 smalltablet:w-14 pc:w-16 h-1 bg-[#6d96c5] mx-auto mb-3 smalltablet:mb-4"></div>
               <h2 className="text-2xl smalltablet:text-3xl pc:text-4xl font-bold text-gray-900">교회 사명</h2>
             </div>
-            <div className="relative">
-              {/* 중앙 다이아몬드 */}
-              <div className="hidden pc:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 pc:w-48 pc:h-48 bg-linear-to-br from-[#6d96c5] to-[#94b7d6] rotate-45 items-center justify-center z-10 rounded-2xl pc:rounded-3xl shadow-2xl">
-                <div className="-rotate-45 text-white text-center">
-                  <div className="text-4xl pc:text-5xl font-black">FAITH</div>
-                </div>
-              </div>
-
-              {/* 항목들 */}
-              <div className="grid grid-cols-1 smalltablet:grid-cols-2 gap-4 smalltablet:gap-6">
-                {/* 왼쪽 항목들 */}
-                <div className="space-y-4 smalltablet:space-y-6">
-                  {CHURCH_SINJO_LEFT.map((item, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-xl smalltablet:rounded-2xl p-4 smalltablet:p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-3 smalltablet:gap-4">
-                      <div className="shrink-0" style={{ color: item.color }}>
-                        <item.Icon className="w-10 h-10 smalltablet:w-12 smalltablet:h-12" strokeWidth={1.5} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-base smalltablet:text-lg font-bold text-gray-900 mb-1 wrap-break-words">
-                          {item.title}
-                        </h3>
-                        {item.subtitle && (
-                          <p className="text-xs smalltablet:text-sm text-gray-500">{item.subtitle}</p>
-                        )}
-                      </div>
+            <div>
+              {/* 사명 3열 */}
+              <div className="grid grid-cols-1 smalltablet:grid-cols-3 gap-4 smalltablet:gap-4 pc:gap-6">
+                {CHURCH_SINJO_DATA.map((item, index) => (
+                  <div key={index} className="bg-white border border-gray-200 rounded-xl smalltablet:rounded-2xl p-4 smalltablet:p-5 pc:p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-3 smalltablet:gap-4 smalltablet:flex-col smalltablet:items-center smalltablet:text-center">
+                    <div className="shrink-0" style={{ color: item.color }}>
+                      <item.Icon className="w-10 h-10 smalltablet:w-12 smalltablet:h-12" strokeWidth={1.5} />
                     </div>
-                  ))}
-                </div>
-
-                {/* 오른쪽 항목들 */}
-                <div className="space-y-4 smalltablet:space-y-6">
-                  {CHURCH_SINJO_RIGHT.map((item, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-xl smalltablet:rounded-2xl p-4 smalltablet:p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-3 smalltablet:gap-4 smalltablet:flex-row-reverse">
-                      <div className="shrink-0" style={{ color: item.color }}>
-                        <item.Icon className="w-10 h-10 smalltablet:w-12 smalltablet:h-12" strokeWidth={1.5} />
-                      </div>
-                      <div className="flex-1 smalltablet:text-right min-w-0">
-                        <h3 className="text-base smalltablet:text-lg font-bold text-gray-900 mb-1 wrap-break-words">
-                          {item.title}
-                        </h3>
-                        {item.subtitle && (
-                          <p className="text-xs smalltablet:text-sm text-gray-500">{item.subtitle}</p>
-                        )}
-                      </div>
+                    <div className="flex-1 min-w-0 smalltablet:flex-initial">
+                      <h3 className="text-base smalltablet:text-lg font-bold text-gray-900 mb-1">
+                        {item.title}
+                      </h3>
+                      {item.subtitle && (
+                        <p className="text-xs smalltablet:text-sm text-gray-500">{item.subtitle}</p>
+                      )}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
